@@ -3,41 +3,27 @@ import org.sbgn.bindings.Label;
 
 import java.util.UUID;
 
-public class UGlyph {
+/**
+ * Default concrete glyph
+ */
+public class UGlyph extends AbstractUGlyph<UGlyph>{
 
-    private Glyph glyph;
-
-    public UGlyph() {
-        glyph = new Glyph();
-
-        glyph.setId("_"+ UUID.randomUUID());
-        glyph.setClazz("macromolecule");
+    public UGlyph(String clazz) {
+        super(clazz);
     }
 
-    public UGlyph(String label) {
-        this();
-
-        Label sbgnLabel = new Label();
-        sbgnLabel.setText(label);
-        glyph.setLabel(sbgnLabel);
-
-    }
-
-    public UGlyph(String label, String clazz) {
-        this(label);
-        glyph.setClazz(clazz);
-    }
+    /*public UGlyph(String label, String clazz) {
+        super(clazz);
+        this.setLabel(label);
+    }*/
 
 
-    public UGlyph(Glyph glyph) {
+    /*public UGlyph(Glyph glyph) {
         this.glyph = glyph;
-    }
+    }*/
 
-    public Glyph getGlyph() {
-        return glyph;
-    }
 
-    public static class Builder {
+    /*public static class Builder {
         private Glyph glyph;
 
         private Glyph getGlyph() {
@@ -61,5 +47,5 @@ public class UGlyph {
 
     private UGlyph(Builder builder) {
         this(builder.glyph);
-    }
+    }*/
 }
