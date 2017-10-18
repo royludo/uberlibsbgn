@@ -1,4 +1,4 @@
-public class MultimerFeature<T extends AbstractMultimerable & CanBeMultimer> implements CanBeMultimer{
+public class MultimerFeature<T extends AbstractMultimerable & IMultimerFeature> implements IMultimerFeature {
 
     private AbstractMultimerable uGlyph;
     private boolean isMultimer;

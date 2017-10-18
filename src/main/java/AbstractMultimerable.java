@@ -1,6 +1,6 @@
-public abstract class AbstractMultimerable<T extends AbstractMultimerable> extends AbstractUGlyph<T> implements CanBeMultimer{
+public abstract class AbstractMultimerable<T extends AbstractMultimerable> extends AbstractUGlyph<T> implements IMultimerFeature {
 
-    private MultimerFeature<T> multimerFeature;
+    private MultimerFeature multimerFeature;
 
     public AbstractMultimerable(String clazz) {
         super(clazz);
