@@ -1,7 +1,4 @@
-import org.sbgn.bindings.Glyph;
-import org.sbgn.bindings.Label;
-
-import java.util.UUID;
+package org.sbgn.uberlibsbgn;
 
 /**
  * Default concrete glyph
@@ -12,13 +9,13 @@ public class UGlyph extends AbstractUGlyph<UGlyph>{
         super(clazz);
     }
 
-    /*public UGlyph(String label, String clazz) {
+    /*public org.sbgn.uberlibsbgn.UGlyph(String label, String clazz) {
         super(clazz);
         this.setLabel(label);
     }*/
 
 
-    /*public UGlyph(Glyph glyph) {
+    /*public org.sbgn.uberlibsbgn.UGlyph(Glyph glyph) {
         this.glyph = glyph;
     }*/
 
@@ -33,8 +30,8 @@ public class UGlyph extends AbstractUGlyph<UGlyph>{
             return this.glyph;
         }
 
-        public UGlyph build() {
-            return new UGlyph(this);
+        public org.sbgn.uberlibsbgn.UGlyph build() {
+            return new org.sbgn.uberlibsbgn.UGlyph(this);
         }
 
         public Builder label(String label) {
@@ -45,7 +42,7 @@ public class UGlyph extends AbstractUGlyph<UGlyph>{
         }
     }
 
-    private UGlyph(Builder builder) {
+    private org.sbgn.uberlibsbgn.UGlyph(Builder builder) {
         this(builder.glyph);
     }*/
 }

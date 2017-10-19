@@ -1,3 +1,5 @@
+package org.sbgn.uberlibsbgn;
+
 import org.sbgn.bindings.Glyph;
 import org.sbgn.bindings.Label;
 

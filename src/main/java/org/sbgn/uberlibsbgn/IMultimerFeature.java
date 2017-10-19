@@ -1,3 +1,5 @@
+package org.sbgn.uberlibsbgn;
+
 public interface IMultimerFeature {
 
     AbstractUGlyph multimer();

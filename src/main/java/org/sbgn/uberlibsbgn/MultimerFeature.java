@@ -1,3 +1,5 @@
+package org.sbgn.uberlibsbgn;
+
 public class MultimerFeature<T extends AbstractMultimerable & IMultimerFeature> implements IMultimerFeature {
 
     private AbstractMultimerable uGlyph;
