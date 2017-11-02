@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  */
 public class Predicates {
 
-    public static Predicate<AbstractUGlyph> isOfClass(String clazz) {
+    public static Predicate<AbstractUGlyph> hasClass(String clazz) {
         return abstractUGlyph -> abstractUGlyph
                 .getGlyph()
                 .getClazz()

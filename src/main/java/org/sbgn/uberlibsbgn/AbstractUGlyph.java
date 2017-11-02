@@ -40,8 +40,10 @@ abstract class AbstractUGlyph<T extends AbstractUGlyph> {
         return (T) this;
     }
 
-    public T setClass(String clazz) {
+    // we can't provide a way to modify the class directly from here,
+    // because now we have Macromolecules that can change their own class which is inconsistent.
+    /*private T setClass(String clazz) {
         this.getGlyph().setClazz(clazz);
         return (T) this;
-    }
+    }*/
 }
