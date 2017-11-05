@@ -3,7 +3,7 @@ package org.sbgn.uberlibsbgn;
 /**
  * Default concrete glyph
  */
-public class UGlyph extends AbstractUGlyph<UGlyph>{
+public class UGlyph extends AbstractUGlyph{
 
     public UGlyph(String clazz) {
         super(clazz);

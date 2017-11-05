@@ -1,11 +1,10 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.SbgnUtil;
-import org.sbgn.SbgnVersionFinder;
 import org.sbgn.bindings.*;
 import org.xml.sax.SAXException;
-import sun.text.resources.en.JavaTimeSupplementary_en_GB;
 
+import javax.crypto.Mac;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +19,9 @@ public class Main {
         System.out.println("test");
         Sbgn sbgn = new Sbgn();
 
-        UGlyph glyph = new UGlyph("macromolecule")
+        /*UGlyph glyph = new UGlyph("macromolecule")
                 .setLabel("test");
-        System.out.println(glyph.getGlyph().getLabel().getText());
+        System.out.println(glyph.getGlyph().getLabel().getText());*/
 
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
         System.out.println(sc.getGlyph().getLabel().getText());
@@ -32,11 +31,14 @@ public class Main {
 
         Macromolecule macro = new Macromolecule().setLabel("I'm macro").multimer();
         Macromolecule m2 = new Macromolecule().setLabel("macro2");
+        Macromolecule proxy = Macromolecule.create();
+        //IMacromolecule im = macro.createI();
+        //System.out.println(im.multimer());
 
         System.out.println(macro.getGlyph().getClazz()+" "+m2.isMultimer());
 
         List<AbstractUGlyph> list = new ArrayList<>();
-        list.add(glyph);
+       // list.add(glyph);
         list.add(pr);
         list.add(sc);
         list.add(macro);
@@ -60,6 +62,7 @@ public class Main {
         list.stream().filter(hasClass("macromolecule").or(hasClass("process"))).forEach(e -> System.out.println(e.getGlyph().getClazz()));
 
         System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
+
 
         Complex c1 = new Complex().setLabel("c1").multimer();
         c1.addChild(m2);

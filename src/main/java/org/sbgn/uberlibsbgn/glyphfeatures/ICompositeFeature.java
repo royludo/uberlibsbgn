@@ -1,5 +1,6 @@
-package org.sbgn.uberlibsbgn;
+package org.sbgn.uberlibsbgn.glyphfeatures;
 
+import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import sun.reflect.generics.tree.Tree;
 
 import java.util.List;

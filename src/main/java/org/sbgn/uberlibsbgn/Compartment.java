@@ -1,5 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.ICompositeFeature;
+
 import java.util.List;
 
 public class Compartment extends AbstractUGlyph<Compartment> implements ICompositeFeature {

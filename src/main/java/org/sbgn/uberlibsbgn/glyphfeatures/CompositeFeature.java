@@ -1,4 +1,6 @@
-package org.sbgn.uberlibsbgn;
+package org.sbgn.uberlibsbgn.glyphfeatures;
+
+import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
 import java.util.ArrayList;
 import java.util.List;
