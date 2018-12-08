@@ -10,7 +10,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class Macromolecule extends AbstractUGlyph<Macromolecule> implements IMultimerFeature, ILabelFeature, IMacromolecule {
+public class Macromolecule extends AbstractUGlyph<Macromolecule> implements IMultimerFeature, ILabelFeature,
+        IMacromolecule, ComplexIncludible {
 
     private MultimerFeature<Macromolecule> multimerFeature;
     private LabelFeature<Macromolecule> labelFeature;

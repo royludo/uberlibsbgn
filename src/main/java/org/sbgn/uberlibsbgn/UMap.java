@@ -2,6 +2,8 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.GlyphClazz;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,25 +16,25 @@ public class UMap {
 
     private List<AbstractUGlyph> glyphList;
 
-    private Map<String, AbstractUGlyph> idGlyphIndex;
-    private Map<GlyphClazz, List<AbstractUGlyph>> classGlyphIndex;
-
     private org.sbgn.bindings.Map map;
 
-    public UMap(List<AbstractUGlyph> glyphs) {
-        this.glyphList = glyphs;
-        this.idGlyphIndex = new HashMap<>();
+    private IndexManager indexManager;
 
-        this.classGlyphIndex = new HashMap<>();
-        for(GlyphClazz c: GlyphClazz.values()) {
-            this.classGlyphIndex.put(c, new ArrayList<>());
-        }
+    private String id;
+
+    public UMap() {
+        this.id = "default";
+        this.glyphList = new ArrayList<>();
+        this.indexManager = new IndexManager();
 
         map = new org.sbgn.bindings.Map();
-        for(AbstractUGlyph uglyph: this.glyphList) {
-            idGlyphIndex.put(uglyph.getGlyph().getId(), uglyph);
-            classGlyphIndex.get(uglyph.getClazz()).add(uglyph);
-            map.getGlyph().add(uglyph.getGlyph());
+    }
+
+    public UMap(List<AbstractUGlyph> glyphs) {
+        this();
+
+        for(AbstractUGlyph uglyph: glyphs) {
+            this.add(uglyph);
         }
 
     }
@@ -41,15 +43,21 @@ public class UMap {
         return this.glyphList.stream().filter(p).collect(Collectors.toList());
     }
 
-    public List<AbstractUGlyph> glyphsWithClass(GlyphClazz clazz) {
+    /*public List<AbstractUGlyph> glyphsWithClass(GlyphClazz clazz) {
         return this.classGlyphIndex.get(clazz);
-    }
+    }*/
 
+    // add to root of the map
     public void add(AbstractUGlyph glyph) {
         this.glyphList.add(glyph);
-        this.idGlyphIndex.put(glyph.getId(), glyph);
-        this.classGlyphIndex.get(glyph.getClazz()).add(glyph);
         this.map.getGlyph().add(glyph.getGlyph());
+        glyph.addPropertyChangeListener(this.indexManager);
+        // notify index manager of change
+        this.indexManager.relationChangeAdded(new RelationChangeEvent(glyph, null, null));
+    }
+
+    public void remove(AbstractUGlyph glyph) {
+
     }
 
     /*
@@ -57,4 +65,12 @@ public class UMap {
     Try to build a stream from a map and apply map-specific predicates that don't only rely on uglyph
     properties but also use map indexes.
      */
+
+    public String getId() {
+        return id;
+    }
+
+    public IndexManager getIndexManager() {
+        return indexManager;
+    }
 }

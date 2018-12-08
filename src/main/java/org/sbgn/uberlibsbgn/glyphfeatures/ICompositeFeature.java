@@ -4,6 +4,7 @@ import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import sun.reflect.generics.tree.Tree;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public interface ICompositeFeature {
 
@@ -19,7 +20,9 @@ public interface ICompositeFeature {
      */
     List<AbstractUGlyph> getFirstLevelChildren();
 
-    default void addChild(AbstractUGlyph child) {
-        this.getFirstLevelChildren().add(child);
-    }
+    boolean addChild(AbstractUGlyph child) ;
+
+    Predicate<AbstractUGlyph> getIncludePermission();
+
+    default boolean canBeIncluded(AbstractUGlyph child) { return this.getIncludePermission().test(child);}
 }

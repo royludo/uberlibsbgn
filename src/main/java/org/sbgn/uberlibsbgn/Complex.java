@@ -3,8 +3,10 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.uberlibsbgn.glyphfeatures.*;
 
 import java.util.List;
+import java.util.function.Predicate;
 
-public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeature, IMultimerFeature, ILabelFeature {
+public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeature, IMultimerFeature, ILabelFeature,
+        ComplexIncludible {
 
     private CompositeFeature<Complex> compositeFeature;
     private MultimerFeature<Complex> multimerFeature;
@@ -12,7 +14,12 @@ public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeatur
 
     public Complex() {
         super("complex");
-        this.compositeFeature = new CompositeFeature<>(this);
+
+        // define which kind of glyph are allowed to be included
+        Predicate<AbstractUGlyph> p = abstractUGlyph ->
+                abstractUGlyph instanceof ComplexIncludible;
+
+        this.compositeFeature = new CompositeFeature<>(this, p);
         this.multimerFeature = new MultimerFeature<>(this);
         this.labelFeature = new LabelFeature<>(this);
     }
@@ -25,6 +32,16 @@ public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeatur
     @Override
     public List<AbstractUGlyph> getFirstLevelChildren() {
         return compositeFeature.getFirstLevelChildren();
+    }
+
+    @Override
+    public boolean addChild(AbstractUGlyph child) {
+        return compositeFeature.addChild(child);
+    }
+
+    @Override
+    public Predicate<AbstractUGlyph> getIncludePermission() {
+        return compositeFeature.getIncludePermission();
     }
 
     @Override

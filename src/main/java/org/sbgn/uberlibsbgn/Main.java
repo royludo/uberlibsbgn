@@ -24,7 +24,7 @@ public class Main {
         System.out.println(glyph.getGlyph().getLabel().getText());*/
 
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
-        System.out.println(sc.getGlyph().getLabel().getText());
+        System.out.println(sc.getGlyph().getLabel().getText()+" "+sc.getLabel());
 
 
         Process pr = new Process();
@@ -42,8 +42,9 @@ public class Main {
         list.add(pr);
         list.add(sc);
         list.add(macro);
-        list.add(m2);
+        //list.add(m2);
         UMap map = new UMap(list);
+        map.add(m2);
 
         Predicate<AbstractUGlyph> isMacromolecule = new Predicate<AbstractUGlyph>() {
             @Override
@@ -74,6 +75,7 @@ public class Main {
         Compartment comp1 = new Compartment();
         comp1.addChild(c1);
         System.out.println(comp1.getAllChildren());
+        System.out.println(c1.addChild(comp1)+" "+c1.addChild(macro));
 
 
         Glyph g1 = new Glyph();
@@ -162,7 +164,7 @@ public class Main {
             e.printStackTrace();
         }*/
 
-        try {
+        /*try {
             SbgnUtil.isValid(new File("/tmp/test.sbgn"));
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -170,7 +172,7 @@ public class Main {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
 
