@@ -5,6 +5,8 @@ import org.sbgn.uberlibsbgn.glyphfeatures.IMultimerFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
 
+import java.beans.PropertyChangeListener;
+
 public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements IMultimerFeature, ILabelFeature {
 
     private MultimerFeature<SimpleChemical> multimerFeature;
@@ -39,5 +41,22 @@ public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements IM
     @Override
     public String getLabel() {
         return this.labelFeature.getLabel();
+    }
+
+    @Override
+    public boolean hasLabel() {
+        return labelFeature.hasLabel();
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        labelFeature.addPropertyChangeListener(listener);
+        multimerFeature.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        labelFeature.removePropertyChangeListener(listener);
+        multimerFeature.removePropertyChangeListener(listener);
     }
 }

@@ -2,7 +2,7 @@ package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
-public interface IMultimerFeature {
+public interface IMultimerFeature extends HasPropertyChangeListener {
 
     AbstractUGlyph multimer();
 

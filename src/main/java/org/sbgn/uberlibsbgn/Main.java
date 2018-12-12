@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.GlyphClazz;
 import org.sbgn.SbgnUtil;
 import org.sbgn.bindings.*;
 import org.xml.sax.SAXException;
@@ -23,17 +24,22 @@ public class Main {
                 .setLabel("test");
         System.out.println(glyph.getGlyph().getLabel().getText());*/
 
+        UMap mymap = new UMap();
+        GlyphFactory factory = mymap.getFactory();
+        Macromolecule macro= (Macromolecule) factory.newGlyphOfType(UGlyphClass.MACROMOLECULE).build();
+        Macromolecule m111 = factory
+                .macromolecule()
+                .build()
+                .multimer()
+                .setLabel("my macro");
+
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
         System.out.println(sc.getGlyph().getLabel().getText()+" "+sc.getLabel());
 
 
         Process pr = new Process();
 
-        Macromolecule macro = new Macromolecule().setLabel("I'm macro").multimer();
-        Macromolecule m2 = new Macromolecule().setLabel("macro2");
-        Macromolecule proxy = Macromolecule.create();
-        //IMacromolecule im = macro.createI();
-        //System.out.println(im.multimer());
+        Macromolecule m2 = factory.macromolecule().build().setLabel("macro2");
 
         System.out.println(macro.getGlyph().getClazz()+" "+m2.isMultimer());
 
@@ -58,24 +64,23 @@ public class Main {
 
 
         System.out.println("Filter macromolecule");
-        list.stream().filter(isMacromolecule).forEach(e -> System.out.println(e.getGlyph().getLabel().getText()));
+        list.stream().filter(isMacromolecule).forEach(e -> System.out.println( ((Macromolecule)e).getLabel() ));
         System.out.println("Not macromolecule");
         list.stream().filter(hasClass("macromolecule").or(hasClass("process"))).forEach(e -> System.out.println(e.getGlyph().getClazz()));
 
         System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
 
 
-        Complex c1 = new Complex().setLabel("c1").multimer();
+        Complex c1 = factory.complex().build().setLabel("c1").multimer();
         c1.addChild(m2);
-        Complex c2 = new Complex().setLabel("c2");
+        Complex c2 = factory.complex().build().setLabel("c2");
         c1.addChild(c2);
-        System.out.println(c1.getFirstLevelChildren());
+        System.out.println(c1.getChildren());
         c2.addChild(macro);
-        System.out.println(c1.getAllChildren());
-        Compartment comp1 = new Compartment();
-        comp1.addChild(c1);
-        System.out.println(comp1.getAllChildren());
-        System.out.println(c1.addChild(comp1)+" "+c1.addChild(macro));
+        /*Compartment comp1 = new Compartment();
+        comp1.addChild(c1);*/
+        //System.out.println(comp1.getChildren());
+        System.out.println(/*c1.addChild(comp1) doesn't work ofc+" "+*/c1.addChild(macro));
 
 
         Glyph g1 = new Glyph();

@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.ICompositeFeature;
 
@@ -16,22 +17,32 @@ public class Compartment extends AbstractUGlyph<Compartment> implements IComposi
     }
 
     @Override
-    public List<AbstractUGlyph> getAllChildren() {
-        return compositeFeature.getAllChildren();
+    public List<AbstractUGlyph> getChildren() {
+        return compositeFeature.getChildren();
     }
 
     @Override
-    public List<AbstractUGlyph> getFirstLevelChildren() {
-        return compositeFeature.getFirstLevelChildren();
-    }
-
-    @Override
-    public boolean addChild(AbstractUGlyph child) {
+    public AbstractUGlyph addChild(AbstractUGlyph child) {
         return compositeFeature.addChild(child);
+    }
+
+    @Override
+    public AbstractUGlyph removeChild(AbstractUGlyph child) {
+        return compositeFeature.removeChild(child);
     }
 
     @Override
     public Predicate<AbstractUGlyph> getIncludePermission() {
         return this.compositeFeature.getIncludePermission();
+    }
+
+    @Override
+    public void addCompositeChangeListener(CompositeChangeListener listener) {
+        this.compositeFeature.addCompositeChangeListener(listener);
+    }
+
+    @Override
+    public void removeCompositeChangeListener(CompositeChangeListener listener) {
+        this.compositeFeature.removeCompositeChangeListener(listener);
     }
 }

@@ -2,6 +2,7 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.*;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -25,18 +26,18 @@ public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeatur
     }
 
     @Override
-    public List<AbstractUGlyph> getAllChildren() {
-        return compositeFeature.getAllChildren();
+    public List<AbstractUGlyph> getChildren() {
+        return compositeFeature.getChildren();
     }
 
     @Override
-    public List<AbstractUGlyph> getFirstLevelChildren() {
-        return compositeFeature.getFirstLevelChildren();
-    }
-
-    @Override
-    public boolean addChild(AbstractUGlyph child) {
+    public AbstractUGlyph addChild(AbstractUGlyph child) {
         return compositeFeature.addChild(child);
+    }
+
+    @Override
+    public AbstractUGlyph removeChild(AbstractUGlyph child) {
+        return compositeFeature.removeChild(child);
     }
 
     @Override
@@ -67,5 +68,32 @@ public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeatur
     @Override
     public String getLabel() {
         return labelFeature.getLabel();
+    }
+
+    @Override
+    public boolean hasLabel() {
+        return labelFeature.hasLabel();
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        labelFeature.addPropertyChangeListener(listener);
+        multimerFeature.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        labelFeature.removePropertyChangeListener(listener);
+        multimerFeature.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public void addCompositeChangeListener(CompositeChangeListener listener) {
+        compositeFeature.addCompositeChangeListener(listener);
+    }
+
+    @Override
+    public void removeCompositeChangeListener(CompositeChangeListener listener) {
+        compositeFeature.removeCompositeChangeListener(listener);
     }
 }

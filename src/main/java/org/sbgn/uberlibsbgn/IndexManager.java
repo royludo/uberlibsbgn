@@ -1,5 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.beans.PropertyChangeEvent;
@@ -7,7 +10,14 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IndexManager implements PropertyChangeListener, RelationChangeListener {
+/**
+ * Index management and all other structures built on the side should updated first when a USomething is changed.
+ * Then after everything is in a consistent state and all information is processed, the original libsbgn
+ * structures should be updated.
+ *
+ * The flow should be: USomething gets changed by user -> index get updated -> libsbgn gets updated
+ */
+public class IndexManager implements PropertyChangeListener, CompositeChangeListener {
 
     /*
     responsible for maintaining correct datastructures
@@ -35,7 +45,10 @@ public class IndexManager implements PropertyChangeListener, RelationChangeListe
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
+
+        System.out.println("prop change EVENT: "+ evt);
+
+        /*AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
         switch(evt.getPropertyName()) {
             case "class": break;
             // update class
@@ -43,7 +56,7 @@ public class IndexManager implements PropertyChangeListener, RelationChangeListe
                 this.idMap.remove((String) evt.getOldValue());
                 this.idMap.put((String) evt.getNewValue(), sourceGlyph);
                 break;
-        }
+        }*/
 
     }
 
@@ -52,35 +65,12 @@ public class IndexManager implements PropertyChangeListener, RelationChangeListe
     }
 
     @Override
-    public void relationChangeAdded(RelationChangeEvent evt) {
-        AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
-        DefaultMutableTreeNode glyphTreeNode = sourceGlyph.getIndexNode().getInclusionTreeNode();
-        sourceGlyph.getIndexNode().getInclusionTreeNode().removeFromParent();
-
-        if(evt.getNewParent() != null) {
-            AbstractUGlyph newParent = evt.getNewParent();
-            DefaultMutableTreeNode newParentTreeNode = newParent.getIndexNode().getInclusionTreeNode();
-            newParentTreeNode.add(glyphTreeNode);
-        }
-        else { // include in default container
-            this.inclusionTreeRoot.add(glyphTreeNode);
-        }
+    public void compositeChildAdded(CompositeChangeEvent e) {
+        System.out.println("compo child added "+e);
     }
 
     @Override
-    public void relationChangeRemoved(RelationChangeEvent evt) {
-        AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
-        DefaultMutableTreeNode glyphTreeNode = sourceGlyph.getIndexNode().getInclusionTreeNode();
-        sourceGlyph.getIndexNode().getInclusionTreeNode().removeFromParent();
-
-        if(evt.getOldParent() != null) {
-            AbstractUGlyph oldParent = evt.getOldParent();
-            DefaultMutableTreeNode oldParentTreeNode = oldParent.getIndexNode().getInclusionTreeNode();
-            oldParentTreeNode.remove(glyphTreeNode);
-        }
-        else { // remove from default container
-            this.inclusionTreeRoot.remove(glyphTreeNode);
-        }
-
+    public void compositeChildRemoved(CompositeChangeEvent e) {
+        System.out.println("compo child removed "+e);
     }
 }

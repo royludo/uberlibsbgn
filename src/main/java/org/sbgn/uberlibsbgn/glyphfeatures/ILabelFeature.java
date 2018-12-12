@@ -2,13 +2,11 @@ package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
-public interface ILabelFeature {
+public interface ILabelFeature extends HasPropertyChangeListener {
 
     AbstractUGlyph setLabel(String label);
 
     String getLabel();
 
-    default boolean hasLabel() {
-        return getLabel() != null && !getLabel().isEmpty();
-    }
+    boolean hasLabel();
 }

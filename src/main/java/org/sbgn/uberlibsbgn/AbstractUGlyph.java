@@ -17,15 +17,12 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
 
     private AbstractUGlyph parent;
 
-    private IndexNode indexNode;
+    //private IndexNode indexNode;
 
     /**
      * Useful representation of the bounding box that can be used for geometry operations.
      */
     private Rectangle2D bbox;
-
-    private Collection<PropertyChangeListener> propertyChangeListeners;
-    // relationchangelistener
 
     /**
      * This cannot be used by client code as not enough information is provided.
@@ -38,10 +35,9 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
         this.glyph.setClazz("macromolecule");// TODO maybe unnecessary
 
         this.bbox = new Rectangle2D.Float();
-        this.propertyChangeListeners = new ArrayList<>();
 
-        this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
-        DefaultUMapFactory.getDefaultUMap().add(this);
+        /*this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
+        DefaultUMapFactory.getDefaultUMap().add(this);*/
         
     }
 
@@ -91,9 +87,6 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
         return this.getGlyph().getId();
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        this.propertyChangeListeners.add(pcl);
-    }
 
     // we can't provide a way to modify the class directly from here,
     // because now we have Macromolecules that can change their own class which is inconsistent.
@@ -106,9 +99,9 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
         return parent;
     }
 
-    public IndexNode getIndexNode() {
+   /* public IndexNode getIndexNode() {
         return indexNode;
-    }
+    }*/
 
     public static class IndexNode {
 
