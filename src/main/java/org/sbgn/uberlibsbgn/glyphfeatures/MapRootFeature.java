@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * A CompositeFeature that has no include conditions (can include everything).
+ * A CompositeFeatureImpl that has no include conditions (can include everything).
  */
-public class MapRootFeature implements ICompositeFeature {
+public class MapRootFeature implements CompositeFeature {
 
 
     private List<AbstractUGlyph> children;

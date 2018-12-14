@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class LabelIndex implements IIndex {
+public class LabelIndex implements Index {
 
     private SetMultimap<String, AbstractUGlyph> labelMap;
 

@@ -6,12 +6,12 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeature, MultimerFeature, LabelFeature,
+public class Complex extends AbstractUGlyph implements CompositeFeature, MultimerFeature, LabelFeature,
         ComplexIncludible {
 
-    private CompositeFeature<Complex> compositeFeature;
-    private MultimerFeatureImpl multimerFeature;
-    private LabelFeatureImpl labelFeature;
+    private CompositeFeature compositeFeature;
+    private MultimerFeature multimerFeature;
+    private LabelFeature labelFeature;
 
     public Complex() {
         super("complex");
@@ -20,7 +20,7 @@ public class Complex extends AbstractUGlyph<Complex> implements ICompositeFeatur
         Predicate<AbstractUGlyph> p = abstractUGlyph ->
                 abstractUGlyph instanceof ComplexIncludible;
 
-        this.compositeFeature = new CompositeFeature<>(this, p);
+        this.compositeFeature = new CompositeFeatureImpl(this, p);
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this);
     }

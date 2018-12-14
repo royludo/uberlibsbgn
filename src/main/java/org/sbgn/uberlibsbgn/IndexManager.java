@@ -2,17 +2,13 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
-import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
-import org.sbgn.uberlibsbgn.indexing.IIndex;
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
+import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,12 +36,12 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
      */
 
     private Map<String, AbstractUGlyph> idMap;
-    private Map<String, IIndex> indexes;
+    private Map<String, Index> indexes;
 
-    private MapRootFeature mapRoot;
+    private CompositeFeature mapRoot;
 
 
-    public IndexManager(MapRootFeature mapRoot) {
+    public IndexManager(CompositeFeature mapRoot) {
         this.idMap = new HashMap<>();
         this.indexes = new HashMap<>();
         this.mapRoot = mapRoot;
@@ -54,12 +50,12 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
         this.addIndex("label", new LabelIndex());
 
         // automatically listen to the map root
-        for(IIndex index: indexes.values()) {
+        for(Index index: indexes.values()) {
             mapRoot.addCompositeChangeListener(index);
         }
     }
 
-    public void addIndex(String indexLabel, IIndex index) {
+    public void addIndex(String indexLabel, Index index) {
         // TODO need to parse all the existing map if index is added after map creation
         this.indexes.put(indexLabel, index);
         this.mapRoot.addCompositeChangeListener(index);
@@ -70,7 +66,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
         this.indexes.remove(indexLabel);
     }
 
-    public IIndex getIndex(String indexLabel) {
+    public Index getIndex(String indexLabel) {
         return indexes.get(indexLabel);
     }
 
@@ -79,7 +75,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
         System.out.println("prop change EVENT: "+ evt);
 
-        for(IIndex index: this.indexes.values()) {
+        for(Index index: this.indexes.values()) {
             index.propertyChange(evt);
         }
 
@@ -103,7 +99,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     public void compositeChildAdded(CompositeChangeEvent e) {
         System.out.println("compo child added "+e);
 
-        for(IIndex index: this.indexes.values()) {
+        for(Index index: this.indexes.values()) {
             index.compositeChildAdded(e);
         }
     }
@@ -112,7 +108,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     public void compositeChildRemoved(CompositeChangeEvent e) {
         System.out.println("compo child removed "+e);
 
-        for(IIndex index: this.indexes.values()) {
+        for(Index index: this.indexes.values()) {
             index.compositeChildRemoved(e);
         }
     }

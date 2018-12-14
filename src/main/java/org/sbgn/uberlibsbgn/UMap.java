@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 
@@ -36,7 +37,7 @@ public class UMap {
 
     private GlyphFactory glyphFactory;
 
-    private MapRootFeature mapRoot;
+    private CompositeFeature mapRoot;
 
     public UMap() {
         this.id = "default";
@@ -106,7 +107,7 @@ public class UMap {
         return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphsWithRegexp(regexp);
     }
 
-    protected MapRootFeature getMapRoot() {
+    protected CompositeFeature getMapRoot() {
         return mapRoot;
     }
 }

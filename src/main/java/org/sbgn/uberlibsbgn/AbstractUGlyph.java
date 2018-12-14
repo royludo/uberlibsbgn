@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
+abstract public class AbstractUGlyph {
     private Glyph glyph;
 
     private GlyphType glyphType;
@@ -98,24 +98,4 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
    /* public IndexNode getIndexNode() {
         return indexNode;
     }*/
-
-    public static class IndexNode {
-
-        private IndexManager indexManager;
-
-        private DefaultMutableTreeNode inclusionTreeNode;
-
-        public IndexNode(AbstractUGlyph glyph, IndexManager indexManager) {
-            this.indexManager = indexManager;
-            this.inclusionTreeNode = new DefaultMutableTreeNode(glyph);
-        }
-
-        public IndexManager getIndexManager() {
-            return indexManager;
-        }
-
-        public DefaultMutableTreeNode getInclusionTreeNode() {
-            return inclusionTreeNode;
-        }
-    }
 }

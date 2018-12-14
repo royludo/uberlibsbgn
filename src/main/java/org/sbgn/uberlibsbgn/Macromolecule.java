@@ -7,7 +7,7 @@ import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
 import java.beans.PropertyChangeListener;
 
-public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature,
+public class Macromolecule extends AbstractUGlyph implements MultimerFeature, LabelFeature,
         ComplexIncludible {
 
     private MultimerFeature multimerFeature;

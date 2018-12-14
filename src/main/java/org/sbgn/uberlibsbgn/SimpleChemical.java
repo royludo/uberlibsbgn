@@ -7,10 +7,10 @@ import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
 import java.beans.PropertyChangeListener;
 
-public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements MultimerFeature, LabelFeature {
+public class SimpleChemical extends AbstractUGlyph implements MultimerFeature, LabelFeature {
 
-    private MultimerFeatureImpl multimerFeature;
-    private LabelFeatureImpl labelFeature;
+    private MultimerFeature multimerFeature;
+    private LabelFeature labelFeature;
 
     public SimpleChemical() {
         super("simple chemical");

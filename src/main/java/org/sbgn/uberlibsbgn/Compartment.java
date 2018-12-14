@@ -2,18 +2,18 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.ICompositeFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeatureImpl;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Compartment extends AbstractUGlyph<Compartment> implements ICompositeFeature {
+public class Compartment extends AbstractUGlyph implements CompositeFeature {
 
-    private CompositeFeature<Compartment> compositeFeature;
+    private CompositeFeature compositeFeature;
 
     public Compartment() {
         super("compartment");
-        this.compositeFeature = new CompositeFeature<>(this, abstractUGlyph -> true);
+        this.compositeFeature = new CompositeFeatureImpl(this, abstractUGlyph -> true);
     }
 
     @Override
