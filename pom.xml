@@ -45,13 +45,19 @@
 
     <dependencies>
         <dependency>
-            <!-- build from libsbgn repo
+            <!-- built from libsbgn repo
                  in org.sbgn/
                  cmd: ant fatjar
             -->
             <groupId>org.sbgn</groupId>
             <artifactId>org.sbgn-with-dependencies</artifactId>
             <version>0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0.1-jre</version>
         </dependency>
     </dependencies>
 

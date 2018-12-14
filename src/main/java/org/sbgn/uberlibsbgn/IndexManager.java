@@ -2,12 +2,17 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
+import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
+import org.sbgn.uberlibsbgn.indexing.IIndex;
+import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +21,9 @@ import java.util.Map;
  * structures should be updated.
  *
  * The flow should be: USomething gets changed by user -> index get updated -> libsbgn gets updated
+ *
+ * An index manager could manage one single index type. We could have several index managees, so users can
+ * create custom ones and add it themselves to the map.
  */
 public class IndexManager implements PropertyChangeListener, CompositeChangeListener {
 
@@ -32,21 +40,48 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
      */
 
     private Map<String, AbstractUGlyph> idMap;
-    private DefaultTreeModel inclusionTree;
-    private DefaultMutableTreeNode inclusionTreeRoot;
-    //private Map<String, DefaultMutableTreeNode> idTreeMap;
+    private Map<String, IIndex> indexes;
 
-    public IndexManager() {
+    private MapRootFeature mapRoot;
+
+
+    public IndexManager(MapRootFeature mapRoot) {
         this.idMap = new HashMap<>();
-        // empty root node will represent the default outside container
-        this.inclusionTreeRoot = new DefaultMutableTreeNode();
-        this.inclusionTree = new DefaultTreeModel(this.inclusionTreeRoot);
+        this.indexes = new HashMap<>();
+        this.mapRoot = mapRoot;
+
+        // init indexes
+        this.addIndex("label", new LabelIndex());
+
+        // automatically listen to the map root
+        for(IIndex index: indexes.values()) {
+            mapRoot.addCompositeChangeListener(index);
+        }
+    }
+
+    public void addIndex(String indexLabel, IIndex index) {
+        // TODO need to parse all the existing map if index is added after map creation
+        this.indexes.put(indexLabel, index);
+        this.mapRoot.addCompositeChangeListener(index);
+    }
+
+    public void removeIndex(String indexLabel) {
+        this.mapRoot.removeCompositeChangeListener(this.getIndex(indexLabel));
+        this.indexes.remove(indexLabel);
+    }
+
+    public IIndex getIndex(String indexLabel) {
+        return indexes.get(indexLabel);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
         System.out.println("prop change EVENT: "+ evt);
+
+        for(IIndex index: this.indexes.values()) {
+            index.propertyChange(evt);
+        }
 
         /*AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
         switch(evt.getPropertyName()) {
@@ -67,10 +102,18 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     @Override
     public void compositeChildAdded(CompositeChangeEvent e) {
         System.out.println("compo child added "+e);
+
+        for(IIndex index: this.indexes.values()) {
+            index.compositeChildAdded(e);
+        }
     }
 
     @Override
     public void compositeChildRemoved(CompositeChangeEvent e) {
         System.out.println("compo child removed "+e);
+
+        for(IIndex index: this.indexes.values()) {
+            index.compositeChildRemoved(e);
+        }
     }
 }

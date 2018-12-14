@@ -1,11 +1,11 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
+import org.sbgn.uberlibsbgn.indexing.LabelIndex;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,7 +26,7 @@ import static org.sbgn.uberlibsbgn.UGlyphClass.MACROMOLECULE;
  */
 public class UMap {
 
-    private List<AbstractUGlyph> glyphList;
+    //private List<AbstractUGlyph> glyphList;
 
     private org.sbgn.bindings.Map map;
 
@@ -36,13 +36,18 @@ public class UMap {
 
     private GlyphFactory glyphFactory;
 
+    private MapRootFeature mapRoot;
+
     public UMap() {
         this.id = "default";
-        this.glyphList = new ArrayList<>();
-        this.indexManager = new IndexManager();
+        this.mapRoot = new MapRootFeature();
+        //this.glyphList = new ArrayList<>();
+        this.indexManager = new IndexManager(mapRoot);
         this.glyphFactory = new GlyphFactory(this);
 
+
         map = new org.sbgn.bindings.Map();
+
     }
 
     public UMap(List<AbstractUGlyph> glyphs) {
@@ -55,7 +60,7 @@ public class UMap {
     }
 
     public List<AbstractUGlyph> filterGlyphs(Predicate<AbstractUGlyph> p) {
-        return this.glyphList.stream().filter(p).collect(Collectors.toList());
+        return this.mapRoot.getChildren().stream().filter(p).collect(Collectors.toList());
     }
 
     /*public List<AbstractUGlyph> glyphsWithClass(GlyphClazz clazz) {
@@ -64,7 +69,7 @@ public class UMap {
 
     // add to root of the map
     public void add(AbstractUGlyph glyph) {
-        this.glyphList.add(glyph);
+        this.mapRoot.addChild(glyph);
         this.map.getGlyph().add(glyph.getGlyph());
         //glyph.addPropertyChangeListener(this.indexManager);
         // notify index manager of change
@@ -91,5 +96,17 @@ public class UMap {
 
     public GlyphFactory getFactory() {
         return this.glyphFactory;
+    }
+
+    public Set<AbstractUGlyph> glyphsWithLabel(String label) {
+        return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphs(label);
+    }
+
+    public Set<AbstractUGlyph> glyphsWithLabelRegexp(String regexp) {
+        return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphsWithRegexp(regexp);
+    }
+
+    protected MapRootFeature getMapRoot() {
+        return mapRoot;
     }
 }

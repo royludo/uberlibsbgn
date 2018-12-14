@@ -1,29 +1,22 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.ILabelFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.IMultimerFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
+import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
-import javax.crypto.Mac;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
-public class Macromolecule extends AbstractUGlyph<Macromolecule> implements IMultimerFeature, ILabelFeature,
+public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature,
         ComplexIncludible {
 
-    private MultimerFeature<Macromolecule> multimerFeature;
-    private LabelFeature<Macromolecule> labelFeature;
-
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private MultimerFeature multimerFeature;
+    private LabelFeature labelFeature;
 
     protected Macromolecule() {
         super("macromolecule");
-        this.multimerFeature = new MultimerFeature<>(this);
-        this.labelFeature = new LabelFeature<>(this);
+        this.multimerFeature = new MultimerFeatureImpl(this);
+        this.labelFeature = new LabelFeatureImpl(this);
     }
 
     @Override

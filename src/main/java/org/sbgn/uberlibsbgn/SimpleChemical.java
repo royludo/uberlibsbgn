@@ -1,21 +1,21 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.ILabelFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.IMultimerFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
+import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
 import java.beans.PropertyChangeListener;
 
-public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements IMultimerFeature, ILabelFeature {
+public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements MultimerFeature, LabelFeature {
 
-    private MultimerFeature<SimpleChemical> multimerFeature;
-    private LabelFeature<SimpleChemical> labelFeature;
+    private MultimerFeatureImpl multimerFeature;
+    private LabelFeatureImpl labelFeature;
 
     public SimpleChemical() {
         super("simple chemical");
-        this.multimerFeature = new MultimerFeature<>(this);
-        this.labelFeature = new LabelFeature<>(this);
+        this.multimerFeature = new MultimerFeatureImpl(this);
+        this.labelFeature = new LabelFeatureImpl(this);
     }
 
     @Override

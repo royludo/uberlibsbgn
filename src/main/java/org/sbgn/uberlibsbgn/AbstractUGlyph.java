@@ -60,10 +60,6 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> {
         return glyphType;
     }
 
-    public T setHighMethod() {
-        // do something
-        return (T) this;
-    }
 
     /*public T setLabel(String label) {
         Label sbgnLabel = new Label();

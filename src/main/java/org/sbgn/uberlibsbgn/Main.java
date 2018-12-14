@@ -1,17 +1,12 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.GlyphClazz;
-import org.sbgn.SbgnUtil;
 import org.sbgn.bindings.*;
-import org.xml.sax.SAXException;
+import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 
-import javax.crypto.Mac;
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static org.sbgn.uberlibsbgn.Predicates.*;
 
@@ -32,6 +27,7 @@ public class Main {
                 .build()
                 .multimer()
                 .setLabel("my macro");
+        System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
 
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
         System.out.println(sc.getGlyph().getLabel().getText()+" "+sc.getLabel());
@@ -81,6 +77,10 @@ public class Main {
         comp1.addChild(c1);*/
         //System.out.println(comp1.getChildren());
         System.out.println(/*c1.addChild(comp1) doesn't work ofc+" "+*/c1.addChild(macro));
+
+        // test regexp label index
+        System.out.println(mymap.glyphsWithLabel("macro2"));
+        System.out.println(mymap.glyphsWithLabelRegexp("^c.*").stream().map( t -> ((LabelFeature)t).getLabel()).collect(Collectors.toList()) );
 
 
         Glyph g1 = new Glyph();

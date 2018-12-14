@@ -36,7 +36,7 @@ public class CompositeFeature<T extends AbstractUGlyph & ICompositeFeature> impl
 
             // throw change event
             for(CompositeChangeListener listener: this.compositeChangeListeners) {
-                listener.compositeChildAdded(new CompositeChangeEvent(this, Collections.singletonList(child)));
+                listener.compositeChildAdded(new CompositeChangeEvent(this.uGlyph, Collections.singletonList(child)));
             }
 
             return child;
@@ -59,7 +59,7 @@ public class CompositeFeature<T extends AbstractUGlyph & ICompositeFeature> impl
         // throw change event
         for(CompositeChangeListener listener: this.compositeChangeListeners) {
             listener.compositeChildRemoved(new CompositeChangeEvent(
-                    this, Collections.singletonList(i), Collections.singletonList(child)));
+                    this.uGlyph, Collections.singletonList(i), Collections.singletonList(child)));
         }
 
         return child;

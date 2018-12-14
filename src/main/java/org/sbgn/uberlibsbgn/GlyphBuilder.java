@@ -37,6 +37,10 @@ public class GlyphBuilder<T extends AbstractUGlyph> {
         if(glyph instanceof HasPropertyChangeListener) {
             ((HasPropertyChangeListener) glyph).addPropertyChangeListener(map.getIndexManager());
         }
+        System.out.println("building glyph... added to map root");
+
+        // fire event add glyph to root of the map ?
+        map.add(glyph); // TODO don't do if asChildOf is used
 
         return glyph;
     }
