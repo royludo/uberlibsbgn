@@ -19,6 +19,8 @@ public class LabelFeatureImpl implements LabelFeature {
 
     private final PropertyChangeSupport pcs;
 
+    private String label = "";
+
     public LabelFeatureImpl(AbstractUGlyph uGlyph) {
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
@@ -27,9 +29,8 @@ public class LabelFeatureImpl implements LabelFeature {
     @Override
     public AbstractUGlyph setLabel(String newLabel) {
         String oldLabel = this.getLabel();
-        Label sbgnLabel = new Label();
-        sbgnLabel.setText(newLabel);
-        this.uGlyph.getGlyph().setLabel(sbgnLabel);
+        this.label = newLabel;
+
         this.pcs.firePropertyChange("label", oldLabel, newLabel);
         return this.uGlyph;
     }
@@ -37,21 +38,12 @@ public class LabelFeatureImpl implements LabelFeature {
     @Override
     @Nonnull
     public String getLabel() {
-        if(this.hasLabel()) {
-            return this.uGlyph.getGlyph().getLabel().getText();
-        }
-        else {
-            return "";
-        }
+        return this.label;
     }
 
     @Override
     public boolean hasLabel() {
-        if(this.uGlyph.getGlyph().getLabel() == null) {
-            return false;
-        }
-        String label = this.uGlyph.getGlyph().getLabel().getText();
-        return label != null && !label.isEmpty();
+        return !label.isEmpty();
     }
 
     @Override
@@ -66,34 +58,22 @@ public class LabelFeatureImpl implements LabelFeature {
 
     @Override
     public boolean labelHasBbox() {
-        return this.bboxFeature != null;
+        return this.bboxFeature != null && this.bboxFeature.isBboxDefined();
     }
 
-    @Nonnull
     @Override
-    public Rectangle2D getBbox() {
-        if(this.bboxFeature != null) {
+    public Rectangle2D getLabelBbox() {
+        if (this.labelHasBbox()) {
             return this.bboxFeature.getBbox();
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     @Override
-    public AbstractUGlyph setBbox(Rectangle2D rect) {
+    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
         // event will be thrown by the bboxFeature
-        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, "labelbbox") {
-            @Override
-            public Bbox getSbgnBbox() {
-                return uGlyph.getGlyph().getLabel().getBbox();
-            }
-
-            @Override
-            public void setSbgnBbox(Bbox sbgnBbox) {
-                uGlyph.getGlyph().getLabel().setBbox(sbgnBbox);
-            }
-        };
+        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, "labelbbox");
 
         this.bboxFeature.setBbox(rect);
         return this.uGlyph;

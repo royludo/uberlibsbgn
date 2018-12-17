@@ -4,9 +4,7 @@ import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
 public interface MultimerFeature extends HasPropertyChangeListener {
 
-    AbstractUGlyph multimer();
-
-    AbstractUGlyph multimer(boolean isMultimer);
+    AbstractUGlyph setMultimer(boolean isMultimer);
 
     boolean isMultimer();
 }

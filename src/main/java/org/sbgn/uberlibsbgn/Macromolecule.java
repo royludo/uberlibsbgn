@@ -5,6 +5,7 @@ import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
+import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 
 public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature,
@@ -20,13 +21,8 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
     }
 
     @Override
-    public Macromolecule multimer() {
-        return (Macromolecule) this.multimerFeature.multimer();
-    }
-
-    @Override
-    public Macromolecule multimer(boolean isMultimer) {
-        return(Macromolecule) this.multimerFeature.multimer(isMultimer);
+    public Macromolecule setMultimer(boolean isMultimer) {
+        return(Macromolecule) this.multimerFeature.setMultimer(isMultimer);
     }
 
     @Override
@@ -55,6 +51,16 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
     }
 
     @Override
+    public Rectangle2D getLabelBbox() {
+        return labelFeature.getLabelBbox();
+    }
+
+    @Override
+    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
+        return labelFeature.setLabelBbox(rect);
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
@@ -67,5 +73,4 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
     }
-
 }

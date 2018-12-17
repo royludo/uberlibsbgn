@@ -16,18 +16,14 @@ import java.util.Collection;
 import java.util.UUID;
 
 abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFeature {
-    private Glyph glyph;
 
     private GlyphType glyphType;
 
-    private AbstractUGlyph parent;
-
-    //private IndexNode indexNode;
+    private String id;
 
     /**
      * Useful representation of the bounding box that can be used for geometry operations.
      */
-    private Rectangle2D bbox;
     private BboxFeature bboxFeature;
 
     /**
@@ -35,23 +31,8 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
      * We need to have at least the class.
      */
     private AbstractUGlyph() {
-        this.glyph = new Glyph();
-
-        this.glyph.setId("_"+ UUID.randomUUID());
-        this.glyph.setClazz("macromolecule");// TODO maybe unnecessary
-
-        this.bbox = new Rectangle2D.Float();
-        this.bboxFeature = new BboxFeatureImpl(this, "bbox") {
-            @Override
-            public Bbox getSbgnBbox() {
-                return glyph.getBbox();
-            }
-
-            @Override
-            public void setSbgnBbox(Bbox sbgnBbox) {
-                glyph.setBbox(sbgnBbox);
-            }
-        };
+        this.id = UUID.randomUUID().toString();
+        this.bboxFeature = new BboxFeatureImpl(this, "bbox");
 
         /*this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
         DefaultUMapFactory.getDefaultUMap().add(this);*/
@@ -64,13 +45,8 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
      */
     public AbstractUGlyph(String clazz) {
         this();
-        glyph.setClazz(clazz);
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
 
-    }
-
-    public Glyph getGlyph() {
-        return glyph;
     }
 
     public GlyphType getGlyphType() {
@@ -78,43 +54,10 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
     }
 
 
-    /*public T setLabel(String label) {
-        Label sbgnLabel = new Label();
-        sbgnLabel.setText(label);
-        this.getGlyph().setLabel(sbgnLabel);
-        return (T) this;
-    }
-
-    public String getLabel() {
-        if(this.getGlyph().getLabel() != null) {
-            return this.getGlyph().getLabel().getText();
-        }
-        return null;
-    }*/
-
-    public GlyphClazz getClazz() {
-        return GlyphClazz.fromClazz(this.getGlyph().getClazz()); // TODO maybe change this fromClazz behavior
-    }
-
     public String getId() {
-        return this.getGlyph().getId();
+        return this.id;
     }
 
-
-    // we can't provide a way to modify the class directly from here,
-    // because now we have Macromolecules that can change their own class which is inconsistent.
-    /*private T setClass(String clazz) {
-        this.getGlyph().setClazz(clazz);
-        return (T) this;
-    }*/
-
-    public AbstractUGlyph getParent() {
-        return parent;
-    }
-
-   /* public IndexNode getIndexNode() {
-        return indexNode;
-    }*/
 
     @Nonnull
     @Override
@@ -129,6 +72,11 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
     }
 
     @Override
+    public boolean isBboxDefined() {
+        return bboxFeature.isBboxDefined();
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         bboxFeature.addPropertyChangeListener(listener);
     }
@@ -137,4 +85,5 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         bboxFeature.removePropertyChangeListener(listener);
     }
+
 }

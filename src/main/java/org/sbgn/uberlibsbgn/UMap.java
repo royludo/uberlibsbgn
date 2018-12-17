@@ -80,7 +80,7 @@ public class UMap {
     // add to root of the map
     public void add(AbstractUGlyph glyph) {
         this.mapRoot.addChild(glyph);
-        this.map.getGlyph().add(glyph.getGlyph());
+        //this.map.getGlyph().add(glyph.getGlyph());
         //glyph.addPropertyChangeListener(this.indexManager);
         // notify index manager of change
         //this.indexManager.relationChangeAdded(new RelationChangeEvent(glyph, null, null));

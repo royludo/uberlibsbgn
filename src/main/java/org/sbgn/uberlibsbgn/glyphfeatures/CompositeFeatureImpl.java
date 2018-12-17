@@ -31,7 +31,7 @@ public class CompositeFeatureImpl implements CompositeFeature {
             this.uGlyph.addPropertyChangeListener(this.uGlyph.getIndexNode().getIndexManager());*/
 
             this.children.add(child);
-            this.uGlyph.getGlyph().getGlyph().add(child.getGlyph());
+            //this.uGlyph.getGlyph().getGlyph().add(child.getGlyph());
 
             // throw change event
             for(CompositeChangeListener listener: this.compositeChangeListeners) {
@@ -52,7 +52,7 @@ public class CompositeFeatureImpl implements CompositeFeature {
             throw new IllegalArgumentException("Glyph "+child.getId()+" is not a child of this glyph "+this.uGlyph.getId());
         }
 
-        this.uGlyph.getGlyph().getGlyph().remove(child.getGlyph());
+        //this.uGlyph.getGlyph().getGlyph().remove(child.getGlyph());
         this.children.remove(i);
 
         // throw change event

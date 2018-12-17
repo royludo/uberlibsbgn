@@ -27,19 +27,19 @@ public class Main {
         Macromolecule m111 = factory
                 .macromolecule()
                 .build()
-                .multimer()
+                .setMultimer(true)
                 .setLabel("my macro");
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
 
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
-        System.out.println(sc.getGlyph().getLabel().getText()+" "+sc.getLabel());
+        System.out.println(sc.getLabel()+" "+sc.getLabel());
 
 
         Process pr = new Process();
 
         Macromolecule m2 = factory.macromolecule().build().setLabel("macro2");
 
-        System.out.println(macro.getGlyph().getClazz()+" "+m2.isMultimer());
+        System.out.println(m2.isMultimer());
 
         List<AbstractUGlyph> list = new ArrayList<>();
        // list.add(glyph);
@@ -50,26 +50,26 @@ public class Main {
         UMap map = new UMap(Language.PD, list);
         map.add(m2);
 
-        Predicate<AbstractUGlyph> isMacromolecule = new Predicate<AbstractUGlyph>() {
+        /*Predicate<AbstractUGlyph> isMacromolecule = new Predicate<AbstractUGlyph>() {
             @Override
             public boolean test(AbstractUGlyph abstractUGlyph) {
 
-                return abstractUGlyph.getGlyph().getClazz().replace(" multimer", "").equals("macromolecule");
+                return abstractUGlyph.getGlyph().getClazz().replace(" setMultimer", "").equals("macromolecule");
             }
-        };
+        };*/
 
 
 
 
         System.out.println("Filter macromolecule");
-        list.stream().filter(isMacromolecule).forEach(e -> System.out.println( ((Macromolecule)e).getLabel() ));
+        //list.stream().filter(isMacromolecule).forEach(e -> System.out.println( ((Macromolecule)e).getLabel() ));
         System.out.println("Not macromolecule");
-        list.stream().filter(hasClass("macromolecule").or(hasClass("process"))).forEach(e -> System.out.println(e.getGlyph().getClazz()));
+        //list.stream().filter(hasClass("macromolecule").or(hasClass("process"))).forEach(e -> System.out.println(e.getGlyph().getClazz()));
 
-        System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
+        //System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
 
 
-        Complex c1 = factory.complex().build().setLabel("c1").multimer().setBbox(new Rectangle2D.Double(1,2,3,4));
+        Complex c1 = factory.complex().build().setLabel("c1").setMultimer(true).setBbox(new Rectangle2D.Double(1,2,3,4));
         c1.addChild(m2);
         Complex c2 = factory.complex().build().setLabel("c2");
         c1.addChild(c2);

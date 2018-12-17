@@ -7,13 +7,11 @@ import java.util.function.Predicate;
  */
 public class Predicates {
 
-    public static Predicate<AbstractUGlyph> hasClass(String clazz) {
+   /* public static Predicate<AbstractUGlyph> hasClass(String clazz) {
         return abstractUGlyph -> abstractUGlyph
-                .getGlyph()
-                .getClazz()
                 .replace(" multimer", "")
                 .equals(clazz);
-    }
+    }*/
 
     //TODO isProcess
 

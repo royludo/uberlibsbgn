@@ -2,7 +2,9 @@ package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
-public interface LabelFeature extends HasPropertyChangeListener, BboxFeature {
+import java.awt.geom.Rectangle2D;
+
+public interface LabelFeature extends HasPropertyChangeListener {
 
     AbstractUGlyph setLabel(String label);
 
@@ -11,4 +13,8 @@ public interface LabelFeature extends HasPropertyChangeListener, BboxFeature {
     boolean hasLabel();
 
     boolean labelHasBbox();
+
+    Rectangle2D getLabelBbox();
+
+    AbstractUGlyph setLabelBbox(Rectangle2D rect);
 }

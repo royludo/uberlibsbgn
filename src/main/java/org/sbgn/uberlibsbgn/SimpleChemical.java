@@ -20,13 +20,8 @@ public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements Mu
     }
 
     @Override
-    public SimpleChemical multimer() {
-        return (SimpleChemical) this.multimerFeature.multimer();
-    }
-
-    @Override
-    public SimpleChemical multimer(boolean isMultimer) {
-        return(SimpleChemical) this.multimerFeature.multimer(isMultimer);
+    public SimpleChemical setMultimer(boolean isMultimer) {
+        return(SimpleChemical) this.multimerFeature.setMultimer(isMultimer);
     }
 
     @Override
@@ -52,6 +47,16 @@ public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements Mu
     @Override
     public boolean labelHasBbox() {
         return labelFeature.labelHasBbox();
+    }
+
+    @Override
+    public Rectangle2D getLabelBbox() {
+        return labelFeature.getLabelBbox();
+    }
+
+    @Override
+    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
+        return labelFeature.setLabelBbox(rect);
     }
 
     @Override

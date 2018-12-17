@@ -12,4 +12,6 @@ public interface BboxFeature extends HasPropertyChangeListener {
     Rectangle2D getBbox();
 
     AbstractUGlyph setBbox(Rectangle2D rect);
+
+    boolean isBboxDefined();
 }

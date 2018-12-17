@@ -8,49 +8,22 @@ import java.beans.PropertyChangeSupport;
 public class MultimerFeatureImpl implements MultimerFeature {
 
     private AbstractUGlyph uGlyph;
-    private boolean isMultimer;
+    private boolean isMultimer = false;
 
     private final PropertyChangeSupport pcs;
 
     public MultimerFeatureImpl(AbstractUGlyph uGlyph) {
         this.uGlyph = uGlyph;
-        this.isMultimer = false;
         this.pcs = new PropertyChangeSupport(uGlyph);
     }
 
-    private void setMultimer(boolean b) {
+    @Override
+    public AbstractUGlyph setMultimer(boolean isMultimer) {
         boolean oldIsMultimer = this.isMultimer;
-        this.isMultimer = b;
+        this.isMultimer = isMultimer;
 
-        this.pcs.firePropertyChange("multimer", oldIsMultimer, b);
-    }
+        this.pcs.firePropertyChange("multimer", oldIsMultimer, isMultimer);
 
-    @Override
-    public AbstractUGlyph multimer() {
-
-        if(this.isMultimer()) { // do nothing
-            return this.uGlyph;
-        }
-
-        this.uGlyph.getGlyph().setClazz(this.uGlyph.getGlyph().getClazz()+" multimer");
-        this.setMultimer(true);
-        return this.uGlyph;
-    }
-
-    @Override
-    public AbstractUGlyph multimer(boolean isMultimer) {
-        if(this.isMultimer()) {
-            if(!isMultimer) { // change to not multimer
-                this.setMultimer(false);
-                this.uGlyph.getGlyph().setClazz(this.uGlyph.getGlyph().getClazz().replace(" multimer", ""));
-                return this.uGlyph;
-            }
-        }
-        else {
-            if(isMultimer) {  // change to multimer
-                return this.multimer();
-            }
-        }
         return this.uGlyph;
     }
 

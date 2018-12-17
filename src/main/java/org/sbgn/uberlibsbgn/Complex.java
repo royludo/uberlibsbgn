@@ -47,13 +47,8 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
     }
 
     @Override
-    public Complex multimer() {
-        return (Complex) this.multimerFeature.multimer();
-    }
-
-    @Override
-    public Complex multimer(boolean isMultimer) {
-        return(Complex) this.multimerFeature.multimer(isMultimer);
+    public Complex setMultimer(boolean isMultimer) {
+        return(Complex) this.multimerFeature.setMultimer(isMultimer);
     }
 
     @Override
@@ -79,6 +74,16 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
     @Override
     public boolean labelHasBbox() {
         return labelFeature.labelHasBbox();
+    }
+
+    @Override
+    public Rectangle2D getLabelBbox() {
+        return labelFeature.getLabelBbox();
+    }
+
+    @Override
+    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
+        return labelFeature.setLabelBbox(rect);
     }
 
     @Override
