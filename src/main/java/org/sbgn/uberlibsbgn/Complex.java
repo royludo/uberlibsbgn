@@ -2,18 +2,19 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.*;
 
+import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Complex extends AbstractUGlyph implements CompositeFeature, MultimerFeature, LabelFeature,
+public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature, MultimerFeature, LabelFeature,
         ComplexIncludible {
 
     private CompositeFeature compositeFeature;
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
 
-    public Complex() {
+    protected Complex() {
         super("complex");
 
         // define which kind of glyph are allowed to be included
@@ -76,13 +77,20 @@ public class Complex extends AbstractUGlyph implements CompositeFeature, Multime
     }
 
     @Override
+    public boolean labelHasBbox() {
+        return labelFeature.labelHasBbox();
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
         multimerFeature.addPropertyChangeListener(listener);
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
+        super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
     }

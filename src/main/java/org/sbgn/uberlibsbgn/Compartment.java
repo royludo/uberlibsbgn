@@ -7,11 +7,11 @@ import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeatureImpl;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Compartment extends AbstractUGlyph implements CompositeFeature {
+public class Compartment extends AbstractUGlyph<Compartment> implements CompositeFeature {
 
     private CompositeFeature compositeFeature;
 
-    public Compartment() {
+    protected Compartment() {
         super("compartment");
         this.compositeFeature = new CompositeFeatureImpl(this, abstractUGlyph -> true);
     }

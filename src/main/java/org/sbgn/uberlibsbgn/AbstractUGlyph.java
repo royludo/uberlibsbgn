@@ -1,16 +1,21 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.GlyphClazz;
+import org.sbgn.bindings.Bbox;
 import org.sbgn.bindings.Glyph;
+import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeatureImpl;
 
+import javax.annotation.Nonnull;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-abstract public class AbstractUGlyph {
+abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFeature {
     private Glyph glyph;
 
     private GlyphType glyphType;
@@ -23,6 +28,7 @@ abstract public class AbstractUGlyph {
      * Useful representation of the bounding box that can be used for geometry operations.
      */
     private Rectangle2D bbox;
+    private BboxFeature bboxFeature;
 
     /**
      * This cannot be used by client code as not enough information is provided.
@@ -35,6 +41,17 @@ abstract public class AbstractUGlyph {
         this.glyph.setClazz("macromolecule");// TODO maybe unnecessary
 
         this.bbox = new Rectangle2D.Float();
+        this.bboxFeature = new BboxFeatureImpl(this, "bbox") {
+            @Override
+            public Bbox getSbgnBbox() {
+                return glyph.getBbox();
+            }
+
+            @Override
+            public void setSbgnBbox(Bbox sbgnBbox) {
+                glyph.setBbox(sbgnBbox);
+            }
+        };
 
         /*this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
         DefaultUMapFactory.getDefaultUMap().add(this);*/
@@ -98,4 +115,26 @@ abstract public class AbstractUGlyph {
    /* public IndexNode getIndexNode() {
         return indexNode;
     }*/
+
+    @Nonnull
+    @Override
+    public Rectangle2D getBbox() {
+        return bboxFeature.getBbox();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public T setBbox(Rectangle2D rect) {
+        return (T) bboxFeature.setBbox(rect);
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        bboxFeature.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        bboxFeature.removePropertyChangeListener(listener);
+    }
 }

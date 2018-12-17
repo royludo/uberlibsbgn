@@ -48,11 +48,6 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
         // init indexes
         this.addIndex("label", new LabelIndex());
-
-        // automatically listen to the map root
-        for(Index index: indexes.values()) {
-            mapRoot.addCompositeChangeListener(index);
-        }
     }
 
     public void addIndex(String indexLabel, Index index) {

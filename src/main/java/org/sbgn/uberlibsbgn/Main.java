@@ -1,8 +1,10 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -19,7 +21,7 @@ public class Main {
                 .setLabel("test");
         System.out.println(glyph.getGlyph().getLabel().getText());*/
 
-        UMap mymap = new UMap();
+        UMap mymap = new UMap(Language.PD);
         GlyphFactory factory = mymap.getFactory();
         Macromolecule macro= (Macromolecule) factory.newGlyphOfType(UGlyphClass.MACROMOLECULE).build();
         Macromolecule m111 = factory
@@ -45,7 +47,7 @@ public class Main {
         list.add(sc);
         list.add(macro);
         //list.add(m2);
-        UMap map = new UMap(list);
+        UMap map = new UMap(Language.PD, list);
         map.add(m2);
 
         Predicate<AbstractUGlyph> isMacromolecule = new Predicate<AbstractUGlyph>() {
@@ -67,7 +69,7 @@ public class Main {
         System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
 
 
-        Complex c1 = factory.complex().build().setLabel("c1").multimer();
+        Complex c1 = factory.complex().build().setLabel("c1").multimer().setBbox(new Rectangle2D.Double(1,2,3,4));
         c1.addChild(m2);
         Complex c2 = factory.complex().build().setLabel("c2");
         c1.addChild(c2);
@@ -82,6 +84,7 @@ public class Main {
         System.out.println(mymap.glyphsWithLabel("macro2"));
         System.out.println(mymap.glyphsWithLabelRegexp("^c.*").stream().map( t -> ((LabelFeature)t).getLabel()).collect(Collectors.toList()) );
 
+        System.out.println(c1.getBbox());
 
         Glyph g1 = new Glyph();
         g1.setId("g1");

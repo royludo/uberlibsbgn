@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * A CompositeFeatureImpl that has no include conditions (can include everything).
+ * A CompositeFeatureImpl that has no include conditions (can include everything) and no associated glyph, as
+ * it is used for a UMap.
  */
 public class MapRootFeature implements CompositeFeature {
 

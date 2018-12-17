@@ -7,7 +7,7 @@ import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
 import java.beans.PropertyChangeListener;
 
-public class Macromolecule extends AbstractUGlyph implements MultimerFeature, LabelFeature,
+public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature,
         ComplexIncludible {
 
     private MultimerFeature multimerFeature;
@@ -50,13 +50,20 @@ public class Macromolecule extends AbstractUGlyph implements MultimerFeature, La
     }
 
     @Override
+    public boolean labelHasBbox() {
+        return labelFeature.labelHasBbox();
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
         multimerFeature.addPropertyChangeListener(listener);
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
+        super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
     }

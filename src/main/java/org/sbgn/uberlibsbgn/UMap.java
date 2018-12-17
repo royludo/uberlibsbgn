@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
@@ -39,8 +40,16 @@ public class UMap {
 
     private CompositeFeature mapRoot;
 
-    public UMap() {
+    private Language sbgnLanguage;
+
+    public UMap(Language sbgnLanguage) {
+
+        if(sbgnLanguage == Language.ER) {
+            throw new UnsupportedOperationException("uberlibsbgn only supports PD and AF maps");
+        }
+
         this.id = "default";
+        this.sbgnLanguage = sbgnLanguage;
         this.mapRoot = new MapRootFeature();
         //this.glyphList = new ArrayList<>();
         this.indexManager = new IndexManager(mapRoot);
@@ -51,8 +60,8 @@ public class UMap {
 
     }
 
-    public UMap(List<AbstractUGlyph> glyphs) {
-        this();
+    public UMap(Language sbgnLanguage, List<AbstractUGlyph> glyphs) {
+        this(sbgnLanguage);
 
         for(AbstractUGlyph uglyph: glyphs) {
             this.add(uglyph);

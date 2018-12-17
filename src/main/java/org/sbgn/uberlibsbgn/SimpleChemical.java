@@ -5,14 +5,15 @@ import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
 
+import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 
-public class SimpleChemical extends AbstractUGlyph implements MultimerFeature, LabelFeature {
+public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements MultimerFeature, LabelFeature {
 
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
 
-    public SimpleChemical() {
+    protected SimpleChemical() {
         super("simple chemical");
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this);
@@ -49,13 +50,20 @@ public class SimpleChemical extends AbstractUGlyph implements MultimerFeature, L
     }
 
     @Override
+    public boolean labelHasBbox() {
+        return labelFeature.labelHasBbox();
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
         multimerFeature.addPropertyChangeListener(listener);
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
+        super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
     }

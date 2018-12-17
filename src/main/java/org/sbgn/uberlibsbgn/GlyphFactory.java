@@ -16,11 +16,11 @@ public class GlyphFactory {
         return new GlyphFactory(map, clazz);
     }*/
 
-   public GlyphBuilder newGlyphOfType(UGlyphClass clazz) {
+    public GlyphBuilder newGlyphOfType(UGlyphClass clazz) {
        return new GlyphBuilder(clazz, map);
    }
 
-   public GlyphBuilder<Macromolecule> macromolecule() {
+    public GlyphBuilder<Macromolecule> macromolecule() {
        return new GlyphBuilder<>(UGlyphClass.MACROMOLECULE, map);
    }
 
