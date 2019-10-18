@@ -1,9 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
-import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
+import org.sbgn.uberlibsbgn.glyphfeatures.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

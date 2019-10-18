@@ -4,6 +4,7 @@ import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.sbgn.uberlibsbgn.indexing.LabelWithOIndex;
+import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Main {
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
 
         mymap.addIndex("labelWithO", testIndex);
+
 
 
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
@@ -91,6 +93,17 @@ public class Main {
         System.out.println(mymap.glyphsWithLabelRegexp("^c.*").stream().map( t -> ((LabelFeature)t).getLabel()).collect(Collectors.toList()) );
 
         System.out.println(c1.getBbox());
+
+
+        DepthFirstAll depthFirstAll = new DepthFirstAll(mymap.getMapRoot());
+        for(AbstractUGlyph glyph: depthFirstAll) {
+            System.out.println(glyph.getGlyphType()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
+        }
+
+        System.out.println("Glyphs with O");
+        for(AbstractUGlyph glyph: testIndex.getGlyphs()) {
+            System.out.println(glyph.getGlyphType()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
+        }
 
         Glyph g1 = new Glyph();
         g1.setId("g1");

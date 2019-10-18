@@ -1,6 +1,7 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -87,6 +88,30 @@ public class CompositeFeatureImpl implements CompositeFeature {
     @Override
     public Predicate<AbstractUGlyph> getIncludePermission() {
         return this.includeCondition;
+    }
+
+    @Override
+    public boolean accept(IHierarchicalVisitor v) {
+        if (v.visitEnter(this.uGlyph)) {
+            if (this.hasChildren()) {
+                for (AbstractUGlyph child : this.getChildren()) {
+                    if (!child.accept(v)) {
+                        break;
+                    }
+                }
+            }
+        }
+        return v.visitExit(this.uGlyph);
+    }
+
+    @Override
+    public void accept(IVisitor simpleVisitor) {
+        simpleVisitor.visit(this.uGlyph);
+        if(this.hasChildren()){
+            for(AbstractUGlyph child: this.getChildren()) {
+                child.accept(simpleVisitor);
+            }
+        }
     }
 
     public void addCompositeChangeListener(CompositeChangeListener listener) {

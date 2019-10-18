@@ -3,6 +3,7 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeatureImpl;
+import org.sbgn.uberlibsbgn.glyphfeatures.IHierarchicalVisitor;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -44,5 +45,10 @@ public class Compartment extends AbstractUGlyph<Compartment> implements Composit
     @Override
     public void removeCompositeChangeListener(CompositeChangeListener listener) {
         this.compositeFeature.removeCompositeChangeListener(listener);
+    }
+
+    @Override
+    public boolean accept(IHierarchicalVisitor v) {
+        return this.compositeFeature.accept(v);
     }
 }

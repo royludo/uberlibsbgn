@@ -2,6 +2,7 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
 import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
@@ -138,5 +139,9 @@ public class UMap {
 
     public void removeIndex(String indexLabel) {
         indexManager.removeIndex(indexLabel);
+    }
+
+    public void accept(IVisitor simpleVisitor) {
+        mapRoot.accept(simpleVisitor);
     }
 }

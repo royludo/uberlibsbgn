@@ -88,4 +88,11 @@ public class LabelIndex implements Index {
             }
         }
     }
+
+    @Override
+    public void parse(AbstractUGlyph uGlyph) {
+        if(uGlyph instanceof LabelFeature) {
+            labelMap.put(((LabelFeature) uGlyph).getLabel(), uGlyph);
+        }
+    }
 }

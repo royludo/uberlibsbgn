@@ -68,6 +68,28 @@ public class MapRootFeature implements CompositeFeature {
     }
 
     @Override
+    public boolean accept(IHierarchicalVisitor v) {
+        if (this.hasChildren()) {
+            for (AbstractUGlyph child : this.getChildren()) {
+                if (!child.accept(v)) {
+                    break;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public void accept(IVisitor simpleVisitor) {
+        if (this.hasChildren()) {
+            for (AbstractUGlyph child : this.getChildren()) {
+                child.accept(simpleVisitor);
+            }
+        }
+    }
+
+    @Override
     public void addCompositeChangeListener(CompositeChangeListener listener) {
         this.compositeChangeListeners.add(listener);
     }

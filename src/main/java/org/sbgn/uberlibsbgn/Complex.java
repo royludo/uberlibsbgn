@@ -109,4 +109,9 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
     public void removeCompositeChangeListener(CompositeChangeListener listener) {
         compositeFeature.removeCompositeChangeListener(listener);
     }
+
+    @Override
+    public boolean accept(IHierarchicalVisitor v) {
+        return this.compositeFeature.accept(v);
+    }
 }

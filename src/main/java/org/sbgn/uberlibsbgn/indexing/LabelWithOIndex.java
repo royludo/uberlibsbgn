@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class LabelWithOIndex implements Index {
 
@@ -19,6 +21,10 @@ public class LabelWithOIndex implements Index {
     public LabelWithOIndex() {
         logger.trace("Create LabelWithOIndex");
         labelWithOMap = new HashMap<>();
+    }
+
+    public Collection<AbstractUGlyph> getGlyphs() {
+        return labelWithOMap.values();
     }
 
     @Override
@@ -66,6 +72,13 @@ public class LabelWithOIndex implements Index {
             if(removedGlyph instanceof LabelFeature && ((LabelFeature) removedGlyph).getLabel().contains("o")) {
                 labelWithOMap.remove(removedGlyph.getId(), removedGlyph);
             }
+        }
+    }
+
+    @Override
+    public void parse(AbstractUGlyph uGlyph) {
+        if(uGlyph instanceof LabelFeature &&  ((LabelFeature) uGlyph).getLabel().contains("o")) {
+            labelWithOMap.put(uGlyph.getId(), uGlyph);
         }
     }
 }

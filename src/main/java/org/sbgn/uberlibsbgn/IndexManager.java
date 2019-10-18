@@ -5,6 +5,7 @@ import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
+import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,15 +57,18 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     }
 
     public void addIndex(String indexLabel, Index index) {
-        // TODO need to parse all the existing map if index is added after map creation
         logger.trace("Add index: {}", indexLabel);
         if(this.mapRoot.hasChildren()) {
-            throw new IllegalStateException("the map is not empty and need to be correctly parsed to be indexed");
+
+            logger.trace("Parse map");
+            DepthFirstAll depthSearch = new DepthFirstAll(this.mapRoot);
+            for(AbstractUGlyph uGlyph: depthSearch) {
+                index.parse(uGlyph);
+            }
+
         }
-        else {
-            this.indexes.put(indexLabel, index);
-            this.mapRoot.addCompositeChangeListener(index);
-        }
+        this.indexes.put(indexLabel, index);
+        this.mapRoot.addCompositeChangeListener(index);
     }
 
     public void removeIndex(String indexLabel) {
@@ -98,9 +102,9 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
     }
 
-    public Map<String, AbstractUGlyph> getIdMap() {
+    /*public Map<String, AbstractUGlyph> getIdMap() {
         return idMap;
-    }
+    }*/
 
     @Override
     public void compositeChildAdded(CompositeChangeEvent e) {

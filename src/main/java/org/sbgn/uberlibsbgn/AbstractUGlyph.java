@@ -5,6 +5,8 @@ import org.sbgn.bindings.Bbox;
 import org.sbgn.bindings.Glyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeatureImpl;
+import org.sbgn.uberlibsbgn.glyphfeatures.IHierarchicalVisitor;
+import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,6 +93,14 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         bboxFeature.removePropertyChangeListener(listener);
+    }
+
+    public boolean accept(IHierarchicalVisitor v) {
+        return v.visitLeaf(this);
+    }
+
+    public void accept(IVisitor simpleVisitor) {
+        simpleVisitor.visit(this);
     }
 
 }
