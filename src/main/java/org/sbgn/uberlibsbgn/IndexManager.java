@@ -5,6 +5,8 @@ import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -40,23 +42,33 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
     private CompositeFeature mapRoot;
 
+    final Logger logger = LoggerFactory.getLogger(IndexManager.class);
 
     public IndexManager(CompositeFeature mapRoot) {
+        logger.trace("Create IndexManager");
         this.idMap = new HashMap<>();
         this.indexes = new HashMap<>();
         this.mapRoot = mapRoot;
 
+        logger.trace("Init indexes");
         // init indexes
         this.addIndex("label", new LabelIndex());
     }
 
     public void addIndex(String indexLabel, Index index) {
         // TODO need to parse all the existing map if index is added after map creation
-        this.indexes.put(indexLabel, index);
-        this.mapRoot.addCompositeChangeListener(index);
+        logger.trace("Add index: {}", indexLabel);
+        if(this.mapRoot.hasChildren()) {
+            throw new IllegalStateException("the map is not empty and need to be correctly parsed to be indexed");
+        }
+        else {
+            this.indexes.put(indexLabel, index);
+            this.mapRoot.addCompositeChangeListener(index);
+        }
     }
 
     public void removeIndex(String indexLabel) {
+        logger.trace("Remove index: {}", indexLabel);
         this.mapRoot.removeCompositeChangeListener(this.getIndex(indexLabel));
         this.indexes.remove(indexLabel);
     }
@@ -68,7 +80,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        System.out.println("prop change EVENT: "+ evt);
+        logger.trace("property change EVENT: {}", evt);
 
         for(Index index: this.indexes.values()) {
             index.propertyChange(evt);
@@ -92,7 +104,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
     @Override
     public void compositeChildAdded(CompositeChangeEvent e) {
-        System.out.println("compo child added "+e);
+        logger.trace("composite child added {}", e);
 
         for(Index index: this.indexes.values()) {
             index.compositeChildAdded(e);
@@ -101,7 +113,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
     @Override
     public void compositeChildRemoved(CompositeChangeEvent e) {
-        System.out.println("compo child removed "+e);
+        logger.trace("composite child removed {}", e);
 
         for(Index index: this.indexes.values()) {
             index.compositeChildRemoved(e);

@@ -3,6 +3,8 @@ package org.sbgn.uberlibsbgn.glyphfeatures;
 import org.sbgn.bindings.Bbox;
 import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,13 +23,17 @@ public class LabelFeatureImpl implements LabelFeature {
 
     private String label = "";
 
+    final Logger logger = LoggerFactory.getLogger(LabelFeatureImpl.class);
+
     public LabelFeatureImpl(AbstractUGlyph uGlyph) {
+        logger.trace("Create LabelFeature");
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
     }
 
     @Override
     public AbstractUGlyph setLabel(String newLabel) {
+        logger.trace("Set label to {}", newLabel);
         String oldLabel = this.getLabel();
         this.label = newLabel;
 

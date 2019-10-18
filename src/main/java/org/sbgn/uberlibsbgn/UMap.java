@@ -3,7 +3,10 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
+import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -42,7 +45,10 @@ public class UMap {
 
     private Language sbgnLanguage;
 
+    final Logger logger = LoggerFactory.getLogger(UMap.class);
+
     public UMap(Language sbgnLanguage) {
+        logger.trace("Create UMap");
 
         if(sbgnLanguage == Language.ER) {
             throw new UnsupportedOperationException("uberlibsbgn only supports PD and AF maps");
@@ -56,6 +62,7 @@ public class UMap {
         this.glyphFactory = new GlyphFactory(this);
 
 
+
         map = new org.sbgn.bindings.Map();
 
     }
@@ -63,6 +70,7 @@ public class UMap {
     public UMap(Language sbgnLanguage, List<AbstractUGlyph> glyphs) {
         this(sbgnLanguage);
 
+        logger.trace("Add list of glyphs");
         for(AbstractUGlyph uglyph: glyphs) {
             this.add(uglyph);
         }
@@ -70,6 +78,7 @@ public class UMap {
     }
 
     public List<AbstractUGlyph> filterGlyphs(Predicate<AbstractUGlyph> p) {
+        logger.trace("Filter glyphs with predicate {}", p.toString());
         return this.mapRoot.getChildren().stream().filter(p).collect(Collectors.toList());
     }
 
@@ -79,6 +88,7 @@ public class UMap {
 
     // add to root of the map
     public void add(AbstractUGlyph glyph) {
+        logger.trace("add glyph {}", glyph.getId());
         this.mapRoot.addChild(glyph);
         //this.map.getGlyph().add(glyph.getGlyph());
         //glyph.addPropertyChangeListener(this.indexManager);
@@ -87,7 +97,7 @@ public class UMap {
     }
 
     public void remove(AbstractUGlyph glyph) {
-
+        logger.trace("remove glyph {}", glyph.getId());
     }
 
     /*
@@ -109,14 +119,24 @@ public class UMap {
     }
 
     public Set<AbstractUGlyph> glyphsWithLabel(String label) {
+        logger.trace("search glyphs with label: {}", label);
         return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphs(label);
     }
 
     public Set<AbstractUGlyph> glyphsWithLabelRegexp(String regexp) {
+        logger.trace("search glyphs with label regexp: {}", regexp);
         return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphsWithRegexp(regexp);
     }
 
     protected CompositeFeature getMapRoot() {
         return mapRoot;
+    }
+
+    public void addIndex(String indexLabel, Index index) {
+        indexManager.addIndex(indexLabel, index);
+    }
+
+    public void removeIndex(String indexLabel) {
+        indexManager.removeIndex(indexLabel);
     }
 }

@@ -3,6 +3,7 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
+import org.sbgn.uberlibsbgn.indexing.LabelWithOIndex;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class Main {
                 .setLabel("test");
         System.out.println(glyph.getGlyph().getLabel().getText());*/
 
+        LabelWithOIndex testIndex = new LabelWithOIndex();
+
         UMap mymap = new UMap(Language.PD);
         GlyphFactory factory = mymap.getFactory();
         Macromolecule macro= (Macromolecule) factory.newGlyphOfType(UGlyphClass.MACROMOLECULE).build();
@@ -30,6 +33,9 @@ public class Main {
                 .setMultimer(true)
                 .setLabel("my macro");
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
+
+        mymap.addIndex("labelWithO", testIndex);
+
 
         SimpleChemical sc = new SimpleChemical().setLabel("I'm a simple chemical");
         System.out.println(sc.getLabel()+" "+sc.getLabel());

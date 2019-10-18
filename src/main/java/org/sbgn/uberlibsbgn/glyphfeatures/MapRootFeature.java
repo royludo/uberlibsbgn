@@ -1,6 +1,8 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +19,10 @@ public class MapRootFeature implements CompositeFeature {
     private List<AbstractUGlyph> children;
     private List<CompositeChangeListener> compositeChangeListeners;
 
+    final Logger logger = LoggerFactory.getLogger(MapRootFeature.class);
+
     public MapRootFeature() {
+        logger.trace("Create MapRootFeature");
         this.children = new ArrayList<>();
         this.compositeChangeListeners = new ArrayList<>();
     }
@@ -29,11 +34,11 @@ public class MapRootFeature implements CompositeFeature {
 
     @Override
     public AbstractUGlyph addChild(AbstractUGlyph child) {
-        System.out.println("maproot addChild");
+        logger.trace("maproot addChild "+child.getId());
         this.children.add(child);
         // throw change event
         for(CompositeChangeListener listener: this.compositeChangeListeners) {
-            System.out.println("fire child added event for "+listener);
+            logger.trace("fire child added event for "+listener);
             listener.compositeChildAdded(new CompositeChangeEvent(this, Collections.singletonList(child)));
         }
         return child;

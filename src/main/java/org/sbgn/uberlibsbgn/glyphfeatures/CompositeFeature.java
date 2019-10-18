@@ -26,6 +26,10 @@ public interface CompositeFeature extends HasCompositeChangeListener {
 
     Predicate<AbstractUGlyph> getIncludePermission();
 
+   default  boolean hasChildren(){
+        return !this.getChildren().isEmpty();
+    }
+
     /**
      * Can the child be included in this glyph
      * @param child

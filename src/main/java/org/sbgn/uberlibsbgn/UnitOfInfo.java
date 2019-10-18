@@ -1,48 +1,29 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 
-public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature,
-        ComplexIncludible {
+public class UnitOfInfo extends AbstractUGlyph<UnitOfInfo> implements LabelFeature {
 
-    private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
 
-    final Logger logger = LoggerFactory.getLogger(Macromolecule.class);
-
-    protected Macromolecule() {
-        super("macromolecule");
-        logger.trace("Create Macromolecule");
-        this.multimerFeature = new MultimerFeatureImpl(this);
+    protected UnitOfInfo() {
+        super("unit of information");
         this.labelFeature = new LabelFeatureImpl(this);
     }
 
     @Override
-    public Macromolecule setMultimer(boolean isMultimer) {
-        return(Macromolecule) this.multimerFeature.setMultimer(isMultimer);
-    }
-
-    @Override
-    public boolean isMultimer() {
-        return this.multimerFeature.isMultimer();
-    }
-
-    @Override
-    public Macromolecule setLabel(String label) {
-        return (Macromolecule) this.labelFeature.setLabel(label);
+    public AbstractUGlyph setLabel(String label) {
+        return labelFeature.setLabel(label);
     }
 
     @Override
     public String getLabel() {
-        return this.labelFeature.getLabel();
+        return labelFeature.getLabel();
     }
 
     @Override
@@ -69,13 +50,11 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
-        multimerFeature.addPropertyChangeListener(listener);
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
-        multimerFeature.removePropertyChangeListener(listener);
     }
 }

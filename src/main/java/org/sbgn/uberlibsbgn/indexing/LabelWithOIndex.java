@@ -1,6 +1,6 @@
 package org.sbgn.uberlibsbgn.indexing;
 
-import com.google.common.collect.*;
+import com.google.common.collect.HashMultimap;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
@@ -8,42 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
+import java.util.HashMap;
 
-public class LabelIndex implements Index {
+public class LabelWithOIndex implements Index {
 
-    private SetMultimap<String, AbstractUGlyph> labelMap;
+    final Logger logger = LoggerFactory.getLogger(LabelWithOIndex.class);
 
-    final Logger logger = LoggerFactory.getLogger(LabelIndex.class);
+    private HashMap<String, AbstractUGlyph> labelWithOMap;
 
-    public LabelIndex() {
-        logger.trace("Create LabelIndex");
-        this.labelMap = HashMultimap.create();
-    }
-
-
-    public Set<AbstractUGlyph> getGlyphs(String label) {
-        return labelMap.get(label);
-    }
-
-    /**
-     * O(n)
-     * @param regex
-     * @return
-     */
-    public Set<AbstractUGlyph> getGlyphsWithRegexp(String regex) {
-        Pattern p = Pattern.compile(regex);
-        Set<AbstractUGlyph> result = new HashSet<>();
-
-        for(String s: labelMap.keySet()) {
-            if(p.matcher(s).matches()) {
-                result.addAll(labelMap.get(s));
-            }
-        }
-
-        return result;
+    public LabelWithOIndex() {
+        logger.trace("Create LabelWithOIndex");
+        labelWithOMap = new HashMap<>();
     }
 
     @Override
@@ -54,8 +29,13 @@ public class LabelIndex implements Index {
             String newLabel = (String) evt.getNewValue();
             AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
 
-            labelMap.remove(oldLabel, sourceGlyph);
-            labelMap.put(newLabel, sourceGlyph);
+            if(newLabel.contains("o")) {
+                labelWithOMap.put(sourceGlyph.getId(), sourceGlyph);
+            }
+
+            if(oldLabel.contains("o")) {
+                labelWithOMap.remove(sourceGlyph.getId(), sourceGlyph);
+            }
 
             /*for(AbstractUGlyph glyph: labelMap.get(oldLabel)) {
                 if(glyph.getId().equals(sourceGlyph.getId())) {
@@ -74,8 +54,8 @@ public class LabelIndex implements Index {
     @Override
     public void compositeChildAdded(CompositeChangeEvent e) {
         for(AbstractUGlyph addedGlyph: e.getChildren()) {
-            if(addedGlyph instanceof LabelFeature) {
-                labelMap.put(((LabelFeature) addedGlyph).getLabel(), addedGlyph);
+            if(addedGlyph instanceof LabelFeature && ((LabelFeature) addedGlyph).getLabel().contains("o")) {
+                labelWithOMap.put(addedGlyph.getId(), addedGlyph);
             }
         }
     }
@@ -83,8 +63,8 @@ public class LabelIndex implements Index {
     @Override
     public void compositeChildRemoved(CompositeChangeEvent e) {
         for(AbstractUGlyph removedGlyph: e.getChildren()) {
-            if(removedGlyph instanceof LabelFeature) {
-                labelMap.remove(((LabelFeature) removedGlyph).getLabel(), removedGlyph);
+            if(removedGlyph instanceof LabelFeature && ((LabelFeature) removedGlyph).getLabel().contains("o")) {
+                labelWithOMap.remove(removedGlyph.getId(), removedGlyph);
             }
         }
     }

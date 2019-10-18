@@ -1,13 +1,17 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.GlyphClazz;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GlyphFactory {
 
     private UMap map;
 
+    final Logger logger = LoggerFactory.getLogger(GlyphFactory.class);
 
     public GlyphFactory(UMap map) {
+        logger.trace("Create GlyphFactory");
         this.map = map;
 
     }

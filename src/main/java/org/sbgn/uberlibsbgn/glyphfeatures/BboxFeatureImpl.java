@@ -2,6 +2,8 @@ package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.bindings.Bbox;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,9 +16,12 @@ public class BboxFeatureImpl implements BboxFeature {
     private AbstractUGlyph uGlyph;
     private Rectangle2D bbox;
     private final PropertyChangeSupport pcs;
-    private String eventName;
+    private String eventName; // to separate bbox of uglyphs from labels or others
+
+    final Logger logger = LoggerFactory.getLogger(BboxFeatureImpl.class);
 
     public BboxFeatureImpl(AbstractUGlyph uGlyph, String eventName) {
+        logger.trace("Create BboxFeature");
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
         this.eventName = eventName;

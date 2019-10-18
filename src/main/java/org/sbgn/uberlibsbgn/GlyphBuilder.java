@@ -2,13 +2,18 @@ package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.HasCompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.HasPropertyChangeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GlyphBuilder<T extends AbstractUGlyph> {
 
     private final T glyph;
     private UMap map;
 
+    final Logger logger = LoggerFactory.getLogger(GlyphBuilder.class);
+
     public GlyphBuilder(UGlyphClass clazz, UMap map) {
+        logger.trace("Create GlyphBuilder for class: {}", clazz);
         this.map = map;
         try {
             Class c = UGlyphClass.getClass(clazz);
@@ -29,7 +34,7 @@ public class GlyphBuilder<T extends AbstractUGlyph> {
     }
 
     public T build() {
-
+        logger.trace("Build glyph and add to map root");
         if(glyph instanceof HasCompositeChangeListener) {
             ((HasCompositeChangeListener) glyph).addCompositeChangeListener(map.getIndexManager());
         }
@@ -37,7 +42,7 @@ public class GlyphBuilder<T extends AbstractUGlyph> {
         if(glyph instanceof HasPropertyChangeListener) {
             ((HasPropertyChangeListener) glyph).addPropertyChangeListener(map.getIndexManager());
         }
-        System.out.println("building glyph... added to map root");
+
 
         // fire event add glyph to root of the map ?
         map.add(glyph); // TODO don't do if asChildOf is used

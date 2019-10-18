@@ -5,6 +5,8 @@ import org.sbgn.bindings.Bbox;
 import org.sbgn.bindings.Glyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeatureImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -26,12 +28,16 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
      */
     private BboxFeature bboxFeature;
 
+    final Logger logger = LoggerFactory.getLogger(AbstractUGlyph.class);
+
     /**
      * This cannot be used by client code as not enough information is provided.
      * We need to have at least the class.
      */
     private AbstractUGlyph() {
+        logger.trace("Create AbstractUGlyph");
         this.id = UUID.randomUUID().toString();
+        logger.trace("Assigned random id: {}", this.id);
         this.bboxFeature = new BboxFeatureImpl(this, "bbox");
 
         /*this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
@@ -45,6 +51,7 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
      */
     public AbstractUGlyph(String clazz) {
         this();
+        logger.trace("Create AbstractUGlyph with class: {}", clazz);
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
 
     }
