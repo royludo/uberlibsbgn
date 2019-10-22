@@ -3,10 +3,7 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.GlyphClazz;
 import org.sbgn.bindings.Bbox;
 import org.sbgn.bindings.Glyph;
-import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.BboxFeatureImpl;
-import org.sbgn.uberlibsbgn.glyphfeatures.IHierarchicalVisitor;
-import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
+import org.sbgn.uberlibsbgn.glyphfeatures.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +19,7 @@ import java.util.UUID;
 abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFeature {
 
     private GlyphType glyphType;
+    private UGlyphClass uGlyphClass;
 
     private String id;
 
@@ -40,7 +38,7 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
         logger.trace("Create AbstractUGlyph");
         this.id = UUID.randomUUID().toString();
         logger.trace("Assigned random id: {}", this.id);
-        this.bboxFeature = new BboxFeatureImpl(this, "bbox");
+        this.bboxFeature = new BboxFeatureImpl(this, EventType.BBOX.getEventKey());
 
         /*this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
         DefaultUMapFactory.getDefaultUMap().add(this);*/
@@ -55,11 +53,16 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
         this();
         logger.trace("Create AbstractUGlyph with class: {}", clazz);
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
+        this.uGlyphClass = UGlyphClass.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
 
     }
 
     public GlyphType getGlyphType() {
         return glyphType;
+    }
+
+    public UGlyphClass getUGlyphClass() {
+        return uGlyphClass;
     }
 
 
@@ -101,6 +104,10 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
 
     public void accept(IVisitor simpleVisitor) {
         simpleVisitor.visit(this);
+    }
+
+    public boolean hasLabelFeature() {
+        return this instanceof LabelFeature;
     }
 
 }

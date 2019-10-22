@@ -22,7 +22,7 @@ public class MultimerFeatureImpl implements MultimerFeature {
         boolean oldIsMultimer = this.isMultimer;
         this.isMultimer = isMultimer;
 
-        this.pcs.firePropertyChange("multimer", oldIsMultimer, isMultimer);
+        this.pcs.firePropertyChange(EventType.MULTIMER.getEventKey(), oldIsMultimer, isMultimer);
 
         return this.uGlyph;
     }

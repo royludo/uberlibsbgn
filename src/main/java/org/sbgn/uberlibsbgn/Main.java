@@ -3,6 +3,7 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
+import org.sbgn.uberlibsbgn.indexing.GenericLabelIndex;
 import org.sbgn.uberlibsbgn.indexing.LabelWithOIndex;
 import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;
 
@@ -24,6 +25,7 @@ public class Main {
         System.out.println(glyph.getGlyph().getLabel().getText());*/
 
         LabelWithOIndex testIndex = new LabelWithOIndex();
+        GenericLabelIndex labelWithC = new GenericLabelIndex("labelwithc", s -> s.startsWith("c"));
 
         UMap mymap = new UMap(Language.PD);
         GlyphFactory factory = mymap.getFactory();
@@ -35,7 +37,10 @@ public class Main {
                 .setLabel("my macro");
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
 
-        mymap.addIndex("labelWithO", testIndex);
+        mymap.addIndex(testIndex);
+        mymap.addIndex(labelWithC);
+
+        System.out.println("label with c: "+labelWithC.getGlyphs());
 
 
 
@@ -97,12 +102,17 @@ public class Main {
 
         DepthFirstAll depthFirstAll = new DepthFirstAll(mymap.getMapRoot());
         for(AbstractUGlyph glyph: depthFirstAll) {
-            System.out.println(glyph.getGlyphType()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
+            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
         }
 
         System.out.println("Glyphs with O");
         for(AbstractUGlyph glyph: testIndex.getGlyphs()) {
-            System.out.println(glyph.getGlyphType()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
+            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
+        }
+
+        System.out.println("label with c: ");
+        for(AbstractUGlyph glyph: labelWithC.getGlyphs()) {
+            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
         }
 
         Glyph g1 = new Glyph();

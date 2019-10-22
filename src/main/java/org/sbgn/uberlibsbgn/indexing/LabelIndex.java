@@ -3,22 +3,25 @@ package org.sbgn.uberlibsbgn.indexing;
 import com.google.common.collect.*;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
+import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class LabelIndex implements Index {
+public class LabelIndex extends AbstractIndex {
 
     private SetMultimap<String, AbstractUGlyph> labelMap;
 
     final Logger logger = LoggerFactory.getLogger(LabelIndex.class);
 
     public LabelIndex() {
+        super(DefaultIndexes.LABEL.getIndexKey(), Collections.singleton(EventType.LABEL));
         logger.trace("Create LabelIndex");
         this.labelMap = HashMultimap.create();
     }
@@ -48,7 +51,7 @@ public class LabelIndex implements Index {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("label")) {
+        if(evt.getPropertyName().equals(EventType.LABEL.getEventKey())) {
             logger.trace("Label propertyChange");
             String oldLabel = (String) evt.getOldValue();
             String newLabel = (String) evt.getNewValue();

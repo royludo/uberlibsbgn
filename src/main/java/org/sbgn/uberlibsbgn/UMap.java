@@ -4,6 +4,7 @@ import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
 import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
+import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.slf4j.Logger;
@@ -78,9 +79,17 @@ public class UMap {
 
     }
 
+    public Collection<AbstractUGlyph> getAllGlyphs() {
+        return this.getIndexManager().getAllGlyphs();
+    }
+
+    public AbstractUGlyph getGlyph(String id) {
+        return this.getIndexManager().getGlyph(id);
+    }
+
     public List<AbstractUGlyph> filterGlyphs(Predicate<AbstractUGlyph> p) {
         logger.trace("Filter glyphs with predicate {}", p.toString());
-        return this.mapRoot.getChildren().stream().filter(p).collect(Collectors.toList());
+        return this.getIndexManager().getAllGlyphs().stream().filter(p).collect(Collectors.toList());
     }
 
     /*public List<AbstractUGlyph> glyphsWithClass(GlyphClazz clazz) {
@@ -121,20 +130,20 @@ public class UMap {
 
     public Set<AbstractUGlyph> glyphsWithLabel(String label) {
         logger.trace("search glyphs with label: {}", label);
-        return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphs(label);
+        return ((LabelIndex) this.indexManager.getIndex(DefaultIndexes.LABEL.getIndexKey())).getGlyphs(label);
     }
 
     public Set<AbstractUGlyph> glyphsWithLabelRegexp(String regexp) {
         logger.trace("search glyphs with label regexp: {}", regexp);
-        return ((LabelIndex) this.indexManager.getIndex("label")).getGlyphsWithRegexp(regexp);
+        return ((LabelIndex) this.indexManager.getIndex(DefaultIndexes.LABEL.getIndexKey())).getGlyphsWithRegexp(regexp);
     }
 
     protected CompositeFeature getMapRoot() {
         return mapRoot;
     }
 
-    public void addIndex(String indexLabel, Index index) {
-        indexManager.addIndex(indexLabel, index);
+    public void addIndex(Index index) {
+        indexManager.addIndex(index);
     }
 
     public void removeIndex(String indexLabel) {

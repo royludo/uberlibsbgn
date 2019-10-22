@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 /**
  * Takes care of the nesting structure, maintains appropriate efficient data structure.
  */
+// TODO refactor this and maprootfeatures common methods into abstract class
 public class CompositeFeatureImpl implements CompositeFeature {
 
     private AbstractUGlyph uGlyph;
@@ -36,6 +37,7 @@ public class CompositeFeatureImpl implements CompositeFeature {
 
             // throw change event
             for(CompositeChangeListener listener: this.compositeChangeListeners) {
+                // TODO init this out of the loop
                 listener.compositeChildAdded(new CompositeChangeEvent(this.uGlyph, Collections.singletonList(child)));
             }
 

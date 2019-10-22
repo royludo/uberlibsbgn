@@ -37,7 +37,7 @@ public class LabelFeatureImpl implements LabelFeature {
         String oldLabel = this.getLabel();
         this.label = newLabel;
 
-        this.pcs.firePropertyChange("label", oldLabel, newLabel);
+        this.pcs.firePropertyChange(EventType.LABEL.getEventKey(), oldLabel, newLabel);
         return this.uGlyph;
     }
 
@@ -79,7 +79,7 @@ public class LabelFeatureImpl implements LabelFeature {
     @Override
     public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
         // event will be thrown by the bboxFeature
-        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, "labelbbox");
+        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX.getEventKey());
 
         this.bboxFeature.setBbox(rect);
         return this.uGlyph;

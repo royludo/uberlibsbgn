@@ -3,22 +3,25 @@ package org.sbgn.uberlibsbgn.indexing;
 import com.google.common.collect.HashMultimap;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
+import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class LabelWithOIndex implements Index {
+public class LabelWithOIndex extends AbstractIndex {
 
     final Logger logger = LoggerFactory.getLogger(LabelWithOIndex.class);
 
     private HashMap<String, AbstractUGlyph> labelWithOMap;
 
     public LabelWithOIndex() {
+        super("labelWithO", Collections.singleton(EventType.LABEL));
         logger.trace("Create LabelWithOIndex");
         labelWithOMap = new HashMap<>();
     }
@@ -29,7 +32,7 @@ public class LabelWithOIndex implements Index {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("label")) {
+        if(evt.getPropertyName().equals(EventType.LABEL.getEventKey())) {
             logger.trace("Label propertyChange");
             String oldLabel = (String) evt.getOldValue();
             String newLabel = (String) evt.getNewValue();
@@ -77,7 +80,7 @@ public class LabelWithOIndex implements Index {
 
     @Override
     public void parse(AbstractUGlyph uGlyph) {
-        if(uGlyph instanceof LabelFeature &&  ((LabelFeature) uGlyph).getLabel().contains("o")) {
+        if(uGlyph.hasLabelFeature() &&  ((LabelFeature) uGlyph).getLabel().contains("o")) {
             labelWithOMap.put(uGlyph.getId(), uGlyph);
         }
     }

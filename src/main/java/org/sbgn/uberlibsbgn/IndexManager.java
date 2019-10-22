@@ -3,6 +3,7 @@ package org.sbgn.uberlibsbgn;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;
@@ -11,8 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Index management and all other structures built on the side should updated first when a USomething is changed.
@@ -38,8 +38,11 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     quadtree for collision and inclusion detection
      */
 
+    // TODO subscribe indexes only to specific events
+
     private Map<String, AbstractUGlyph> idMap;
     private Map<String, Index> indexes;
+    private Map<EventType, Set<String>> eventTypeMap;
 
     private CompositeFeature mapRoot;
 
@@ -51,13 +54,28 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
         this.indexes = new HashMap<>();
         this.mapRoot = mapRoot;
 
+        this.eventTypeMap = new HashMap<>();
+        for(EventType eventType: EventType.values()) {
+            eventTypeMap.put(eventType, new HashSet<>());
+        }
+
         logger.trace("Init indexes");
         // init indexes
-        this.addIndex("label", new LabelIndex());
+        this.addIndex(new LabelIndex());
     }
 
-    public void addIndex(String indexLabel, Index index) {
-        logger.trace("Add index: {}", indexLabel);
+    public void addIndex(Index index) {
+        logger.trace("Add index: {}", index.getIndexKey());
+
+        if(this.indexes.containsKey(index.getIndexKey())) {
+            throw new IllegalArgumentException("The key '"+index.getIndexKey()+"' is already used, please choose another.");
+        }
+
+        // subscribe the index to all its chosen event types
+        for(EventType evtype: index.getEventTypes()) {
+            eventTypeMap.get(evtype).add(index.getIndexKey());
+        }
+
         if(this.mapRoot.hasChildren()) {
 
             logger.trace("Parse map");
@@ -67,12 +85,19 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
             }
 
         }
-        this.indexes.put(indexLabel, index);
+
+        this.indexes.put(index.getIndexKey(), index);
         this.mapRoot.addCompositeChangeListener(index);
     }
 
     public void removeIndex(String indexLabel) {
         logger.trace("Remove index: {}", indexLabel);
+
+        Index removedIndex = this.getIndex(indexLabel);
+        for(EventType evtype: removedIndex.getEventTypes()) {
+            this.eventTypeMap.get(evtype).remove(indexLabel);
+        }
+
         this.mapRoot.removeCompositeChangeListener(this.getIndex(indexLabel));
         this.indexes.remove(indexLabel);
     }
@@ -86,8 +111,15 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
 
         logger.trace("property change EVENT: {}", evt);
 
-        for(Index index: this.indexes.values()) {
-            index.propertyChange(evt);
+        EventType eventType = EventType.fromEventKey(evt.getPropertyName());
+
+        // notify indexes which subscribed to ALL
+        for(String indexKey: this.eventTypeMap.get(EventType.ALL)) {
+            this.indexes.get(indexKey).propertyChange(evt);
+        }
+        // notify indexes which subscribed to this specific event
+        for(String indexKey: this.eventTypeMap.get(eventType)) {
+            this.indexes.get(indexKey).propertyChange(evt);
         }
 
         /*AbstractUGlyph sourceGlyph = (AbstractUGlyph) evt.getSource();
@@ -113,6 +145,10 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
         for(Index index: this.indexes.values()) {
             index.compositeChildAdded(e);
         }
+
+        for(AbstractUGlyph addedGlyph: e.getChildren()) {
+            idMap.put(addedGlyph.getId(), addedGlyph);
+        }
     }
 
     @Override
@@ -122,5 +158,17 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
         for(Index index: this.indexes.values()) {
             index.compositeChildRemoved(e);
         }
+
+        for(AbstractUGlyph removedGlyph: e.getChildren()) {
+            idMap.remove(removedGlyph.getId(), removedGlyph);
+        }
+    }
+
+    public AbstractUGlyph getGlyph(String id) {
+        return this.idMap.get(id);
+    }
+
+    public Collection<AbstractUGlyph> getAllGlyphs() {
+        return this.idMap.values();
     }
 }
