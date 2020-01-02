@@ -6,12 +6,14 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
-public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature,
+public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature, ArcFeature,
         ComplexIncludible {
 
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
+    private ArcFeature arcFeature;
 
     final Logger logger = LoggerFactory.getLogger(Macromolecule.class);
 
@@ -19,7 +21,8 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
         super("macromolecule");
         logger.trace("Create Macromolecule");
         this.multimerFeature = new MultimerFeatureImpl(this);
-        this.labelFeature = new LabelFeatureImpl(this);
+        this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
+        this.arcFeature = new ArcFeatureImpl(this);
     }
 
     @Override
@@ -74,5 +77,45 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
         super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public List<UArc> getArcs() {
+        return arcFeature.getArcs();
+    }
+
+    @Override
+    public List<UArc> getIncomingArcs() {
+        return arcFeature.getIncomingArcs();
+    }
+
+    @Override
+    public List<UArc> getOutgoingArcs() {
+        return arcFeature.getOutgoingArcs();
+    }
+
+    @Override
+    public boolean addIncomingArc(UArc arc) {
+        return arcFeature.addIncomingArc(arc);
+    }
+
+    @Override
+    public boolean addOutgoingArc(UArc arc) {
+        return arcFeature.addOutgoingArc(arc);
+    }
+
+    @Override
+    public boolean removeArc(UArc arc) {
+        return arcFeature.removeArc(arc);
+    }
+
+    @Override
+    public void addArcChangeListener(ArcChangeListener listener) {
+        arcFeature.addArcChangeListener(listener);
+    }
+
+    @Override
+    public void removeArcChangeListener(ArcChangeListener listener) {
+        arcFeature.removeArcChangeListener(listener);
     }
 }

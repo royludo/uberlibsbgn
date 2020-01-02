@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFeature {
+import static org.sbgn.uberlibsbgn.GlyphType.AUXILIARY_UNIT;
+
+abstract public class AbstractUGlyph<T extends AbstractUGlyph> extends USBGNEntity implements BboxFeature {
 
     private GlyphType glyphType;
     private UGlyphClass uGlyphClass;
@@ -31,29 +33,25 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> implements BboxFe
     final Logger logger = LoggerFactory.getLogger(AbstractUGlyph.class);
 
     /**
-     * This cannot be used by client code as not enough information is provided.
-     * We need to have at least the class.
-     */
-    private AbstractUGlyph() {
-        logger.trace("Create AbstractUGlyph");
-        this.id = UUID.randomUUID().toString();
-        logger.trace("Assigned random id: {}", this.id);
-        this.bboxFeature = new BboxFeatureImpl(this, EventType.BBOX.getEventKey());
-
-        /*this.indexNode = new IndexNode(this, DefaultUMapFactory.getDefaultUMap().getIndexManager());
-        DefaultUMapFactory.getDefaultUMap().add(this);*/
-        
-    }
-
-    /**
      * Minimal possible constructor for a glyph.
      * @param clazz
      */
     public AbstractUGlyph(String clazz) {
-        this();
         logger.trace("Create AbstractUGlyph with class: {}", clazz);
+        this.id = UUID.randomUUID().toString();
+        logger.trace("Assigned random id: {}", this.id);
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
         this.uGlyphClass = UGlyphClass.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
+
+        EventType bboxEventType;
+        if(glyphType == AUXILIARY_UNIT) {
+            bboxEventType = EventType.UNITOFINFOBBOX;
+        }
+        else {
+            bboxEventType = EventType.BBOX;
+        }
+
+        this.bboxFeature = new BboxFeatureImpl(this, bboxEventType);
 
     }
 

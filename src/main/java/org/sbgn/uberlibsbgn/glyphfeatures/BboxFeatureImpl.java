@@ -1,12 +1,10 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
-import org.sbgn.bindings.Bbox;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -16,15 +14,15 @@ public class BboxFeatureImpl implements BboxFeature {
     private AbstractUGlyph uGlyph;
     private Rectangle2D bbox;
     private final PropertyChangeSupport pcs;
-    private String eventName; // to separate bbox of uglyphs from labels or others
+    private EventType eventType; // to separate bbox of uglyphs from labels or others
 
     final Logger logger = LoggerFactory.getLogger(BboxFeatureImpl.class);
 
-    public BboxFeatureImpl(AbstractUGlyph uGlyph, String eventName) {
+    public BboxFeatureImpl(AbstractUGlyph uGlyph, EventType eventType) {
         logger.trace("Create BboxFeature");
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
-        this.eventName = eventName;
+        this.eventType = eventType;
         this.bbox = new Rectangle2D.Double();
         // add bbox to the sbgn glyph directly ? we don't know if label or glyph...
     }
@@ -47,7 +45,7 @@ public class BboxFeatureImpl implements BboxFeature {
         Rectangle2D oldBbox = this.getBbox();
         this.bbox = newBbox;
 
-        this.pcs.firePropertyChange(eventName, oldBbox, newBbox);
+        this.pcs.firePropertyChange(eventType.getEventKey(), oldBbox, newBbox);
         return this.uGlyph;
     }
 

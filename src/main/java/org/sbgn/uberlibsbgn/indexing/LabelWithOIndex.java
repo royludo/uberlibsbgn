@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class LabelWithOIndex extends AbstractIndex {
+public class LabelWithOIndex extends AbstractGlyphIndex {
 
     final Logger logger = LoggerFactory.getLogger(LabelWithOIndex.class);
 

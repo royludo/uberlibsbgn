@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GenericIndex extends AbstractIndex {
+public class GenericIndex extends AbstractGlyphIndex {
 
     private SetMultimap<String, AbstractUGlyph> indexedGlyphs;
     private Predicate<AbstractUGlyph> predicate;

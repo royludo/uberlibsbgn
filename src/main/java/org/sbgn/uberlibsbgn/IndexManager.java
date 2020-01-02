@@ -4,6 +4,7 @@ import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.indexing.GlyphClassIndex;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;
@@ -38,7 +39,6 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
     quadtree for collision and inclusion detection
      */
 
-    // TODO subscribe indexes only to specific events
 
     private Map<String, AbstractUGlyph> idMap;
     private Map<String, Index> indexes;
@@ -62,6 +62,7 @@ public class IndexManager implements PropertyChangeListener, CompositeChangeList
         logger.trace("Init indexes");
         // init indexes
         this.addIndex(new LabelIndex());
+        this.addIndex(new GlyphClassIndex());
     }
 
     public void addIndex(Index index) {

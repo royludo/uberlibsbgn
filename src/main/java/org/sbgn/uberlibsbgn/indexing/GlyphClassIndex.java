@@ -9,7 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class GlyphClassIndex extends AbstractIndex {
+public class GlyphClassIndex extends AbstractGlyphIndex {
 
     private Map<UGlyphClass, Set<AbstractUGlyph>> glyphClassMap;
 

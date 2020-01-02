@@ -1,9 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
-import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
+import org.sbgn.uberlibsbgn.glyphfeatures.*;
 
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
@@ -16,7 +13,7 @@ public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements Mu
     protected SimpleChemical() {
         super("simple chemical");
         this.multimerFeature = new MultimerFeatureImpl(this);
-        this.labelFeature = new LabelFeatureImpl(this);
+        this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
 
         this.compositeFeature = new CompositeFeatureImpl(this, p);
         this.multimerFeature = new MultimerFeatureImpl(this);
-        this.labelFeature = new LabelFeatureImpl(this);
+        this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
     }
 
     @Override

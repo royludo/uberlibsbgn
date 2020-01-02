@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeatureImpl;
 import org.sbgn.uberlibsbgn.glyphfeatures.MultimerFeatureImpl;
@@ -13,7 +14,7 @@ public class UnitOfInfo extends AbstractUGlyph<UnitOfInfo> implements LabelFeatu
 
     protected UnitOfInfo() {
         super("unit of information");
-        this.labelFeature = new LabelFeatureImpl(this);
+        this.labelFeature = new LabelFeatureImpl(this, EventType.UNITOFINFOLABEL);
     }
 
     @Override

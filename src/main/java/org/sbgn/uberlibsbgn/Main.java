@@ -115,6 +115,7 @@ public class Main {
             System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
         }
 
+
         Glyph g1 = new Glyph();
         g1.setId("g1");
         Label l1 = new Label();

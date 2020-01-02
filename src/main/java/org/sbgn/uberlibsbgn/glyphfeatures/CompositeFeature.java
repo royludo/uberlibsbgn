@@ -18,13 +18,13 @@ public interface CompositeFeature extends HasCompositeChangeListener {
      */
     List<AbstractUGlyph> getChildren();
 
-    AbstractUGlyph addChild(AbstractUGlyph child) ;
+    AbstractUGlyph addChild(AbstractUGlyph child);
 
     AbstractUGlyph removeChild(AbstractUGlyph child);
 
     Predicate<AbstractUGlyph> getIncludePermission();
 
-   default  boolean hasChildren(){
+   default boolean hasChildren(){
         return !this.getChildren().isEmpty();
     }
 

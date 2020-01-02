@@ -10,7 +10,7 @@ public class UnitOfInfoFeatureImpl implements UnitOfInfoFeature {
 
     private AbstractUGlyph uGlyph;
     //private Predicate<AbstractUGlyph> includeCondition;
-    private List<AbstractUGlyph> children;
+    private List<UnitOfInfo> children;
 
 
     @Override

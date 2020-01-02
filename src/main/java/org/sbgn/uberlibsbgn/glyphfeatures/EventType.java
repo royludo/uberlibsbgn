@@ -8,6 +8,8 @@ public enum EventType {
     LABELBBOX("labelbbox"),
     BBOX("bbox"),
     MULTIMER("multimer"),
+    UNITOFINFOLABEL("unitofinfolabel"),
+    UNITOFINFOBBOX("unitofinfobbox")
     ;
 
     private String eventKey;

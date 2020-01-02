@@ -23,12 +23,15 @@ public class LabelFeatureImpl implements LabelFeature {
 
     private String label = "";
 
+    private EventType eventType; // to separate label of EPNs from labels of UnitOfInfo or other stuff
+
     final Logger logger = LoggerFactory.getLogger(LabelFeatureImpl.class);
 
-    public LabelFeatureImpl(AbstractUGlyph uGlyph) {
+    public LabelFeatureImpl(AbstractUGlyph uGlyph, EventType eventType) {
         logger.trace("Create LabelFeature");
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
+        this.eventType = eventType;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class LabelFeatureImpl implements LabelFeature {
         String oldLabel = this.getLabel();
         this.label = newLabel;
 
-        this.pcs.firePropertyChange(EventType.LABEL.getEventKey(), oldLabel, newLabel);
+        this.pcs.firePropertyChange(eventType.getEventKey(), oldLabel, newLabel);
         return this.uGlyph;
     }
 
@@ -79,7 +82,7 @@ public class LabelFeatureImpl implements LabelFeature {
     @Override
     public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
         // event will be thrown by the bboxFeature
-        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX.getEventKey());
+        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX);
 
         this.bboxFeature.setBbox(rect);
         return this.uGlyph;

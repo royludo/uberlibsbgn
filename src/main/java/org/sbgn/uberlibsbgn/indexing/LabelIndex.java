@@ -2,6 +2,7 @@ package org.sbgn.uberlibsbgn.indexing;
 
 import com.google.common.collect.*;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.glyphfeatures.ArcChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
@@ -14,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class LabelIndex extends AbstractIndex {
+public class LabelIndex extends AbstractGlyphIndex {
 
     private SetMultimap<String, AbstractUGlyph> labelMap;
 

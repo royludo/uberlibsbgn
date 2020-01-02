@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GenericLabelIndex extends AbstractIndex {
+public class GenericLabelIndex extends AbstractGlyphIndex {
 
 
     private SetMultimap<String, AbstractUGlyph> indexedGlyphs;

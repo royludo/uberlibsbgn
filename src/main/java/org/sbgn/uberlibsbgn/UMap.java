@@ -1,6 +1,7 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.Language;
+import org.sbgn.uberlibsbgn.glyphfeatures.ArcFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
 import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
@@ -31,7 +32,7 @@ import static org.sbgn.uberlibsbgn.UGlyphClass.MACROMOLECULE;
  *
  * Should store some default values the user could specify on map creation. Like default size of glyph.
  */
-public class UMap {
+public class UMap extends USBGNEntity {
 
     //private List<AbstractUGlyph> glyphList;
 
@@ -104,6 +105,11 @@ public class UMap {
         //glyph.addPropertyChangeListener(this.indexManager);
         // notify index manager of change
         //this.indexManager.relationChangeAdded(new RelationChangeEvent(glyph, null, null));
+    }
+
+    public void addArc(String clazz, AbstractUGlyph from, AbstractUGlyph to) {
+        UArc arc = new UArc(clazz,from, to);
+
     }
 
     public void remove(AbstractUGlyph glyph) {
