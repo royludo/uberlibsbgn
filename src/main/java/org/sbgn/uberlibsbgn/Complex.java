@@ -1,25 +1,30 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature, MultimerFeature, LabelFeature,
+public class Complex extends EPN<Complex> implements CompositeFeature, MultimerFeature, LabelFeature,
         ComplexIncludible {
 
     private CompositeFeature compositeFeature;
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
 
-    protected Complex() {
-        super("complex");
+    final Logger logger = LoggerFactory.getLogger(Complex.class);
+
+    protected Complex(CompositeFeature parent) {
+        super("complex", parent);
 
         // define which kind of glyph are allowed to be included
-        Predicate<AbstractUGlyph> p = abstractUGlyph ->
-                abstractUGlyph instanceof ComplexIncludible;
+        Predicate<EPN> p = epn ->
+                epn instanceof ComplexIncludible;
 
         this.compositeFeature = new CompositeFeatureImpl(this, p);
         this.multimerFeature = new MultimerFeatureImpl(this);
@@ -27,22 +32,27 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
     }
 
     @Override
-    public List<AbstractUGlyph> getChildren() {
+    public List<EPN> getChildren() {
         return compositeFeature.getChildren();
     }
 
     @Override
-    public AbstractUGlyph addChild(AbstractUGlyph child) {
+    public Optional<AbstractUGlyph> getGlyph() {
+        return compositeFeature.getGlyph();
+    }
+
+    @Override
+    public EPN addChild(EPN child) {
         return compositeFeature.addChild(child);
     }
 
     @Override
-    public AbstractUGlyph removeChild(AbstractUGlyph child) {
+    public EPN removeChild(EPN child) {
         return compositeFeature.removeChild(child);
     }
 
     @Override
-    public Predicate<AbstractUGlyph> getIncludePermission() {
+    public Predicate<EPN> getIncludePermission() {
         return compositeFeature.getIncludePermission();
     }
 
@@ -87,6 +97,11 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
     }
 
     @Override
+    protected Complex self() {
+        return this;
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
@@ -108,6 +123,11 @@ public class Complex extends AbstractUGlyph<Complex> implements CompositeFeature
     @Override
     public void removeCompositeChangeListener(CompositeChangeListener listener) {
         compositeFeature.removeCompositeChangeListener(listener);
+    }
+
+    @Override
+    public List<CompositeChangeListener> getCompositeChangeListeners() {
+        return compositeFeature.getCompositeChangeListeners();
     }
 
     @Override

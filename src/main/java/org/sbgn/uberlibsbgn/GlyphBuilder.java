@@ -1,24 +1,28 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
 import org.sbgn.uberlibsbgn.glyphfeatures.HasCompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.HasPropertyChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GlyphBuilder<T extends AbstractUGlyph> {
+import java.lang.reflect.InvocationTargetException;
+
+public class GlyphBuilder<T extends EPN> {
 
     private final T glyph;
     private UMap map;
 
     final Logger logger = LoggerFactory.getLogger(GlyphBuilder.class);
 
+    @SuppressWarnings("unchecked")
     public GlyphBuilder(UGlyphClass clazz, UMap map) {
         logger.trace("Create GlyphBuilder for class: {}", clazz);
         this.map = map;
         try {
             Class c = UGlyphClass.getClass(clazz);
-            glyph = (T) c.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            glyph = (T) c.getDeclaredConstructor(CompositeFeature.class).newInstance(map);
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new IllegalArgumentException("could not instantiate");
         }
     }

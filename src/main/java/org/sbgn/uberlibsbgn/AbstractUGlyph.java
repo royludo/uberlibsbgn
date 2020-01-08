@@ -18,7 +18,7 @@ import java.util.UUID;
 
 import static org.sbgn.uberlibsbgn.GlyphType.AUXILIARY_UNIT;
 
-abstract public class AbstractUGlyph<T extends AbstractUGlyph> extends USBGNEntity implements BboxFeature {
+abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNEntity implements BboxFeature {
 
     private GlyphType glyphType;
     private UGlyphClass uGlyphClass;
@@ -51,9 +51,11 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> extends USBGNEnti
             bboxEventType = EventType.BBOX;
         }
 
-        this.bboxFeature = new BboxFeatureImpl(this, bboxEventType);
+        this.bboxFeature = new BboxFeatureImpl<>(this, bboxEventType);
 
     }
+
+    protected abstract T self(); // helps with the fluent methods and subclassing
 
     public GlyphType getGlyphType() {
         return glyphType;
@@ -78,7 +80,8 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph> extends USBGNEnti
     @Override
     @SuppressWarnings("unchecked")
     public T setBbox(Rectangle2D rect) {
-        return (T) bboxFeature.setBbox(rect);
+        bboxFeature.setBbox(rect);
+        return self();
     }
 
     @Override

@@ -48,6 +48,11 @@ public class UnitOfInfo extends AbstractUGlyph<UnitOfInfo> implements LabelFeatu
     }
 
     @Override
+    protected UnitOfInfo self() {
+        return this;
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);

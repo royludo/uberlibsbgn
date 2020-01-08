@@ -9,16 +9,16 @@ import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BboxFeatureImpl implements BboxFeature {
+public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature {
 
-    private AbstractUGlyph uGlyph;
+    private AbstractUGlyph<T> uGlyph;
     private Rectangle2D bbox;
     private final PropertyChangeSupport pcs;
     private EventType eventType; // to separate bbox of uglyphs from labels or others
 
     final Logger logger = LoggerFactory.getLogger(BboxFeatureImpl.class);
 
-    public BboxFeatureImpl(AbstractUGlyph uGlyph, EventType eventType) {
+    public BboxFeatureImpl(AbstractUGlyph<T> uGlyph, EventType eventType) {
         logger.trace("Create BboxFeature");
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
@@ -40,7 +40,7 @@ public class BboxFeatureImpl implements BboxFeature {
     }
 
     @Override
-    public AbstractUGlyph setBbox(Rectangle2D newBbox) {
+    public AbstractUGlyph<T> setBbox(Rectangle2D newBbox) {
         // throw event
         Rectangle2D oldBbox = this.getBbox();
         this.bbox = newBbox;

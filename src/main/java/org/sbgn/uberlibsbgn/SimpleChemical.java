@@ -5,13 +5,13 @@ import org.sbgn.uberlibsbgn.glyphfeatures.*;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 
-public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements MultimerFeature, LabelFeature {
+public class SimpleChemical extends EPN<SimpleChemical> implements MultimerFeature, LabelFeature {
 
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
 
-    protected SimpleChemical() {
-        super("simple chemical");
+    protected SimpleChemical(CompositeFeature parent) {
+        super("simple chemical", parent);
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
     }
@@ -54,6 +54,11 @@ public class SimpleChemical extends AbstractUGlyph<SimpleChemical> implements Mu
     @Override
     public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
         return labelFeature.setLabelBbox(rect);
+    }
+
+    @Override
+    protected SimpleChemical self() {
+        return this;
     }
 
     @Override

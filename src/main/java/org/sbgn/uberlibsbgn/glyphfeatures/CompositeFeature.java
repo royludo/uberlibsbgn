@@ -1,7 +1,11 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.EPN;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public interface CompositeFeature extends HasCompositeChangeListener {
@@ -16,15 +20,21 @@ public interface CompositeFeature extends HasCompositeChangeListener {
      * Unordered list of first level descendants
      * @return
      */
-    List<AbstractUGlyph> getChildren();
+    List<EPN> getChildren();
 
-    AbstractUGlyph addChild(AbstractUGlyph child);
+    /**
+     * If composite feature is associated with a glyph, return it. No glyph if composite is map root.
+     * @return
+     */
+    Optional<AbstractUGlyph> getGlyph();
 
-    AbstractUGlyph removeChild(AbstractUGlyph child);
+    EPN addChild(EPN child);
 
-    Predicate<AbstractUGlyph> getIncludePermission();
+    EPN removeChild(EPN child);
 
-   default boolean hasChildren(){
+    Predicate<EPN> getIncludePermission();
+
+    default boolean hasChildren(){
         return !this.getChildren().isEmpty();
     }
 
@@ -33,7 +43,7 @@ public interface CompositeFeature extends HasCompositeChangeListener {
      * @param child
      * @return
      */
-    default boolean canBeIncluded(AbstractUGlyph child) { return this.getIncludePermission().test(child);}
+    default boolean canInclude(EPN child) { return this.getIncludePermission().test(child);}
 
     boolean accept(IHierarchicalVisitor v);
     void accept(IVisitor simpleVisitor);

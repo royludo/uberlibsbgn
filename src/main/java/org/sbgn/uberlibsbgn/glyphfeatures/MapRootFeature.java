@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -22,6 +23,11 @@ public class MapRootFeature extends AbstractCompositeFeature {
         super(s -> true);
         logger.trace("Create MapRootFeature");
 
+    }
+
+    @Override
+    public Optional<AbstractUGlyph> getGlyph() {
+        return Optional.empty();
     }
 
     @Override

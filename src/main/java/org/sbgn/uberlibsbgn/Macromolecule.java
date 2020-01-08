@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-public class Macromolecule extends AbstractUGlyph<Macromolecule> implements MultimerFeature, LabelFeature, ArcFeature,
+public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature, LabelFeature, ArcFeature,
         ComplexIncludible {
 
     private MultimerFeature multimerFeature;
@@ -17,8 +17,8 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
 
     final Logger logger = LoggerFactory.getLogger(Macromolecule.class);
 
-    protected Macromolecule() {
-        super("macromolecule");
+    protected Macromolecule(CompositeFeature parent) {
+        super("macromolecule", parent);
         logger.trace("Create Macromolecule");
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
@@ -63,6 +63,11 @@ public class Macromolecule extends AbstractUGlyph<Macromolecule> implements Mult
     @Override
     public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
         return labelFeature.setLabelBbox(rect);
+    }
+
+    @Override
+    protected Macromolecule self() {
+        return this;
     }
 
     @Override

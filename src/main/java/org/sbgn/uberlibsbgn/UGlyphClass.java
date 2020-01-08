@@ -30,7 +30,7 @@ public enum UGlyphClass {
         switch(clazz) {
             case MACROMOLECULE: return Macromolecule.class;
             case COMPLEX: return Complex.class;
-
+            case SIMPLE_CHEMICAL: return SimpleChemical.class;
         }
         throw new IllegalStateException();
     }

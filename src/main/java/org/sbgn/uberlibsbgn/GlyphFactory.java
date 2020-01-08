@@ -28,6 +28,10 @@ public class GlyphFactory {
        return new GlyphBuilder<>(UGlyphClass.MACROMOLECULE, map);
    }
 
+    public GlyphBuilder<SimpleChemical> simpleChemical() {
+        return new GlyphBuilder<>(UGlyphClass.SIMPLE_CHEMICAL, map);
+    }
+
     public GlyphBuilder<Complex> complex() {
         return new GlyphBuilder<>(UGlyphClass.COMPLEX, map);
     }

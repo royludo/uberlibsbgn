@@ -6,34 +6,40 @@ import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeatureImpl;
 import org.sbgn.uberlibsbgn.glyphfeatures.IHierarchicalVisitor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Compartment extends AbstractUGlyph<Compartment> implements CompositeFeature {
+public class Compartment extends EPN<Compartment> implements CompositeFeature {
 
     private CompositeFeature compositeFeature;
 
-    protected Compartment() {
-        super("compartment");
-        this.compositeFeature = new CompositeFeatureImpl(this, abstractUGlyph -> true);
+    protected Compartment(CompositeFeature parent) {
+        super("compartment", parent);
+        this.compositeFeature = new CompositeFeatureImpl(this, epn -> true);
     }
 
     @Override
-    public List<AbstractUGlyph> getChildren() {
+    public List<EPN> getChildren() {
         return compositeFeature.getChildren();
     }
 
     @Override
-    public AbstractUGlyph addChild(AbstractUGlyph child) {
+    public Optional<AbstractUGlyph> getGlyph() {
+        return compositeFeature.getGlyph();
+    }
+
+    @Override
+    public EPN addChild(EPN child) {
         return compositeFeature.addChild(child);
     }
 
     @Override
-    public AbstractUGlyph removeChild(AbstractUGlyph child) {
+    public EPN removeChild(EPN child) {
         return compositeFeature.removeChild(child);
     }
 
     @Override
-    public Predicate<AbstractUGlyph> getIncludePermission() {
+    public Predicate<EPN> getIncludePermission() {
         return this.compositeFeature.getIncludePermission();
     }
 
@@ -45,6 +51,16 @@ public class Compartment extends AbstractUGlyph<Compartment> implements Composit
     @Override
     public void removeCompositeChangeListener(CompositeChangeListener listener) {
         this.compositeFeature.removeCompositeChangeListener(listener);
+    }
+
+    @Override
+    public List<CompositeChangeListener> getCompositeChangeListeners() {
+        return compositeFeature.getCompositeChangeListeners();
+    }
+
+    @Override
+    protected Compartment self() {
+        return this;
     }
 
     @Override

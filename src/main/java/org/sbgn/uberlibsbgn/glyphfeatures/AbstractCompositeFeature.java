@@ -1,6 +1,9 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.EPN;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,20 +12,23 @@ import java.util.function.Predicate;
 
 public abstract class AbstractCompositeFeature implements CompositeFeature {
 
-    private List<AbstractUGlyph> children;
+    private List<EPN> children;
     private List<CompositeChangeListener> compositeChangeListeners;
-    private Predicate<AbstractUGlyph> includeCondition;
+    private Predicate<EPN> includeCondition;
 
-    public AbstractCompositeFeature(Predicate<AbstractUGlyph> includeCondition) {
+    final Logger logger = LoggerFactory.getLogger(AbstractCompositeFeature.class);
+
+    public AbstractCompositeFeature(Predicate<EPN> includeCondition) {
         this.includeCondition = includeCondition;
         this.children = new ArrayList<>();
         this.compositeChangeListeners = new ArrayList<>();
     }
 
     @Override
-    public AbstractUGlyph addChild(AbstractUGlyph child) {
-        if(this.canBeIncluded(child)) {
+    public EPN addChild(EPN child) {
+        if(this.canInclude(child)) {
             this.children.add(child);
+            child.setParent(this);
 
             // throw change event
             CompositeChangeEvent cce = new CompositeChangeEvent(this, Collections.singletonList(child));
@@ -37,8 +43,10 @@ public abstract class AbstractCompositeFeature implements CompositeFeature {
         }
     }
 
+    // TODO what to do with the parent ??
     @Override
-    public AbstractUGlyph removeChild(AbstractUGlyph child) {
+    public EPN removeChild(EPN child) {
+        logger.trace("Remove child with id: {}", child.getId());
         int i = this.children.indexOf(child);
         if(i == -1) {
             throw new IllegalArgumentException("Glyph "+child.getId()+" is not a child of this glyph "+this);
@@ -49,6 +57,7 @@ public abstract class AbstractCompositeFeature implements CompositeFeature {
         // throw change event
         CompositeChangeEvent cce = new CompositeChangeEvent(
                 this, Collections.singletonList(i), Collections.singletonList(child));
+        logger.trace("Send event to listeners {}", cce);
         for(CompositeChangeListener listener: this.compositeChangeListeners) {
             listener.compositeChildRemoved(cce);
         }
@@ -57,21 +66,27 @@ public abstract class AbstractCompositeFeature implements CompositeFeature {
     }
 
     @Override
-    public List<AbstractUGlyph> getChildren() {
+    public List<EPN> getChildren() {
         return this.children;
     }
 
     @Override
-    public Predicate<AbstractUGlyph> getIncludePermission() {
+    public Predicate<EPN> getIncludePermission() {
         return this.includeCondition;
     }
 
+    @Override
     public void addCompositeChangeListener(CompositeChangeListener listener) {
         this.compositeChangeListeners.add(listener);
     }
 
+    @Override
     public void removeCompositeChangeListener(CompositeChangeListener listener) {
         this.compositeChangeListeners.remove(listener);
     }
 
+    @Override
+    public List<CompositeChangeListener> getCompositeChangeListeners() {
+        return this.compositeChangeListeners;
+    }
 }

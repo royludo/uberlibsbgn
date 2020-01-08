@@ -1,6 +1,7 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.EPN;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -12,9 +13,14 @@ public class CompositeFeatureImpl extends AbstractCompositeFeature {
 
     private AbstractUGlyph uGlyph;
 
-    public CompositeFeatureImpl(AbstractUGlyph uGlyph, Predicate<AbstractUGlyph> includeCondition) {
+    public CompositeFeatureImpl(EPN uGlyph, Predicate<EPN> includeCondition) {
         super(includeCondition);
         this.uGlyph = uGlyph;
+    }
+
+    @Override
+    public Optional<AbstractUGlyph> getGlyph() {
+        return Optional.of(this.uGlyph);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.Language;
-import org.sbgn.uberlibsbgn.glyphfeatures.ArcFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
-import org.sbgn.uberlibsbgn.glyphfeatures.MapRootFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.*;
 import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
@@ -32,7 +29,7 @@ import static org.sbgn.uberlibsbgn.UGlyphClass.MACROMOLECULE;
  *
  * Should store some default values the user could specify on map creation. Like default size of glyph.
  */
-public class UMap extends USBGNEntity {
+public class UMap extends USBGNEntity implements CompositeFeature {
 
     //private List<AbstractUGlyph> glyphList;
 
@@ -70,11 +67,11 @@ public class UMap extends USBGNEntity {
 
     }
 
-    public UMap(Language sbgnLanguage, List<AbstractUGlyph> glyphs) {
+    public UMap(Language sbgnLanguage, List<EPN> glyphs) {
         this(sbgnLanguage);
 
         logger.trace("Add list of glyphs");
-        for(AbstractUGlyph uglyph: glyphs) {
+        for(EPN uglyph: glyphs) {
             this.add(uglyph);
         }
 
@@ -98,7 +95,7 @@ public class UMap extends USBGNEntity {
     }*/
 
     // add to root of the map
-    public void add(AbstractUGlyph glyph) {
+    public void add(EPN glyph) {
         logger.trace("add glyph {}", glyph.getId());
         this.mapRoot.addChild(glyph);
         //this.map.getGlyph().add(glyph.getGlyph());
@@ -158,5 +155,61 @@ public class UMap extends USBGNEntity {
 
     public void accept(IVisitor simpleVisitor) {
         mapRoot.accept(simpleVisitor);
+    }
+
+
+    @Override
+    public List<EPN> getChildren() {
+        return mapRoot.getChildren();
+    }
+
+    @Override
+    public Optional<AbstractUGlyph> getGlyph() {
+        return mapRoot.getGlyph();
+    }
+
+    @Override
+    public EPN addChild(EPN child) {
+        return mapRoot.addChild(child);
+    }
+
+    @Override
+    public EPN removeChild(EPN child) {
+        return mapRoot.removeChild(child);
+    }
+
+    @Override
+    public Predicate<EPN> getIncludePermission() {
+        return mapRoot.getIncludePermission();
+    }
+
+    @Override
+    public boolean hasChildren() {
+        return mapRoot.hasChildren();
+    }
+
+    @Override
+    public boolean canInclude(EPN child) {
+        return mapRoot.canInclude(child);
+    }
+
+    @Override
+    public boolean accept(IHierarchicalVisitor v) {
+        return mapRoot.accept(v);
+    }
+
+    @Override
+    public void addCompositeChangeListener(CompositeChangeListener listener) {
+        mapRoot.addCompositeChangeListener(listener);
+    }
+
+    @Override
+    public void removeCompositeChangeListener(CompositeChangeListener listener) {
+        mapRoot.removeCompositeChangeListener(listener);
+    }
+
+    @Override
+    public List<CompositeChangeListener> getCompositeChangeListeners() {
+        return mapRoot.getCompositeChangeListeners();
     }
 }
