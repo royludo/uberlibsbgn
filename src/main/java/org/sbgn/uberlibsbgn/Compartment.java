@@ -29,8 +29,8 @@ public class Compartment extends EPN<Compartment> implements CompositeFeature {
     }
 
     @Override
-    public EPN addChild(EPN child) {
-        return compositeFeature.addChild(child);
+    public EPN add(EPN child) {
+        return compositeFeature.add(child);
     }
 
     @Override

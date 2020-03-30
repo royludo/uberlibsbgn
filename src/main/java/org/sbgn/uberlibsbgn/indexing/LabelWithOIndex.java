@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultimap;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class LabelWithOIndex extends AbstractGlyphIndex {
     private HashMap<String, AbstractUGlyph> labelWithOMap;
 
     public LabelWithOIndex() {
-        super("labelWithO", Collections.singleton(EventType.LABEL));
+        super("labelWithO", Collections.singleton(EventType.LABEL), Collections.singleton(FeatureType.All));
         logger.trace("Create LabelWithOIndex");
         labelWithOMap = new HashMap<>();
     }

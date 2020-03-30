@@ -2,7 +2,8 @@ package org.sbgn.uberlibsbgn.indexing;
 
 public enum DefaultIndexes {
     LABEL("_label"),
-    CLASS("_class");
+    CLASS("_class"),
+    NEIGHBORS("_neighbors");
 
     private String indexKey;
 

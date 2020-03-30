@@ -5,10 +5,12 @@ import com.google.common.collect.SetMultimap;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Collections;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -20,7 +22,7 @@ public class GenericIndex extends AbstractGlyphIndex {
     final Logger logger = LoggerFactory.getLogger(GenericIndex.class);
 
     public GenericIndex(String indexKey, Predicate<AbstractUGlyph> predicate, Set<EventType> eventTypes) {
-        super(indexKey, eventTypes);
+        super(indexKey, eventTypes, Collections.singleton(FeatureType.All));
 
         logger.trace("Create GenericIndex with key: {}", indexKey);
         this.indexedGlyphs = HashMultimap.create();

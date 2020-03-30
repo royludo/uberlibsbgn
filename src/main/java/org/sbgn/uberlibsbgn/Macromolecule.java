@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.ArcClazz;
 import org.sbgn.uberlibsbgn.glyphfeatures.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,13 +101,23 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
     }
 
     @Override
-    public boolean addIncomingArc(UArc arc) {
-        return arcFeature.addIncomingArc(arc);
+    public UArc addArcTo(ArcClazz arcClazz, AbstractUGlyph glyph) {
+        return arcFeature.addArcTo(arcClazz, glyph);
     }
 
     @Override
-    public boolean addOutgoingArc(UArc arc) {
-        return arcFeature.addOutgoingArc(arc);
+    public UArc addArcFrom(ArcClazz arcClazz, AbstractUGlyph glyph) {
+        return arcFeature.addArcFrom(arcClazz, glyph);
+    }
+
+    @Override
+    public void addIncomingArc(UArc arc) {
+        arcFeature.addIncomingArc(arc);
+    }
+
+    @Override
+    public void addOutgoingArc(UArc arc) {
+        arcFeature.addOutgoingArc(arc);
     }
 
     @Override

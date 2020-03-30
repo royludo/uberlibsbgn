@@ -23,7 +23,6 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
     private GlyphType glyphType;
     private UGlyphClass uGlyphClass;
 
-    private String id;
 
     /**
      * Useful representation of the bounding box that can be used for geometry operations.
@@ -38,8 +37,7 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
      */
     public AbstractUGlyph(String clazz) {
         logger.trace("Create AbstractUGlyph with class: {}", clazz);
-        this.id = UUID.randomUUID().toString();
-        logger.trace("Assigned random id: {}", this.id);
+        logger.trace("Assigned random id: {}", this.getId());
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
         this.uGlyphClass = UGlyphClass.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
 
@@ -63,11 +61,6 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
 
     public UGlyphClass getUGlyphClass() {
         return uGlyphClass;
-    }
-
-
-    public String getId() {
-        return this.id;
     }
 
 

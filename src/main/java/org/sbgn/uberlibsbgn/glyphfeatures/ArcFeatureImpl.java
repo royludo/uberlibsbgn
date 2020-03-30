@@ -1,7 +1,11 @@
 package org.sbgn.uberlibsbgn.glyphfeatures;
 
+import org.sbgn.ArcClazz;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.UArc;
+import org.sbgn.uberlibsbgn.UArcClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +15,8 @@ public class ArcFeatureImpl implements ArcFeature {
     private AbstractUGlyph uGlyph;
     private List<UArc> incomingArcs, outgoingArcs;
     private List<ArcChangeListener> arcChangeListeners;
+
+    final Logger logger = LoggerFactory.getLogger(ArcFeatureImpl.class);
 
     public ArcFeatureImpl(AbstractUGlyph uGlyph) {
         this.uGlyph = uGlyph;
@@ -39,29 +45,68 @@ public class ArcFeatureImpl implements ArcFeature {
         return this.outgoingArcs;
     }
 
+    // should not be accessible for users
     @Override
-    public boolean addIncomingArc(UArc arc) {
+    public void addIncomingArc(UArc arc) {
+        logger.trace("add incoming arc {}", arc.getId());
         this.incomingArcs.add(arc);
-
         ArcChangeEvent ace = new ArcChangeEvent(this.uGlyph, arc);
+        logger.trace("notify arcchangelistener arcAddedAsTarget");
         for(ArcChangeListener listener: this.arcChangeListeners) {
             listener.arcAddedAsTarget(ace);
         }
-
-        return true;
     }
 
+    // should not be accessible for users
     @Override
-    public boolean addOutgoingArc(UArc arc) {
+    public void addOutgoingArc(UArc arc) {
+        logger.trace("add outgoing arc {}", arc.getId());
         this.outgoingArcs.add(arc);
-
         ArcChangeEvent ace = new ArcChangeEvent(this.uGlyph, arc);
+        logger.trace("notify arcchangelistener arcAddedAsSource");
         for(ArcChangeListener listener: this.arcChangeListeners) {
             listener.arcAddedAsSource(ace);
         }
-
-        return true;
     }
+
+    @Override
+    public UArc addArcTo(ArcClazz arcClazz, AbstractUGlyph glyph) {
+        // create arc and notify
+        UArc arc = new UArc(arcClazz, this.uGlyph, glyph);
+        logger.trace("add arc to glyph {}, create new arc {}", glyph.getId(), arc.getId());
+        logger.trace("notify arcchangelistener arcCreated");
+        for(ArcChangeListener listener: this.arcChangeListeners) {
+            listener.arcCreated(arc);
+        }
+
+        // link arc and source and notify
+        this.addOutgoingArc(arc);
+
+        // link arc and target and notify
+        ((ArcFeature) glyph).addIncomingArc(arc);
+
+        return arc;
+    }
+
+    @Override
+    public UArc addArcFrom(ArcClazz arcClazz, AbstractUGlyph glyph) {
+        // create arc and notify
+        UArc arc = new UArc(arcClazz, glyph, this.uGlyph);
+        logger.trace("add arc from glyph {}, create new arc {}", glyph.getId(), arc.getId());
+        logger.trace("notify arcchangelistener arcCreated");
+        for(ArcChangeListener listener: this.arcChangeListeners) {
+            listener.arcCreated(arc);
+        }
+
+        // link arc and target and notify
+        this.addIncomingArc(arc);
+
+        // link arc and source and notify
+        ((ArcFeature) glyph).addOutgoingArc(arc);
+
+        return arc;
+    }
+
 
     @Override
     public boolean removeArc(UArc removedArc) {

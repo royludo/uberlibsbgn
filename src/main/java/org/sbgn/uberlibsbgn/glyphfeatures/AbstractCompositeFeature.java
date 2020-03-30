@@ -25,7 +25,7 @@ public abstract class AbstractCompositeFeature implements CompositeFeature {
     }
 
     @Override
-    public EPN addChild(EPN child) {
+    public EPN add(EPN child) {
         if(this.canInclude(child)) {
             this.children.add(child);
             child.setParent(this);

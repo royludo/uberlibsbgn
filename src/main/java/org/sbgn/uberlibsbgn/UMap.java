@@ -8,14 +8,9 @@ import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static org.sbgn.uberlibsbgn.UGlyphClass.MACROMOLECULE;
 
 /**
  * UMap is the only object we are sure to be unique in practice, as it is the parent for everything.
@@ -37,8 +32,6 @@ public class UMap extends USBGNEntity implements CompositeFeature {
 
     private IndexManager indexManager;
 
-    private String id;
-
     private GlyphFactory glyphFactory;
 
     private CompositeFeature mapRoot;
@@ -54,7 +47,6 @@ public class UMap extends USBGNEntity implements CompositeFeature {
             throw new UnsupportedOperationException("uberlibsbgn only supports PD and AF maps");
         }
 
-        this.id = "default";
         this.sbgnLanguage = sbgnLanguage;
         this.mapRoot = new MapRootFeature();
         //this.glyphList = new ArrayList<>();
@@ -95,19 +87,20 @@ public class UMap extends USBGNEntity implements CompositeFeature {
     }*/
 
     // add to root of the map
-    public void add(EPN glyph) {
+    // same as addChild
+    /*public void add(EPN glyph) {
         logger.trace("add glyph {}", glyph.getId());
         this.mapRoot.addChild(glyph);
         //this.map.getGlyph().add(glyph.getGlyph());
         //glyph.addPropertyChangeListener(this.indexManager);
         // notify index manager of change
         //this.indexManager.relationChangeAdded(new RelationChangeEvent(glyph, null, null));
-    }
+    }*/
 
-    public void addArc(String clazz, AbstractUGlyph from, AbstractUGlyph to) {
+    /*public void addArc(ArcClazz clazz, AbstractUGlyph from, AbstractUGlyph to) {
         UArc arc = new UArc(clazz,from, to);
 
-    }
+    }*/
 
     public void remove(AbstractUGlyph glyph) {
         logger.trace("remove glyph {}", glyph.getId());
@@ -119,9 +112,6 @@ public class UMap extends USBGNEntity implements CompositeFeature {
     properties but also use map indexes.
      */
 
-    public String getId() {
-        return id;
-    }
 
     public IndexManager getIndexManager() {
         return indexManager;
@@ -169,8 +159,8 @@ public class UMap extends USBGNEntity implements CompositeFeature {
     }
 
     @Override
-    public EPN addChild(EPN child) {
-        return mapRoot.addChild(child);
+    public EPN add(EPN child) {
+        return mapRoot.add(child);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package org.sbgn.uberlibsbgn.indexing;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.UArc;
 import org.sbgn.uberlibsbgn.UGlyphClass;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
 
 import java.beans.PropertyChangeEvent;
 import java.util.*;
@@ -14,7 +16,7 @@ public class GlyphClassIndex extends AbstractGlyphIndex {
     private Map<UGlyphClass, Set<AbstractUGlyph>> glyphClassMap;
 
     public GlyphClassIndex() {
-        super(DefaultIndexes.CLASS.getIndexKey(), Collections.singleton(EventType.NONE));
+        super(DefaultIndexes.CLASS.getIndexKey(), Collections.singleton(EventType.NONE), Collections.singleton(FeatureType.All));
 
         this.glyphClassMap = new HashMap<>();
         // init the map right away, so there is no need to check for existence of keys later

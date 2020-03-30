@@ -4,6 +4,7 @@ import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.ArcChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -14,4 +15,5 @@ public interface Index extends PropertyChangeListener, CompositeChangeListener, 
     void parse(AbstractUGlyph uGlyph);
     String getIndexKey();
     Set<EventType> getEventTypes();
+    Set<FeatureType> getFeatureTypes();
 }

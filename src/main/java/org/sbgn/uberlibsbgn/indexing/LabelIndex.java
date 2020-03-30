@@ -2,10 +2,7 @@ package org.sbgn.uberlibsbgn.indexing;
 
 import com.google.common.collect.*;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
-import org.sbgn.uberlibsbgn.glyphfeatures.ArcChangeEvent;
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
-import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
+import org.sbgn.uberlibsbgn.glyphfeatures.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +19,7 @@ public class LabelIndex extends AbstractGlyphIndex {
     final Logger logger = LoggerFactory.getLogger(LabelIndex.class);
 
     public LabelIndex() {
-        super(DefaultIndexes.LABEL.getIndexKey(), Collections.singleton(EventType.LABEL));
+        super(DefaultIndexes.LABEL.getIndexKey(), Collections.singleton(EventType.LABEL), Collections.singleton(FeatureType.All));
         logger.trace("Create LabelIndex");
         this.labelMap = HashMultimap.create();
     }
@@ -97,6 +94,16 @@ public class LabelIndex extends AbstractGlyphIndex {
     public void parse(AbstractUGlyph uGlyph) {
         if(uGlyph instanceof LabelFeature) {
             labelMap.put(((LabelFeature) uGlyph).getLabel(), uGlyph);
+        }
+    }
+
+    public void print() {
+        for(String label: this.labelMap.keySet()) {
+            System.out.print(label+" [");
+            for(AbstractUGlyph glyph: this.labelMap.get(label)) {
+                System.out.print(glyph.getId()+" ");
+            }
+            System.out.println("]");
         }
     }
 }

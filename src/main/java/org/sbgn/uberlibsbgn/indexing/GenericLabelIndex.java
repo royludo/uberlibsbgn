@@ -5,6 +5,7 @@ import com.google.common.collect.SetMultimap;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
 import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class GenericLabelIndex extends AbstractGlyphIndex {
 
 
     public GenericLabelIndex(String indexKey, Predicate<String> predicate) {
-        super(indexKey, Collections.singleton(EventType.LABEL));
+        super(indexKey, Collections.singleton(EventType.LABEL), Collections.singleton(FeatureType.All));
 
         logger.trace("Create GenericLabelIndex with key: {}", indexKey);
         this.indexedGlyphs = HashMultimap.create();

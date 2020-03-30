@@ -35,7 +35,6 @@ public class MainTest {
                 .setLabel("my macro");
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
 
-        mymap.addIndex(testIndex);
         mymap.addIndex(labelWithC);
 
         System.out.println("label with c: "+labelWithC.getGlyphs());
@@ -81,21 +80,23 @@ public class MainTest {
 
 
         Complex c1 = factory.complex().build().setLabel("c1").setMultimer(true).setBbox(new Rectangle2D.Double(1,2,3,4));
-        c1.addChild(m2);
+        c1.add(m2);
         Complex c2 = factory.complex().build().setLabel("c2");
-        c1.addChild(c2);
+        c1.add(c2);
         System.out.println(c1.getChildren());
-        c2.addChild(macro);
+        c2.add(macro);
         /*Compartment comp1 = new Compartment();
         comp1.addChild(c1);*/
         //System.out.println(comp1.getChildren());
-        System.out.println(/*c1.addChild(comp1) doesn't work ofc+" "+*/c1.addChild(macro));
+        System.out.println(/*c1.addChild(comp1) doesn't work ofc+" "+*/c1.add(macro));
 
         // test regexp label index
         System.out.println(mymap.glyphsWithLabel("macro2"));
         System.out.println(mymap.glyphsWithLabelRegexp("^c.*").stream().map( t -> ((LabelFeature)t).getLabel()).collect(Collectors.toList()) );
 
         System.out.println(c1.getBbox());
+
+        mymap.addIndex(testIndex);
 
 
         DepthFirstAll depthFirstAll = new DepthFirstAll(mymap);

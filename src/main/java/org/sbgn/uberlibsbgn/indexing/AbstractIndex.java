@@ -1,6 +1,7 @@
 package org.sbgn.uberlibsbgn.indexing;
 
 import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
+import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
 
 import java.util.List;
 import java.util.Set;
@@ -9,8 +10,9 @@ abstract public class AbstractIndex implements Index {
 
     private String indexKey;
     private Set<EventType> eventTypes;
+    private Set<FeatureType> featureTypes;
 
-    public AbstractIndex(String indexKey, Set<EventType> eventTypes) {
+    public AbstractIndex(String indexKey, Set<EventType> eventTypes, Set<FeatureType> featureTypes) {
         this.indexKey = indexKey;
         // sanitize event choice
         if(eventTypes.contains(EventType.ALL) && eventTypes.size() > 1) {
@@ -20,6 +22,7 @@ abstract public class AbstractIndex implements Index {
             throw new IllegalArgumentException("If NONE is chosen it must be the only event subscribed.");
         }
         this.eventTypes = eventTypes;
+        this.featureTypes = featureTypes;
     }
 
     @Override
@@ -30,5 +33,10 @@ abstract public class AbstractIndex implements Index {
     @Override
     public Set<EventType> getEventTypes() {
         return eventTypes;
+    }
+
+    @Override
+    public Set<FeatureType> getFeatureTypes() {
+        return featureTypes;
     }
 }

@@ -28,7 +28,7 @@ public interface CompositeFeature extends HasCompositeChangeListener {
      */
     Optional<AbstractUGlyph> getGlyph();
 
-    EPN addChild(EPN child);
+    EPN add(EPN child);
 
     EPN removeChild(EPN child);
 

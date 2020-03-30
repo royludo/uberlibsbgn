@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -59,7 +58,7 @@ public abstract class EPN<T extends EPN<T>> extends AbstractUGlyph<T> {
         if(compositeParent.canInclude(this)) {
             // manage removal from previous parent first before adding to new parent
             previousParent.removeChild(this);
-            compositeParent.addChild(this);
+            compositeParent.add(this);
             this.parent = compositeParent;
             return compositeParent;
         }

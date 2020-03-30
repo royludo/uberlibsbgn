@@ -9,7 +9,11 @@ public enum EventType {
     BBOX("bbox"),
     MULTIMER("multimer"),
     UNITOFINFOLABEL("unitofinfolabel"),
-    UNITOFINFOBBOX("unitofinfobbox")
+    UNITOFINFOBBOX("unitofinfobbox"),
+
+    ARCCHANGE("arcchange"),
+    CHILDADDED("childadded"),
+    CHILDREMOVED("childremoved")
     ;
 
     private String eventKey;
