@@ -3,7 +3,7 @@ package org.sbgn.uberlibsbgn.indexing;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.UArc;
 import org.sbgn.uberlibsbgn.Utilities;
-import org.sbgn.uberlibsbgn.glyphfeatures.*;
+import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

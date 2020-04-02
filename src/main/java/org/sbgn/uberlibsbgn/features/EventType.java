@@ -1,4 +1,4 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
 public enum EventType {
     ALL("all"),

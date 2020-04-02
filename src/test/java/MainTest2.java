@@ -31,6 +31,17 @@ public class MainTest2 {
         m1.setLabel("m2");
         labelIndex.print();
 
+        m1.addUnitOfInfo("key","val");
+
+        System.out.println("unit of info");
+        m1.getUnitOfInfoStream().forEach(u -> {
+            System.out.println(u.getLabel());
+            u.setKey("other key");
+            System.out.println(u.getLabel()+" -"+u.getKey()+"- "+u.getValue());
+            u.setLabel("nimp");
+            System.out.println(u.getLabel()+" -"+u.getKey()+"- "+u.getValue());
+        });
+
 
     }
 }

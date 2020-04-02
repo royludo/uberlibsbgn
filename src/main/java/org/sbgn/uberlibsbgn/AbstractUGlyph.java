@@ -1,20 +1,13 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.GlyphClazz;
-import org.sbgn.bindings.Bbox;
-import org.sbgn.bindings.Glyph;
-import org.sbgn.uberlibsbgn.glyphfeatures.*;
+import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 
 import static org.sbgn.uberlibsbgn.GlyphType.AUXILIARY_UNIT;
 

@@ -1,8 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.ArcClazz;
-import org.sbgn.uberlibsbgn.glyphfeatures.ArcFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.HasPropertyChangeListener;
+import org.sbgn.uberlibsbgn.features.ArcFeature;
+import org.sbgn.uberlibsbgn.features.HasPropertyChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +11,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 public class UArc extends USBGNEntity implements HasPropertyChangeListener {

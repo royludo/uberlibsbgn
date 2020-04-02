@@ -1,9 +1,9 @@
 package org.sbgn.uberlibsbgn.indexing;
 
 import org.sbgn.uberlibsbgn.UArc;
-import org.sbgn.uberlibsbgn.glyphfeatures.ArcChangeEvent;
-import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
-import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
+import org.sbgn.uberlibsbgn.features.ArcChangeEvent;
+import org.sbgn.uberlibsbgn.features.EventType;
+import org.sbgn.uberlibsbgn.features.FeatureType;
 
 import java.util.Set;
 

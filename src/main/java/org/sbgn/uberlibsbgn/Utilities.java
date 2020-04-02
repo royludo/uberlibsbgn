@@ -1,6 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
+import org.sbgn.uberlibsbgn.features.LabelFeature;
 
 public class Utilities {
 

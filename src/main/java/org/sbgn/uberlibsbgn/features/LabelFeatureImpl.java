@@ -1,17 +1,13 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
-import org.sbgn.bindings.Bbox;
-import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Optional;
 
 public class LabelFeatureImpl implements LabelFeature {
 

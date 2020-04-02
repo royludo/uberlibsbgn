@@ -1,15 +1,18 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.UnitOfInfo;
 
 import java.util.List;
+import java.util.stream.Stream;
 
-public interface UnitOfInfoFeature {
+public interface UnitOfInfoParentFeature {
 
     AbstractUGlyph addUnitOfInfo(String key, String value);
 
     UnitOfInfo getUnitOfInfoWithKey(String key);
+
+    Stream<UnitOfInfo> getUnitOfInfoStream();
 
     List<UnitOfInfo> getUnitsOfInfoWithRegex(String regex);
 

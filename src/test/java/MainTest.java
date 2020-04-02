@@ -2,7 +2,7 @@ import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.*;
 import org.sbgn.uberlibsbgn.Process;
-import org.sbgn.uberlibsbgn.glyphfeatures.LabelFeature;
+import org.sbgn.uberlibsbgn.features.LabelFeature;
 import org.sbgn.uberlibsbgn.indexing.GenericLabelIndex;
 import org.sbgn.uberlibsbgn.indexing.LabelWithOIndex;
 import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;

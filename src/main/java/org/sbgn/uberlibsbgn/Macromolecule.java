@@ -1,20 +1,22 @@
 package org.sbgn.uberlibsbgn;
 
 import org.sbgn.ArcClazz;
-import org.sbgn.uberlibsbgn.glyphfeatures.*;
+import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.stream.Stream;
 
-public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature, LabelFeature, ArcFeature,
+public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature, LabelFeature, ArcFeature, UnitOfInfoParentFeature,
         ComplexIncludible {
 
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
     private ArcFeature arcFeature;
+    private UnitOfInfoParentFeature unitOfInfoParentFeature;
 
     final Logger logger = LoggerFactory.getLogger(Macromolecule.class);
 
@@ -24,6 +26,7 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
         this.arcFeature = new ArcFeatureImpl(this);
+        this.unitOfInfoParentFeature = new UnitOfInfoParentFeatureImpl(this);
     }
 
     @Override
@@ -133,5 +136,50 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
     @Override
     public void removeArcChangeListener(ArcChangeListener listener) {
         arcFeature.removeArcChangeListener(listener);
+    }
+
+    @Override
+    public AbstractUGlyph addUnitOfInfo(String key, String value) {
+        return unitOfInfoParentFeature.addUnitOfInfo(key, value);
+    }
+
+    @Override
+    public UnitOfInfo getUnitOfInfoWithKey(String key) {
+        return unitOfInfoParentFeature.getUnitOfInfoWithKey(key);
+    }
+
+    @Override
+    public Stream<UnitOfInfo> getUnitOfInfoStream() {
+        return unitOfInfoParentFeature.getUnitOfInfoStream();
+    }
+
+    @Override
+    public List<UnitOfInfo> getUnitsOfInfoWithRegex(String regex) {
+        return unitOfInfoParentFeature.getUnitsOfInfoWithRegex(regex);
+    }
+
+    @Override
+    public boolean hasUnitOfInfo() {
+        return unitOfInfoParentFeature.hasUnitOfInfo();
+    }
+
+    @Override
+    public boolean hasUnitOfInfoWithKey(String key) {
+        return unitOfInfoParentFeature.hasUnitOfInfoWithKey(key);
+    }
+
+    @Override
+    public boolean hasUnitOfInfoWithRegex(String regex) {
+        return unitOfInfoParentFeature.hasUnitOfInfoWithRegex(regex);
+    }
+
+    @Override
+    public UnitOfInfo removeUnitOfInfoWithKey(String key) {
+        return unitOfInfoParentFeature.removeUnitOfInfoWithKey(key);
+    }
+
+    @Override
+    public List<UnitOfInfo> removeUnitsOfInfoWithRegex(String regex) {
+        return unitOfInfoParentFeature.removeUnitsOfInfoWithRegex(regex);
     }
 }

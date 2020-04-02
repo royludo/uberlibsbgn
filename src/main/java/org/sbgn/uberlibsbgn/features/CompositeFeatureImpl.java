@@ -1,4 +1,4 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.EPN;

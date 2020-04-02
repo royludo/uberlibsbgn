@@ -1,9 +1,8 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
 import org.sbgn.ArcClazz;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.UArc;
-import org.sbgn.uberlibsbgn.UArcClass;
 
 import java.util.List;
 

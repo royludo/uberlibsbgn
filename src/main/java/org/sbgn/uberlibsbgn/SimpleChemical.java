@@ -1,6 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.*;
+import org.sbgn.uberlibsbgn.features.*;
 
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;

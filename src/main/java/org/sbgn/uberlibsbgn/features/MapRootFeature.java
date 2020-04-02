@@ -1,14 +1,10 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 /**
  * A CompositeFeatureImpl that has no include conditions (can include everything) and no associated glyph, as

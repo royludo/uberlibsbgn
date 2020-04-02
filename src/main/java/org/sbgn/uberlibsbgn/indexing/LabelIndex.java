@@ -2,7 +2,7 @@ package org.sbgn.uberlibsbgn.indexing;
 
 import com.google.common.collect.*;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
-import org.sbgn.uberlibsbgn.glyphfeatures.*;
+import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

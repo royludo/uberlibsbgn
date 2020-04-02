@@ -1,9 +1,8 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.awt.geom.Rectangle2D;
 
 public interface BboxFeature<T extends AbstractUGlyph<T>> extends HasPropertyChangeListener {

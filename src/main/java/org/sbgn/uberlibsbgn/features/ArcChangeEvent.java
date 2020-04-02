@@ -1,10 +1,8 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
-import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.UArc;
 
 import java.util.EventObject;
-import java.util.List;
 
 public class ArcChangeEvent extends EventObject {
     private UArc arc;

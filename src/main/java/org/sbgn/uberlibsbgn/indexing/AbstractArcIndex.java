@@ -1,8 +1,8 @@
 package org.sbgn.uberlibsbgn.indexing;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeEvent;
-import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
-import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
+import org.sbgn.uberlibsbgn.features.CompositeChangeEvent;
+import org.sbgn.uberlibsbgn.features.EventType;
+import org.sbgn.uberlibsbgn.features.FeatureType;
 
 import java.beans.PropertyChangeEvent;
 import java.util.Set;

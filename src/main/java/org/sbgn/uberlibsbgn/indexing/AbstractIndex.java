@@ -1,9 +1,8 @@
 package org.sbgn.uberlibsbgn.indexing;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.EventType;
-import org.sbgn.uberlibsbgn.glyphfeatures.FeatureType;
+import org.sbgn.uberlibsbgn.features.EventType;
+import org.sbgn.uberlibsbgn.features.FeatureType;
 
-import java.util.List;
 import java.util.Set;
 
 abstract public class AbstractIndex implements Index {

@@ -1,8 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.HasCompositeChangeListener;
-import org.sbgn.uberlibsbgn.glyphfeatures.HasPropertyChangeListener;
+import org.sbgn.uberlibsbgn.features.CompositeFeature;
+import org.sbgn.uberlibsbgn.features.HasCompositeChangeListener;
+import org.sbgn.uberlibsbgn.features.HasPropertyChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

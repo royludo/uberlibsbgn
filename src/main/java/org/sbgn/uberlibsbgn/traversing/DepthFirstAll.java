@@ -1,8 +1,8 @@
 package org.sbgn.uberlibsbgn.traversing;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.IVisitor;
+import org.sbgn.uberlibsbgn.features.CompositeFeature;
+import org.sbgn.uberlibsbgn.features.IVisitor;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,9 +1,9 @@
 package org.sbgn.uberlibsbgn;
 
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeChangeListener;
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeature;
-import org.sbgn.uberlibsbgn.glyphfeatures.CompositeFeatureImpl;
-import org.sbgn.uberlibsbgn.glyphfeatures.IHierarchicalVisitor;
+import org.sbgn.uberlibsbgn.features.CompositeChangeListener;
+import org.sbgn.uberlibsbgn.features.CompositeFeature;
+import org.sbgn.uberlibsbgn.features.CompositeFeatureImpl;
+import org.sbgn.uberlibsbgn.features.IHierarchicalVisitor;
 
 import java.util.List;
 import java.util.Optional;

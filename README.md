@@ -31,3 +31,21 @@ map.visitEPNs();
 map.visitTopLevel();
 
 ```
+
+## TODO
+
+ - finish index manager rework
+ - ports
+ - get rid of fluent glyph setters, impossible to keep it consistent
+ - start notes and extension
+ - style management (find good lib for color and gradient management)
+ - RDF (with rdf4j probably)
+ - interface with some graph lib (graphstream probably)
+ - and so much more...
+
+## Ideas
+ - canonicalize sbgnml with org.apache.xml.security from santuario 
+ then diff possible with diff libs
+ - possible to convert whole xml to rdf directly using rdf mapper (carml)
+ - possible to mine pathway informations directly from any rdf, so building
+ sbgn from any detailed enough knowledgebase should be feasible

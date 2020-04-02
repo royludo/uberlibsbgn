@@ -1,6 +1,5 @@
-package org.sbgn.uberlibsbgn.glyphfeatures;
+package org.sbgn.uberlibsbgn.features;
 
-import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.EPN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
