@@ -20,6 +20,7 @@ public class UnitOfInfoParentFeatureImpl implements UnitOfInfoParentFeature {
     private SetMultimap<String, String> stringContentMap;
     private Map<String, UnitOfInfo> keyMap, valueMap;
 
+    // trick to bypass the protected constructor of UnitOfInfo, is it right ? is it a code smell ?
     private class UnitOfInfoChild extends UnitOfInfo {}
 
     final Logger logger = LoggerFactory.getLogger(UnitOfInfoParentFeatureImpl.class);
@@ -34,7 +35,7 @@ public class UnitOfInfoParentFeatureImpl implements UnitOfInfoParentFeature {
 
     @Override
     public AbstractUGlyph addUnitOfInfo(String key, String value) {
-        UnitOfInfoChild u = new UnitOfInfoChild();
+        UnitOfInfo u = new UnitOfInfoChild();
         u.setLabel(key+":"+value);
 
         this.stringContentMap.put(key, value);

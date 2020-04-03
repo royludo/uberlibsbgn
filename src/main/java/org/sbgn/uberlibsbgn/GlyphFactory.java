@@ -35,4 +35,8 @@ public class GlyphFactory {
     public GlyphBuilder<Complex> complex() {
         return new GlyphBuilder<>(UGlyphClass.COMPLEX, map);
     }
+
+    public GlyphBuilder<Process> process() {
+        return new GlyphBuilder<>(UGlyphClass.PROCESS, map);
+    }
 }

@@ -31,6 +31,7 @@ public enum UGlyphClass {
             case MACROMOLECULE: return Macromolecule.class;
             case COMPLEX: return Complex.class;
             case SIMPLE_CHEMICAL: return SimpleChemical.class;
+            case PROCESS: return Process.class;
         }
         throw new IllegalStateException();
     }

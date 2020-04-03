@@ -10,6 +10,9 @@ public enum EventType {
     MULTIMER("multimer"),
     UNITOFINFOLABEL("unitofinfolabel"),
     UNITOFINFOBBOX("unitofinfobbox"),
+    PORTPOSITION("portposition"),
+    PORTORIENTATION("portorientation"),
+    PORTDISTANCE("portdistance"),
 
     ARCCHANGE("arcchange"),
     CHILDADDED("childadded"),
@@ -32,6 +35,10 @@ public enum EventType {
             case "labelbbox": return LABELBBOX;
             case "bbox": return BBOX;
             case "multimer": return MULTIMER;
+
+            case "portposition": return PORTPOSITION;
+            case "portorientation": return PORTORIENTATION;
+            case "portdistance": return PORTDISTANCE;
             default:
                 throw new IllegalArgumentException("Event key: "+eventKey+" doesn't match any event");
         }
