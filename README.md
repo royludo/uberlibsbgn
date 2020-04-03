@@ -35,7 +35,7 @@ map.visitTopLevel();
 ## TODO
 
  - finish index manager rework
- - ports
+ - ~~ports~~
  - get rid of fluent glyph setters, impossible to keep it consistent
  - start notes and extension
  - style management (find good lib for color and gradient management)
