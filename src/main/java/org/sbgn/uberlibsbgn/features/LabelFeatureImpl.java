@@ -1,11 +1,11 @@
 package org.sbgn.uberlibsbgn.features;
 
+import javafx.geometry.Rectangle2D;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

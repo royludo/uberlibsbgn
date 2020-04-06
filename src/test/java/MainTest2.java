@@ -1,15 +1,15 @@
+import javafx.geometry.Orientation;
+import javafx.geometry.Rectangle2D;
 import org.sbgn.ArcClazz;
 import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.Macromolecule;
 import org.sbgn.uberlibsbgn.Process;
 import org.sbgn.uberlibsbgn.UMap;
-import org.sbgn.uberlibsbgn.features.Orientation;
 import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.sbgn.uberlibsbgn.indexing.NeighborsIndex;
 
-import java.awt.geom.Rectangle2D;
 
 public class MainTest2 {
     public static void main(String args[]) {
@@ -48,7 +48,7 @@ public class MainTest2 {
 
         Process p = map.getFactory().process().build();
         System.out.println("process bbox "+p.getBbox()+" port 1 "+p.getLHSPort()+" port2 "+p.getRHSPort());
-        p.setBbox(new Rectangle2D.Float(0,0,20,10));
+        p.setBbox(new Rectangle2D(0,0,20,10));
         System.out.println("process bbox "+p.getBbox()+" port 1 "+p.getLHSPort()+" port2 "+p.getRHSPort());
         p.setPortDistance(2.5f);
         System.out.println("process bbox "+p.getBbox()+" port 1 "+p.getLHSPort()+" port2 "+p.getRHSPort());

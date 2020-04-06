@@ -1,3 +1,4 @@
+import javafx.geometry.Rectangle2D;
 import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.*;
@@ -7,7 +8,6 @@ import org.sbgn.uberlibsbgn.indexing.GenericLabelIndex;
 import org.sbgn.uberlibsbgn.indexing.LabelWithOIndex;
 import org.sbgn.uberlibsbgn.traversing.DepthFirstAll;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,7 +79,7 @@ public class MainTest {
         //System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
 
 
-        Complex c1 = factory.complex().build().setLabel("c1").setMultimer(true).setBbox(new Rectangle2D.Double(1,2,3,4));
+        Complex c1 = factory.complex().build().setLabel("c1").setMultimer(true).setBbox(new Rectangle2D(1,2,3,4));
         c1.add(m2);
         Complex c2 = factory.complex().build().setLabel("c2");
         c1.add(c2);

@@ -1,13 +1,13 @@
 package org.sbgn.uberlibsbgn;
 
+import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
 import org.sbgn.uberlibsbgn.features.CompositeFeature;
-import org.sbgn.uberlibsbgn.features.Orientation;
 import org.sbgn.uberlibsbgn.features.PortFeature;
 import org.sbgn.uberlibsbgn.features.PortFeatureImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.geom.Point2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

@@ -1,15 +1,15 @@
 package org.sbgn.uberlibsbgn.features;
 
+import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Arrays;
 
 public class PortFeatureImpl implements PortFeature {
 
@@ -38,12 +38,18 @@ public class PortFeatureImpl implements PortFeature {
         Rectangle2D bbox = this.uGlyph.getBbox();
         Point2D lport, rport;
         if(this.orientation == Orientation.HORIZONTAL) {
-            lport = new Point2D.Float((float) (bbox.getMinX() - this.portDistance), (float) bbox.getCenterY());
-            rport = new Point2D.Float((float) (bbox.getMaxX() + this.portDistance), (float) bbox.getCenterY());
+            double centerY = bbox.getMinY() + bbox.getHeight() / 2;
+            double lX = bbox.getMinX() - this.portDistance;
+            double rX = bbox.getMaxX() + this.portDistance;
+            lport = new Point2D(lX, centerY);
+            rport = new Point2D(rX, centerY);
         }
         else {
-            lport = new Point2D.Float((float) (bbox.getCenterX()) , (float) (bbox.getMinY() - this.portDistance));
-            rport = new Point2D.Float((float) (bbox.getCenterX()) , (float) (bbox.getMaxY() + this.portDistance));
+            double centerX = bbox.getMinX() + bbox.getWidth() / 2;
+            double topY = bbox.getMinY() - this.portDistance;
+            double bottomY = bbox.getMaxY() + this.portDistance;
+            lport = new Point2D(centerX , topY);
+            rport = new Point2D(centerX , bottomY);
         }
 
         return new Point2D[]{lport, rport};

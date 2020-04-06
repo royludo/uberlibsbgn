@@ -1,12 +1,13 @@
 package org.sbgn.uberlibsbgn;
 
+import javafx.geometry.Rectangle2D;
 import org.sbgn.GlyphClazz;
 import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import static org.sbgn.uberlibsbgn.GlyphType.AUXILIARY_UNIT;
@@ -97,4 +98,8 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
         return this instanceof LabelFeature;
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+        bboxFeature.propertyChange(propertyChangeEvent);
+    }
 }

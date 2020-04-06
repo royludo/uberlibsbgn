@@ -1,8 +1,7 @@
 package org.sbgn.uberlibsbgn.features;
 
+import javafx.geometry.Rectangle2D;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
-
-import java.awt.geom.Rectangle2D;
 
 public interface LabelFeature extends HasPropertyChangeListener {
 

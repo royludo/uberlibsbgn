@@ -1,8 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
+import javafx.geometry.Rectangle2D;
 import org.sbgn.uberlibsbgn.features.*;
 
-import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 
 // pb with this kind of objects, they are the features of other glyphs, but being glyphs themselves,

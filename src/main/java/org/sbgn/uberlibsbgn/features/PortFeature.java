@@ -1,7 +1,9 @@
 package org.sbgn.uberlibsbgn.features;
 
 
-import java.awt.geom.Point2D;
+import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
+
 import java.beans.PropertyChangeListener;
 
 public interface PortFeature extends HasPropertyChangeListener, PropertyChangeListener {
