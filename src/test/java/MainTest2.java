@@ -15,9 +15,12 @@ public class MainTest2 {
 
         UMap map = new UMap(Language.PD);
 
-        Macromolecule m1 = map.getFactory().macromolecule().build().setLabel("m1");
-        Macromolecule m2 = map.getFactory().macromolecule().build().setLabel("m2");
-        Macromolecule m3 = map.getFactory().macromolecule().build().setLabel("m3");
+        Macromolecule m1 = map.getFactory().macromolecule().build();
+        m1.setLabel("m1");
+        Macromolecule m2 = map.getFactory().macromolecule().build();
+        m2.setLabel("m2");
+        Macromolecule m3 = map.getFactory().macromolecule().build();
+        m3.setLabel("m3");
 
         System.out.println("----");
         m1.addArcTo(ArcClazz.PRODUCTION, m2);
@@ -68,7 +71,8 @@ public class MainTest2 {
         System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
 
         System.out.println("-------- test children moving when parent complex moves ----------");
-        Complex c = map.getFactory().complex().build().setLabel("c");
+        Complex c = map.getFactory().complex().build();
+        c.setLabel("c");
         c.add(m1);
         System.out.println("c bbox "+c.getBbox());
         System.out.println("m1 bbox "+m1.getBbox()+" m1 label bbox "+m1.getLabelBbox());

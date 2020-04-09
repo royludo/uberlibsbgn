@@ -31,8 +31,8 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
     }
 
     @Override
-    public Macromolecule setMultimer(boolean isMultimer) {
-        return(Macromolecule) this.multimerFeature.setMultimer(isMultimer);
+    public void setMultimer(boolean isMultimer) {
+        this.multimerFeature.setMultimer(isMultimer);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
     }
 
     @Override
-    public Macromolecule setLabel(String label) {
-        return (Macromolecule) this.labelFeature.setLabel(label);
+    public void setLabel(String label) {
+        this.labelFeature.setLabel(label);
     }
 
     @Override
@@ -66,13 +66,8 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
     }
 
     @Override
-    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
-        return labelFeature.setLabelBbox(rect);
-    }
-
-    @Override
-    protected Macromolecule self() {
-        return this;
+    public void setLabelBbox(Rectangle2D rect) {
+        labelFeature.setLabelBbox(rect);
     }
 
     @Override

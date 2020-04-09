@@ -20,8 +20,8 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph<AuxiliaryUnit> implem
     }
 
     @Override
-    public AbstractUGlyph setLabel(String label) {
-        return labelFeature.setLabel(label);
+    public void setLabel(String label) {
+        labelFeature.setLabel(label);
     }
 
     @Override
@@ -45,13 +45,8 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph<AuxiliaryUnit> implem
     }
 
     @Override
-    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
-        return labelFeature.setLabelBbox(rect);
-    }
-
-    @Override
-    protected AuxiliaryUnit self() {
-        return this;
+    public void setLabelBbox(Rectangle2D rect) {
+        labelFeature.setLabelBbox(rect);
     }
 
     @Override

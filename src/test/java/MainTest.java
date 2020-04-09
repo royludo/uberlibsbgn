@@ -30,9 +30,9 @@ public class MainTest {
         Macromolecule macro= (Macromolecule) factory.newGlyphOfType(UGlyphClass.MACROMOLECULE).build();
         Macromolecule m111 = factory
                 .macromolecule()
-                .build()
-                .setMultimer(true)
-                .setLabel("my macro");
+                .build();
+        m111.setMultimer(true);
+        m111.setLabel("my macro");
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
 
         mymap.addIndex(labelWithC);
@@ -41,13 +41,15 @@ public class MainTest {
 
 
 
-        SimpleChemical sc = factory.simpleChemical().build().setLabel("I'm a simple chemical");
+        SimpleChemical sc = factory.simpleChemical().build();
+        sc.setLabel("I'm a simple chemical");
         System.out.println(sc.getLabel()+" "+sc.getLabel());
 
 
         org.sbgn.uberlibsbgn.Process pr = new Process(mymap);
 
-        Macromolecule m2 = factory.macromolecule().build().setLabel("macro2");
+        Macromolecule m2 = factory.macromolecule().build();
+        m2.setLabel("macro2");
 
         System.out.println(m2.isMultimer());
 
@@ -79,9 +81,13 @@ public class MainTest {
         //System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
 
 
-        Complex c1 = factory.complex().build().setLabel("c1").setMultimer(true).setBbox(new Rectangle2D(1,2,3,4));
+        Complex c1 = factory.complex().build();
+        c1.setLabel("c1");
+        c1.setMultimer(true);
+        c1.setBbox(new Rectangle2D(1,2,3,4));
         c1.add(m2);
-        Complex c2 = factory.complex().build().setLabel("c2");
+        Complex c2 = factory.complex().build();
+        c2.setLabel("c2");
         c1.add(c2);
         System.out.println(c1.getChildren());
         c2.add(macro);

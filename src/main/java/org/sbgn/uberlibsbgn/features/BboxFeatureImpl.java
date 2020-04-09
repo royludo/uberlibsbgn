@@ -44,14 +44,13 @@ public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature
     }
 
     @Override
-    public AbstractUGlyph<T> setBbox(Rectangle2D newBbox) {
+    public void setBbox(Rectangle2D newBbox) {
         // throw event
         Rectangle2D oldBbox = this.getBbox();
         this.bbox = newBbox;
 
         logger.trace("pcs fire propery change {}", eventType);
         this.pcs.firePropertyChange(eventType.getEventKey(), oldBbox, newBbox);
-        return this.uGlyph;
     }
 
     @Override

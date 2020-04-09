@@ -59,11 +59,6 @@ public class Compartment extends EPN<Compartment> implements CompositeFeature {
     }
 
     @Override
-    protected Compartment self() {
-        return this;
-    }
-
-    @Override
     public boolean accept(IHierarchicalVisitor v) {
         return this.compositeFeature.accept(v);
     }

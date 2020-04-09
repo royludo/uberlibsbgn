@@ -17,8 +17,8 @@ public class SimpleChemical extends EPN<SimpleChemical> implements MultimerFeatu
     }
 
     @Override
-    public SimpleChemical setMultimer(boolean isMultimer) {
-        return(SimpleChemical) this.multimerFeature.setMultimer(isMultimer);
+    public void setMultimer(boolean isMultimer) {
+        this.multimerFeature.setMultimer(isMultimer);
     }
 
     @Override
@@ -27,8 +27,8 @@ public class SimpleChemical extends EPN<SimpleChemical> implements MultimerFeatu
     }
 
     @Override
-    public SimpleChemical setLabel(String label) {
-        return (SimpleChemical) this.labelFeature.setLabel(label);
+    public void setLabel(String label) {
+        this.labelFeature.setLabel(label);
     }
 
     @Override
@@ -52,13 +52,8 @@ public class SimpleChemical extends EPN<SimpleChemical> implements MultimerFeatu
     }
 
     @Override
-    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
-        return labelFeature.setLabelBbox(rect);
-    }
-
-    @Override
-    protected SimpleChemical self() {
-        return this;
+    public void setLabelBbox(Rectangle2D rect) {
+        labelFeature.setLabelBbox(rect);
     }
 
     @Override

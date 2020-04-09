@@ -58,8 +58,8 @@ public class Complex extends EPN<Complex> implements CompositeFeature, MultimerF
     }
 
     @Override
-    public Complex setMultimer(boolean isMultimer) {
-        return(Complex) this.multimerFeature.setMultimer(isMultimer);
+    public void setMultimer(boolean isMultimer) {
+        this.multimerFeature.setMultimer(isMultimer);
     }
 
     @Override
@@ -68,8 +68,8 @@ public class Complex extends EPN<Complex> implements CompositeFeature, MultimerF
     }
 
     @Override
-    public Complex setLabel(String label) {
-        return (Complex) labelFeature.setLabel(label);
+    public void setLabel(String label) {
+        labelFeature.setLabel(label);
     }
 
     @Override
@@ -93,13 +93,8 @@ public class Complex extends EPN<Complex> implements CompositeFeature, MultimerF
     }
 
     @Override
-    public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
-        return labelFeature.setLabelBbox(rect);
-    }
-
-    @Override
-    protected Complex self() {
-        return this;
+    public void setLabelBbox(Rectangle2D rect) {
+        labelFeature.setLabelBbox(rect);
     }
 
     @Override

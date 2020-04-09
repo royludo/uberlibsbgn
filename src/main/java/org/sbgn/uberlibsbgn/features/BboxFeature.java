@@ -11,7 +11,7 @@ public interface BboxFeature<T extends AbstractUGlyph<T>> extends HasPropertyCha
     @Nonnull
     Rectangle2D getBbox();
 
-    AbstractUGlyph<T> setBbox(Rectangle2D rect);
+    void setBbox(Rectangle2D rect);
 
     boolean isBboxDefined();
 

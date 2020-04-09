@@ -47,8 +47,6 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
 
     }
 
-    protected abstract T self(); // helps with the fluent methods and subclassing
-
     public GlyphType getGlyphType() {
         return glyphType;
     }
@@ -66,9 +64,8 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
 
     @Override
     @SuppressWarnings("unchecked")
-    public T setBbox(Rectangle2D rect) {
+    public void setBbox(Rectangle2D rect) {
         bboxFeature.setBbox(rect);
-        return self();
     }
 
     @Override

@@ -25,11 +25,6 @@ public class Process extends EPN<Process> implements PortFeature {
     }
 
     @Override
-    protected Process self() {
-        return this;
-    }
-
-    @Override
     public Point2D[] getPorts() {
         return portFeature.getPorts();
     }

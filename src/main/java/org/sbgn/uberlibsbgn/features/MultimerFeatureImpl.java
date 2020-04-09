@@ -18,13 +18,11 @@ public class MultimerFeatureImpl implements MultimerFeature {
     }
 
     @Override
-    public AbstractUGlyph setMultimer(boolean isMultimer) {
+    public void setMultimer(boolean isMultimer) {
         boolean oldIsMultimer = this.isMultimer;
         this.isMultimer = isMultimer;
 
         this.pcs.firePropertyChange(EventType.MULTIMER.getEventKey(), oldIsMultimer, isMultimer);
-
-        return this.uGlyph;
     }
 
     @Override
