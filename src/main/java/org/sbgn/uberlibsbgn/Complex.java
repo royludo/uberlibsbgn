@@ -29,6 +29,7 @@ public class Complex extends EPN<Complex> implements CompositeFeature, MultimerF
         this.compositeFeature = new CompositeFeatureImpl(this, p);
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
+        ((LabelFeatureImpl) this.labelFeature).addlistener();
     }
 
     @Override

@@ -42,7 +42,9 @@ public class UnitOfInfoParentFeatureImpl implements UnitOfInfoParentFeature {
         this.keyMap.put(key, u);
         this.valueMap.put(value, u);
 
-        return this.uGlyph;
+        u.registerBboxToPropertySender(this.uGlyph);
+
+        return u;
     }
 
     @Override

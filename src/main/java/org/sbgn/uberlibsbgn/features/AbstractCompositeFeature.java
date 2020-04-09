@@ -28,6 +28,7 @@ public abstract class AbstractCompositeFeature implements CompositeFeature {
         if(this.canInclude(child)) {
             this.children.add(child);
             child.setParent(this);
+            this.getGlyph().ifPresent(child::registerBboxToPropertySender);
 
             // throw change event
             CompositeChangeEvent cce = new CompositeChangeEvent(this, Collections.singletonList(child));

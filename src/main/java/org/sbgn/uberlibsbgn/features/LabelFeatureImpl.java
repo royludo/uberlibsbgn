@@ -13,7 +13,7 @@ public class LabelFeatureImpl implements LabelFeature {
 
     private AbstractUGlyph uGlyph;
 
-    private BboxFeature bboxFeature = null; // optional field here
+    private BboxFeature bboxFeature;
 
     private final PropertyChangeSupport pcs;
 
@@ -28,6 +28,12 @@ public class LabelFeatureImpl implements LabelFeature {
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
         this.eventType = eventType;
+        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX);
+    }
+
+    // TODO try to find a better way to build this than constructor + then another mandatory function
+    public void addlistener() {
+        this.bboxFeature.registerBboxToPropertySender(this.uGlyph);
     }
 
     @Override
@@ -68,18 +74,13 @@ public class LabelFeatureImpl implements LabelFeature {
 
     @Override
     public Rectangle2D getLabelBbox() {
-        if (this.labelHasBbox()) {
-            return this.bboxFeature.getBbox();
-        } else {
-            return null;
-        }
+        return this.bboxFeature.getBbox();
     }
 
     @Override
     public AbstractUGlyph setLabelBbox(Rectangle2D rect) {
         // event will be thrown by the bboxFeature
-        this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX);
-
+        //this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX);
         this.bboxFeature.setBbox(rect);
         return this.uGlyph;
     }

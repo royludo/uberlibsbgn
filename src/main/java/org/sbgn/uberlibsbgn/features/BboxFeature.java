@@ -14,4 +14,7 @@ public interface BboxFeature<T extends AbstractUGlyph<T>> extends HasPropertyCha
     AbstractUGlyph<T> setBbox(Rectangle2D rect);
 
     boolean isBboxDefined();
+
+    // TODO find another way, this is ugly
+    void registerBboxToPropertySender(HasPropertyChangeListener listener);
 }

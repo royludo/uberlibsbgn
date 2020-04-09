@@ -15,6 +15,7 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph<AuxiliaryUnit> implem
     protected AuxiliaryUnit(String clazz, EventType labelEventType, String separator) {
         super(clazz);
         this.labelFeature = new LabelFeatureImpl(this, labelEventType);
+        ((LabelFeatureImpl) this.labelFeature).addlistener();
         this.auxUnitFeature = new AuxUnitFeatureImpl(this, separator);
     }
 

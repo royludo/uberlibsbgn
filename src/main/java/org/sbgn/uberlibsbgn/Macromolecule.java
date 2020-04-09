@@ -25,6 +25,7 @@ public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature
         logger.trace("Create Macromolecule");
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
+        ((LabelFeatureImpl) this.labelFeature).addlistener();
         this.arcFeature = new ArcFeatureImpl(this);
         this.unitOfInfoParentFeature = new UnitOfInfoParentFeatureImpl(this);
     }

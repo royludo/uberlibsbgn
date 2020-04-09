@@ -102,4 +102,9 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         bboxFeature.propertyChange(propertyChangeEvent);
     }
+
+    @Override
+    public void registerBboxToPropertySender(HasPropertyChangeListener listener) {
+        bboxFeature.registerBboxToPropertySender(listener);
+    }
 }

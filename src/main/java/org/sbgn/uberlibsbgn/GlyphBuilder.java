@@ -23,6 +23,7 @@ public class GlyphBuilder<T extends EPN> {
             Class c = UGlyphClass.getClass(clazz);
             glyph = (T) c.getDeclaredConstructor(CompositeFeature.class).newInstance(map);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("could not instantiate");
         }
     }

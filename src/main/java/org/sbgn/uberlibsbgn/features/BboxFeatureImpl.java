@@ -1,7 +1,10 @@
 package org.sbgn.uberlibsbgn.features;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.transform.Translate;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +49,7 @@ public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature
         Rectangle2D oldBbox = this.getBbox();
         this.bbox = newBbox;
 
+        logger.trace("pcs fire propery change {}", eventType);
         this.pcs.firePropertyChange(eventType.getEventKey(), oldBbox, newBbox);
         return this.uGlyph;
     }
@@ -53,6 +57,11 @@ public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature
     @Override
     public boolean isBboxDefined() {
         return !(this.bbox.getWidth() <= 0 || this.bbox.getHeight() <= 0);
+    }
+
+    @Override
+    public void registerBboxToPropertySender(HasPropertyChangeListener listener) {
+        listener.addPropertyChangeListener(this);
     }
 
     @Override
@@ -68,13 +77,20 @@ public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         String eventName = propertyChangeEvent.getPropertyName();
+        logger.trace("Event {} {}", eventName, this.getBbox());
 
-        if(eventName.equals(EventType.BBOX.getEventKey())) { // parent glyph changed
+        if(eventName.equals(EventType.BBOX.getEventKey()) || eventName.equals(EventType.UNITOFINFOBBOX.getEventKey())) { // parent glyph changed
             // this is not circular because a glyph won't be registered as listening to itself
             AbstractUGlyph source = (AbstractUGlyph) propertyChangeEvent.getSource();
             Rectangle2D oldbbox = (Rectangle2D) propertyChangeEvent.getOldValue();
-            Rectangle2D newbbox = (Rectangle2D) propertyChangeEvent.getOldValue();
-            // TODO continue
+            Rectangle2D newbbox = (Rectangle2D) propertyChangeEvent.getNewValue();
+            Translate t = Utilities.getTranslateFromRect(oldbbox, newbbox);
+            logger.trace("translate {}", t);
+            Point2D bboxLocation = new Point2D(this.bbox.getMinX(), this.bbox.getMinY());
+            Point2D transformedLocation = t.transform(bboxLocation);
+            this.setBbox(new Rectangle2D(transformedLocation.getX(), transformedLocation.getY(),
+                    this.bbox.getWidth(), this.bbox.getHeight()));
+            logger.trace("new bbox {}", this.getBbox());
 
         }
     }

@@ -2,9 +2,8 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
 import org.sbgn.ArcClazz;
 import org.sbgn.Language;
-import org.sbgn.uberlibsbgn.Macromolecule;
+import org.sbgn.uberlibsbgn.*;
 import org.sbgn.uberlibsbgn.Process;
-import org.sbgn.uberlibsbgn.UMap;
 import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
@@ -55,6 +54,29 @@ public class MainTest2 {
         p.setPortOrientation(Orientation.VERTICAL);
         System.out.println("process bbox "+p.getBbox()+" port 1 "+p.getLHSPort()+" port2 "+p.getRHSPort());
 
+        System.out.println("------- test label bbox moving when parent glyph moves ----------");
+        System.out.println("m1 bbox "+m1.getBbox());
+        System.out.println("m1 label bbox "+m1.getLabelBbox());
+        m1.setBbox(new Rectangle2D(10,10,10,20));
+        System.out.println("m1 bbox "+m1.getBbox());
+        System.out.println("m1 label bbox "+m1.getLabelBbox());
+
+        System.out.println("-------- test unit of info moving when parent moves ----------");
+        UnitOfInfo u = (UnitOfInfo) m1.addUnitOfInfo("test", "bboxchange");
+        System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
+        m1.setBbox(new Rectangle2D(20, 20, 10, 20));
+        System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
+
+        System.out.println("-------- test children moving when parent complex moves ----------");
+        Complex c = map.getFactory().complex().build().setLabel("c");
+        c.add(m1);
+        System.out.println("c bbox "+c.getBbox());
+        System.out.println("m1 bbox "+m1.getBbox()+" m1 label bbox "+m1.getLabelBbox());
+        System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
+        c.setBbox(new Rectangle2D(-35, -35, 20,20));
+        System.out.println("c bbox "+c.getBbox());
+        System.out.println("m1 bbox "+m1.getBbox()+" m1 label bbox "+m1.getLabelBbox());
+        System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
 
     }
 }
