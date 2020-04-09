@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Complex extends EPN<Complex> implements CompositeFeature, MultimerFeature, LabelFeature,
+public class Complex extends EPN implements CompositeFeature, MultimerFeature, LabelFeature,
         ComplexIncludible {
 
     private CompositeFeature compositeFeature;

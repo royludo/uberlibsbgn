@@ -13,16 +13,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature {
+public class BboxFeatureImpl implements BboxFeature {
 
-    private AbstractUGlyph<T> uGlyph;
+    private AbstractUGlyph uGlyph;
     private Rectangle2D bbox;
     private final PropertyChangeSupport pcs;
     private EventType eventType; // to separate bbox of uglyphs from labels or others
 
     final Logger logger = LoggerFactory.getLogger(BboxFeatureImpl.class);
 
-    public BboxFeatureImpl(AbstractUGlyph<T> uGlyph, EventType eventType) {
+    public BboxFeatureImpl(AbstractUGlyph uGlyph, EventType eventType) {
         logger.trace("Create BboxFeature");
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
@@ -80,7 +80,7 @@ public class BboxFeatureImpl<T extends AbstractUGlyph<T>> implements BboxFeature
 
         if(eventName.equals(EventType.BBOX.getEventKey()) || eventName.equals(EventType.UNITOFINFOBBOX.getEventKey())) { // parent glyph changed
             // this is not circular because a glyph won't be registered as listening to itself
-            AbstractUGlyph source = (AbstractUGlyph) propertyChangeEvent.getSource();
+            //AbstractUGlyph source = (AbstractUGlyph) propertyChangeEvent.getSource();
             Rectangle2D oldbbox = (Rectangle2D) propertyChangeEvent.getOldValue();
             Rectangle2D newbbox = (Rectangle2D) propertyChangeEvent.getNewValue();
             Translate t = Utilities.getTranslateFromRect(oldbbox, newbbox);

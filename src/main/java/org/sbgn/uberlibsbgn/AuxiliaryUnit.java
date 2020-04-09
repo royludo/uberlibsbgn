@@ -7,7 +7,7 @@ import java.beans.PropertyChangeListener;
 
 // pb with this kind of objects, they are the features of other glyphs, but being glyphs themselves,
 // they also have features.
-public abstract class AuxiliaryUnit extends AbstractUGlyph<AuxiliaryUnit> implements LabelFeature, AuxUnitFeature {
+public abstract class AuxiliaryUnit extends AbstractUGlyph implements LabelFeature, AuxUnitFeature {
 
     private LabelFeature labelFeature;
     private AuxUnitFeature auxUnitFeature;

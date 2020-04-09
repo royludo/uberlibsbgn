@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Compartment extends EPN<Compartment> implements CompositeFeature {
+public class Compartment extends EPN implements CompositeFeature {
 
     private CompositeFeature compositeFeature;
 

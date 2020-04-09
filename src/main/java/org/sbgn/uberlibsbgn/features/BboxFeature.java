@@ -6,7 +6,7 @@ import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 
-public interface BboxFeature<T extends AbstractUGlyph<T>> extends HasPropertyChangeListener, PropertyChangeListener {
+public interface BboxFeature extends HasPropertyChangeListener, PropertyChangeListener {
 
     @Nonnull
     Rectangle2D getBbox();

@@ -12,7 +12,7 @@ import java.beans.PropertyChangeListener;
 
 import static org.sbgn.uberlibsbgn.GlyphType.AUXILIARY_UNIT;
 
-abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNEntity implements BboxFeature {
+abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature {
 
     private GlyphType glyphType;
     private UGlyphClass uGlyphClass;
@@ -43,7 +43,7 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
             bboxEventType = EventType.BBOX;
         }
 
-        this.bboxFeature = new BboxFeatureImpl<>(this, bboxEventType);
+        this.bboxFeature = new BboxFeatureImpl(this, bboxEventType);
 
     }
 
@@ -63,7 +63,6 @@ abstract public class AbstractUGlyph<T extends AbstractUGlyph<T>> extends USBGNE
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void setBbox(Rectangle2D rect) {
         bboxFeature.setBbox(rect);
     }

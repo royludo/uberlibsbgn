@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class Process extends EPN<Process> implements PortFeature {
+public class Process extends EPN implements PortFeature {
 
     PortFeature portFeature;
 

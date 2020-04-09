@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * All glyphs that can be part of tree hierarchy of nodes, = that have a parent, so everything except units of info and such.
  */
-public abstract class EPN<T extends EPN<T>> extends AbstractUGlyph<T> {
+public abstract class EPN extends AbstractUGlyph {
 
     private CompositeFeature parent;
 

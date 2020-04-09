@@ -5,7 +5,7 @@ import org.sbgn.uberlibsbgn.features.*;
 
 import java.beans.PropertyChangeListener;
 
-public class SimpleChemical extends EPN<SimpleChemical> implements MultimerFeature, LabelFeature {
+public class SimpleChemical extends EPN implements MultimerFeature, LabelFeature {
 
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;

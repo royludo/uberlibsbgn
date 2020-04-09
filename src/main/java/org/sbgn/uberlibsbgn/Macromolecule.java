@@ -10,7 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Macromolecule extends EPN<Macromolecule> implements MultimerFeature, LabelFeature, ArcFeature, UnitOfInfoParentFeature,
+public class Macromolecule extends EPN implements MultimerFeature, LabelFeature, ArcFeature, UnitOfInfoParentFeature,
         ComplexIncludible {
 
     private MultimerFeature multimerFeature;
