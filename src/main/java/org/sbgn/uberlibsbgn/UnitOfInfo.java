@@ -4,8 +4,8 @@ import org.sbgn.uberlibsbgn.features.EventType;
 
 public class UnitOfInfo extends AuxiliaryUnit {
 
-    protected UnitOfInfo() {
-        super("unit of information", EventType.UNITOFINFOLABEL, ":");
+    protected UnitOfInfo(AbstractUGlyph parentGlyph) {
+        super("unit of information", EventType.UNITOFINFOLABEL, ":", parentGlyph);
     }
 
 }

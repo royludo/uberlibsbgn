@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn.features;
 
+import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.AuxiliaryUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +12,17 @@ public class AuxUnitFeatureImpl implements AuxUnitFeature {
 
     private AuxiliaryUnit uGlyph;
     String separator;
+    private AbstractUGlyph parentGlyph;
 
     private final PropertyChangeSupport pcs;
 
     final Logger logger = LoggerFactory.getLogger(AuxUnitFeatureImpl.class);
 
-    public AuxUnitFeatureImpl(AuxiliaryUnit uGlyph, String separator) {
+    public AuxUnitFeatureImpl(AuxiliaryUnit uGlyph, String separator, AbstractUGlyph parentGlyph) {
         this.uGlyph = uGlyph;
         this.pcs = new PropertyChangeSupport(uGlyph);
         this.separator = separator;
+        this.parentGlyph = parentGlyph;
     }
 
     @Override
@@ -60,6 +63,11 @@ public class AuxUnitFeatureImpl implements AuxUnitFeature {
     @Override
     public String getSeparator() {
         return this.separator;
+    }
+
+    @Override
+    public AbstractUGlyph getParent() {
+        return this.parentGlyph;
     }
 
     @Override

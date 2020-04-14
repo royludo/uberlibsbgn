@@ -4,6 +4,8 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.transform.Translate;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.AuxiliaryUnit;
+import org.sbgn.uberlibsbgn.EPN;
 import org.sbgn.uberlibsbgn.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +40,7 @@ public class BboxFeatureImpl implements BboxFeature {
     @Nonnull
     @Override
     public Rectangle2D getBbox() {
-        // we don't want a bbox to be modified outside of this class
-        // as it would mess the indexing
-        return new Rectangle2D(bbox.getMinX(), bbox.getMinY(), bbox.getWidth(), bbox.getHeight());
+        return this.bbox;
     }
 
     @Override
@@ -61,6 +61,39 @@ public class BboxFeatureImpl implements BboxFeature {
     @Override
     public void registerBboxToPropertySender(HasPropertyChangeListener listener) {
         listener.addPropertyChangeListener(this);
+    }
+
+    @Override
+    public void setPositionRelativeToParent(double relativeX, double relativeY) {
+        try {
+            Rectangle2D parentBbox = this.getPositionParent().getBbox();
+            this.setPosition(parentBbox.getMinX() + relativeX, parentBbox.getMinY() + relativeY);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot use relative positioning, glyph is at root of the map");
+        }
+    }
+
+    private AbstractUGlyph getPositionParent() throws Exception {
+        AbstractUGlyph uGlyph = null;
+        switch(this.eventType) {
+            case LABELBBOX:
+                uGlyph = this.uGlyph;
+                break;
+            default:
+                if(this.uGlyph instanceof EPN) {
+                    EPN epn = (EPN) this.uGlyph;
+                    if(epn.getParent().getGlyph().isPresent()){
+                        uGlyph = epn.getParent().getGlyph().get();
+                    }
+                    else {
+                        throw new Exception("Bbox's glyph doesn't have parent");
+                    }
+                }
+                else if(this.uGlyph instanceof AuxiliaryUnit) {
+                    uGlyph = ((AuxiliaryUnit) this.uGlyph).getParent();
+                }
+        }
+        return uGlyph;
     }
 
     @Override

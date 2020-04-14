@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn.features;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 
@@ -17,4 +18,12 @@ public interface BboxFeature extends HasPropertyChangeListener, PropertyChangeLi
 
     // TODO find another way, this is ugly
     void registerBboxToPropertySender(HasPropertyChangeListener listener);
+
+    default void setPosition(double x, double y) {
+        Rectangle2D oldbbox = this.getBbox();
+        this.setBbox(new Rectangle2D(x, y, oldbbox.getWidth(), oldbbox.getHeight()));
+    }
+
+    void setPositionRelativeToParent(double relativeX, double relativeY);
+
 }

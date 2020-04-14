@@ -31,6 +31,25 @@ public abstract class EPN extends AbstractUGlyph {
         return this.parent;
     }
 
+    public boolean isAtRoot() {
+        return this.getParent().getGlyph().isPresent();
+    }
+
+    public int getInclusionLevel() {
+        if(this.getParent().getGlyph().isPresent()) {
+            EPN currentElement = (EPN) this.getParent().getGlyph().get();
+            int level = 1;
+            while(!currentElement.isAtRoot()) {
+                currentElement = (EPN) this.getParent().getGlyph().get();
+                level++;
+            }
+            return level;
+        }
+        else {
+            return 0;
+        }
+    }
+
     public CompositeFeature setParent(CompositeFeature compositeParent) {
         if(compositeParent.getGlyph().isPresent()) {
             AbstractUGlyph parentGlyph = compositeParent.getGlyph().get();

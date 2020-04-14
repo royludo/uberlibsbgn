@@ -68,6 +68,11 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature 
     }
 
     @Override
+    public void setPositionRelativeToParent(double relativeX, double relativeY) {
+        bboxFeature.setPositionRelativeToParent(relativeX, relativeY);
+    }
+
+    @Override
     public boolean isBboxDefined() {
         return bboxFeature.isBboxDefined();
     }

@@ -12,11 +12,11 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph implements LabelFeatu
     private LabelFeature labelFeature;
     private AuxUnitFeature auxUnitFeature;
 
-    protected AuxiliaryUnit(String clazz, EventType labelEventType, String separator) {
+    protected AuxiliaryUnit(String clazz, EventType labelEventType, String separator, AbstractUGlyph parentGlyph) {
         super(clazz);
         this.labelFeature = new LabelFeatureImpl(this, labelEventType);
         ((LabelFeatureImpl) this.labelFeature).addlistener();
-        this.auxUnitFeature = new AuxUnitFeatureImpl(this, separator);
+        this.auxUnitFeature = new AuxUnitFeatureImpl(this, separator, parentGlyph);
     }
 
     @Override
@@ -84,5 +84,10 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph implements LabelFeatu
     @Override
     public String getSeparator() {
         return auxUnitFeature.getSeparator();
+    }
+
+    @Override
+    public AbstractUGlyph getParent() {
+        return auxUnitFeature.getParent();
     }
 }
