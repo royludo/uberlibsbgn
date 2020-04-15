@@ -15,4 +15,10 @@ public interface LabelFeature extends HasPropertyChangeListener {
     Rectangle2D getLabelBbox();
 
     void setLabelBbox(Rectangle2D rect);
+
+    void setLabelBboxPosition(double x, double y);
+
+    void setLabelBboxPositionRelativeToGlyph(BboxFeature glyph, double relativeX, double relativeY);
+
+    void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY);
 }

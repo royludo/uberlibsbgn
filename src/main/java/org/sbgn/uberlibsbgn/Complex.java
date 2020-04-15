@@ -98,6 +98,21 @@ public class Complex extends EPN implements CompositeFeature, MultimerFeature, L
     }
 
     @Override
+    public void setLabelBboxPosition(double x, double y) {
+        labelFeature.setLabelBboxPosition(x, y);
+    }
+
+    @Override
+    public void setLabelBboxPositionRelativeToGlyph(BboxFeature glyph, double relativeX, double relativeY) {
+        labelFeature.setLabelBboxPositionRelativeToGlyph(glyph, relativeX, relativeY);
+    }
+
+    @Override
+    public void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY) {
+        labelFeature.setLabelBboxPositionRelativeToParent(relativeX, relativeY);
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);

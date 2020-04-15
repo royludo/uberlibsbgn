@@ -24,6 +24,11 @@ public interface BboxFeature extends HasPropertyChangeListener, PropertyChangeLi
         this.setBbox(new Rectangle2D(x, y, oldbbox.getWidth(), oldbbox.getHeight()));
     }
 
+    default void setPositionRelativeToGlyph(BboxFeature glyph, double relativeX, double relativeY) {
+        Rectangle2D otherBbox = glyph.getBbox();
+        this.setPosition(otherBbox.getMinX() + relativeX, otherBbox.getMinY() + relativeY);
+    }
+
     void setPositionRelativeToParent(double relativeX, double relativeY);
 
 }

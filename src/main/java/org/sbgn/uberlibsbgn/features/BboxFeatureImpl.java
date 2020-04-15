@@ -65,12 +65,13 @@ public class BboxFeatureImpl implements BboxFeature {
 
     @Override
     public void setPositionRelativeToParent(double relativeX, double relativeY) {
+        AbstractUGlyph parentGlyph;
         try {
-            Rectangle2D parentBbox = this.getPositionParent().getBbox();
-            this.setPosition(parentBbox.getMinX() + relativeX, parentBbox.getMinY() + relativeY);
+            parentGlyph = this.getPositionParent();
         } catch (Exception e) {
             throw new RuntimeException("Cannot use relative positioning, glyph is at root of the map");
         }
+        this.setPositionRelativeToGlyph(parentGlyph, relativeX, relativeY);
     }
 
     private AbstractUGlyph getPositionParent() throws Exception {

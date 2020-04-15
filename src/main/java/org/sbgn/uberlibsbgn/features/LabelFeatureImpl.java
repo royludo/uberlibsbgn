@@ -9,6 +9,10 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/*  this class effectively implements BboxFeature, but if it was really implementing it, we would
+*   have names clashing at the glyph class level. (would getBbox() refer to the glyph bbox or the label
+* bbox? )
+*/
 public class LabelFeatureImpl implements LabelFeature {
 
     private AbstractUGlyph uGlyph;
@@ -81,5 +85,17 @@ public class LabelFeatureImpl implements LabelFeature {
         // event will be thrown by the bboxFeature
         //this.bboxFeature = new BboxFeatureImpl(this.uGlyph, EventType.LABELBBOX);
         this.bboxFeature.setBbox(rect);
+    }
+
+    public void setLabelBboxPosition(double x, double y) {
+        this.bboxFeature.setPosition(x, y);
+    }
+
+    public void setLabelBboxPositionRelativeToGlyph(BboxFeature glyph, double relativeX, double relativeY) {
+        this.bboxFeature.setPositionRelativeToGlyph(glyph, relativeX, relativeY);
+    }
+
+    public void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY) {
+        this.bboxFeature.setPositionRelativeToParent(relativeX, relativeY);
     }
 }
