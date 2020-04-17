@@ -13,7 +13,7 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph implements LabelFeatu
     private AuxUnitFeature auxUnitFeature;
 
     protected AuxiliaryUnit(String clazz, EventType labelEventType, String separator, AbstractUGlyph parentGlyph) {
-        super(clazz);
+        super(clazz, parentGlyph.getParentMap());
         this.labelFeature = new LabelFeatureImpl(this, labelEventType);
         ((LabelFeatureImpl) this.labelFeature).addlistener();
         this.auxUnitFeature = new AuxUnitFeatureImpl(this, separator, parentGlyph);

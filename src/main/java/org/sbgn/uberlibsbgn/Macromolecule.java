@@ -20,8 +20,8 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
 
     final Logger logger = LoggerFactory.getLogger(Macromolecule.class);
 
-    protected Macromolecule(CompositeFeature parent) {
-        super("macromolecule", parent);
+    protected Macromolecule(CompositeFeature parent, UMap parentMap) {
+        super("macromolecule", parent, parentMap);
         logger.trace("Create Macromolecule");
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);

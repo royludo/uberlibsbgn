@@ -13,8 +13,8 @@ public class Compartment extends EPN implements CompositeFeature {
 
     private CompositeFeature compositeFeature;
 
-    protected Compartment(CompositeFeature parent) {
-        super("compartment", parent);
+    protected Compartment(CompositeFeature parent, UMap parentMap) {
+        super("compartment", parent, parentMap);
         this.compositeFeature = new CompositeFeatureImpl(this, epn -> true);
     }
 

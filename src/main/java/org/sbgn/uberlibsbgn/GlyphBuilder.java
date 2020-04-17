@@ -21,7 +21,7 @@ public class GlyphBuilder<T extends EPN> {
         this.map = map;
         try {
             Class c = UGlyphClass.getClass(clazz);
-            glyph = (T) c.getDeclaredConstructor(CompositeFeature.class).newInstance(map);
+            glyph = (T) c.getDeclaredConstructor(CompositeFeature.class, UMap.class).newInstance(map, map);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("could not instantiate");

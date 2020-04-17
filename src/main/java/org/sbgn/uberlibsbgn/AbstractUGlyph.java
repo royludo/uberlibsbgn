@@ -22,6 +22,7 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
 
     private GlyphType glyphType;
     private UGlyphClass uGlyphClass;
+    private UMap parentMap;
 
 
     /**
@@ -37,11 +38,12 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
      * Minimal possible constructor for a glyph.
      * @param clazz
      */
-    public AbstractUGlyph(String clazz) {
+    public AbstractUGlyph(String clazz, UMap parentMap) {
         logger.trace("Create AbstractUGlyph with class: {}", clazz);
         logger.trace("Assigned random id: {}", this.getId());
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
         this.uGlyphClass = UGlyphClass.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
+        this.parentMap = parentMap;
 
         EventType bboxEventType;
         if(glyphType == AUXILIARY_UNIT) {
@@ -64,6 +66,9 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
         return uGlyphClass;
     }
 
+    public UMap getParentMap() {
+        return parentMap;
+    }
 
     @Nonnull
     @Override

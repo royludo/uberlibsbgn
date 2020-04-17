@@ -46,7 +46,7 @@ public class MainTest {
         System.out.println(sc.getLabel()+" "+sc.getLabel());
 
 
-        org.sbgn.uberlibsbgn.Process pr = new Process(mymap);
+        org.sbgn.uberlibsbgn.Process pr = factory.process().build();
 
         Macromolecule m2 = factory.macromolecule().build();
         m2.setLabel("macro2");
@@ -107,7 +107,7 @@ public class MainTest {
 
         DepthFirstAll depthFirstAll = new DepthFirstAll(mymap);
         for(AbstractUGlyph glyph: depthFirstAll) {
-            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+((LabelFeature) glyph).getLabel() );
+            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+Utilities.glyphString(glyph) );
         }
 
         System.out.println("Glyphs with O");

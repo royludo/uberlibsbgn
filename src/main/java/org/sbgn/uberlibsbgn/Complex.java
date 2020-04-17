@@ -19,8 +19,8 @@ public class Complex extends EPN implements CompositeFeature, MultimerFeature, L
 
     final Logger logger = LoggerFactory.getLogger(Complex.class);
 
-    protected Complex(CompositeFeature parent) {
-        super("complex", parent);
+    protected Complex(CompositeFeature parent, UMap parentMap) {
+        super("complex", parent, parentMap);
 
         // define which kind of glyph are allowed to be included
         Predicate<EPN> p = epn ->

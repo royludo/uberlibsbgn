@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * All glyphs that can be part of tree hierarchy of nodes, = that have a parent, so everything except units of info and such.
+ * All glyphs that can be part of the tree hierarchy of nodes
+ * = that have a parent, so everything except units of info and such.
  */
 public abstract class EPN extends AbstractUGlyph {
 
@@ -22,8 +23,8 @@ public abstract class EPN extends AbstractUGlyph {
      *
      * @param clazz
      */
-    public EPN(String clazz, CompositeFeature parent) {
-        super(clazz);
+    public EPN(String clazz, CompositeFeature parent, UMap parentMap) {
+        super(clazz, parentMap);
         this.parent = parent;
     }
 
