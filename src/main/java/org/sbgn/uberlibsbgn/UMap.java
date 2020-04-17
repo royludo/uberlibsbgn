@@ -1,10 +1,15 @@
 package org.sbgn.uberlibsbgn;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
 import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.features.*;
 import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
 import org.sbgn.uberlibsbgn.indexing.Index;
 import org.sbgn.uberlibsbgn.indexing.LabelIndex;
+import org.sbgn.uberlibsbgn.style.BackgroundType;
+import org.sbgn.uberlibsbgn.style.MapStyle;
+import org.sbgn.uberlibsbgn.style.MapStyleImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +29,7 @@ import java.util.stream.Collectors;
  *
  * Should store some default values the user could specify on map creation. Like default size of glyph.
  */
-public class UMap extends USBGNEntity implements CompositeFeature {
+public class UMap extends USBGNEntity implements CompositeFeature, MapStyle {
 
     //private List<AbstractUGlyph> glyphList;
 
@@ -38,6 +43,8 @@ public class UMap extends USBGNEntity implements CompositeFeature {
 
     private Language sbgnLanguage;
 
+    private MapStyle style;
+
     final Logger logger = LoggerFactory.getLogger(UMap.class);
 
     public UMap(Language sbgnLanguage) {
@@ -49,6 +56,7 @@ public class UMap extends USBGNEntity implements CompositeFeature {
 
         this.sbgnLanguage = sbgnLanguage;
         this.mapRoot = new MapRootFeature();
+        this.style = new MapStyleImpl();
         //this.glyphList = new ArrayList<>();
         this.indexManager = new IndexManager(mapRoot);
         this.glyphFactory = new GlyphFactory(this);
@@ -201,5 +209,35 @@ public class UMap extends USBGNEntity implements CompositeFeature {
     @Override
     public List<CompositeChangeListener> getCompositeChangeListeners() {
         return mapRoot.getCompositeChangeListeners();
+    }
+
+    @Override
+    public Optional<BackgroundType> getBackgroundType() {
+        return style.getBackgroundType();
+    }
+
+    @Override
+    public void setBackgroundType(BackgroundType backgroundType) {
+        style.setBackgroundType(backgroundType);
+    }
+
+    @Override
+    public Optional<Color> getBackgroundColor() {
+        return style.getBackgroundColor();
+    }
+
+    @Override
+    public void setBackgroundColor(Color color) {
+        style.setBackgroundColor(color);
+    }
+
+    @Override
+    public Optional<LinearGradient> getBackgroundLinearGradient() {
+        return style.getBackgroundLinearGradient();
+    }
+
+    @Override
+    public void setBackgroundLinearGradient(LinearGradient linearGradient) {
+        style.setBackgroundLinearGradient(linearGradient);
     }
 }

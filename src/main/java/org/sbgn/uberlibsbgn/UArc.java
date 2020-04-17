@@ -1,8 +1,11 @@
 package org.sbgn.uberlibsbgn;
 
+import javafx.scene.paint.Color;
 import org.sbgn.ArcClazz;
 import org.sbgn.uberlibsbgn.features.ArcFeature;
 import org.sbgn.uberlibsbgn.features.HasPropertyChangeListener;
+import org.sbgn.uberlibsbgn.style.ArcStyle;
+import org.sbgn.uberlibsbgn.style.ArcStyleImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +14,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 
-public class UArc extends USBGNEntity implements HasPropertyChangeListener {
+public class UArc extends USBGNEntity implements ArcStyle, HasPropertyChangeListener {
 
     private ArcClazz uArcClass;
 
@@ -23,6 +28,8 @@ public class UArc extends USBGNEntity implements HasPropertyChangeListener {
     private Point2D start, end;
     private List<Point2D> steps;
 
+    private ArcStyle style;
+
     private final PropertyChangeSupport pcs;
 
     final Logger logger = LoggerFactory.getLogger(UArc.class);
@@ -30,6 +37,7 @@ public class UArc extends USBGNEntity implements HasPropertyChangeListener {
     private UArc(ArcClazz clazz) {
         super();
         this.uArcClass = clazz;
+        this.style = new ArcStyleImpl();
         this.pcs = new PropertyChangeSupport(this);
     }
 
@@ -83,5 +91,25 @@ public class UArc extends USBGNEntity implements HasPropertyChangeListener {
     @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Optional<Color> getStrokeColor() {
+        return style.getStrokeColor();
+    }
+
+    @Override
+    public void setStrokeColor(Color c) {
+        style.setStrokeColor(c);
+    }
+
+    @Override
+    public OptionalDouble getStrokeWidth() {
+        return style.getStrokeWidth();
+    }
+
+    @Override
+    public void setStrokeWidth(double width) {
+        style.setStrokeWidth(width);
     }
 }

@@ -1,18 +1,24 @@
 package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.shape.FillRule;
 import org.sbgn.GlyphClazz;
 import org.sbgn.uberlibsbgn.features.*;
+import org.sbgn.uberlibsbgn.style.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 import static org.sbgn.uberlibsbgn.GlyphType.AUXILIARY_UNIT;
 
-abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature {
+abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature, GlyphStyle {
 
     private GlyphType glyphType;
     private UGlyphClass uGlyphClass;
@@ -22,6 +28,8 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature 
      * Useful representation of the bounding box that can be used for geometry operations.
      */
     private BboxFeature bboxFeature;
+
+    private GlyphStyle style;
 
     final Logger logger = LoggerFactory.getLogger(AbstractUGlyph.class);
 
@@ -43,6 +51,7 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature 
             bboxEventType = EventType.BBOX;
         }
 
+        this.style = new GlyphStyleImpl();
         this.bboxFeature = new BboxFeatureImpl(this, bboxEventType);
 
     }
@@ -107,5 +116,125 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature 
     @Override
     public void registerBboxToPropertySender(HasPropertyChangeListener listener) {
         bboxFeature.registerBboxToPropertySender(listener);
+    }
+
+    @Override
+    public Optional<Color> getStrokeColor() {
+        return style.getStrokeColor();
+    }
+
+    @Override
+    public void setStrokeColor(Color c) {
+        style.setStrokeColor(c);
+    }
+
+    @Override
+    public OptionalDouble getStrokeWidth() {
+        return style.getStrokeWidth();
+    }
+
+    @Override
+    public void setStrokeWidth(double width) {
+        style.setStrokeWidth(width);
+    }
+
+    @Override
+    public Optional<FillRule> getFillRule() {
+        return style.getFillRule();
+    }
+
+    @Override
+    public void setFillRule(FillRule fillRule) {
+        style.setFillRule(fillRule);
+    }
+
+    @Override
+    public Optional<FontWeight> getFontWeight() {
+        return style.getFontWeight();
+    }
+
+    @Override
+    public void setFontWeight(FontWeight fontWeight) {
+        style.setFontWeight(fontWeight);
+    }
+
+    @Override
+    public Optional<FontFamily> getFontFamily() {
+        return style.getFontFamily();
+    }
+
+    @Override
+    public void setFontFamily(FontFamily fontFamily) {
+        style.setFontFamily(fontFamily);
+    }
+
+    @Override
+    public Optional<FontStyle> getFontStyle() {
+        return style.getFontStyle();
+    }
+
+    @Override
+    public void setFontStyle(FontStyle fontStyle) {
+        style.setFontStyle(fontStyle);
+    }
+
+    @Override
+    public Optional<HTextAnchor> getHTextAnchor() {
+        return style.getHTextAnchor();
+    }
+
+    @Override
+    public void setHTextAnchor(HTextAnchor hTextAnchor) {
+        style.setHTextAnchor(hTextAnchor);
+    }
+
+    @Override
+    public Optional<VTextAnchor> getVTextAnchor() {
+        return style.getVTextAnchor();
+    }
+
+    @Override
+    public void setVTextAnchor(VTextAnchor vTextAnchor) {
+        style.setVTextAnchor(vTextAnchor);
+    }
+
+    @Override
+    public OptionalDouble getFontSize() {
+        return style.getFontSize();
+    }
+
+    @Override
+    public void setFontSize(double fontSize) {
+        style.setFontSize(fontSize);
+    }
+
+    @Override
+    public Optional<BackgroundType> getBackgroundType() {
+        return style.getBackgroundType();
+    }
+
+    @Override
+    public void setBackgroundType(BackgroundType backgroundType) {
+        style.setBackgroundType(backgroundType);
+    }
+
+    @Override
+    public Optional<Color> getBackgroundColor() {
+        return style.getBackgroundColor();
+    }
+
+    @Override
+    public void setBackgroundColor(Color color) {
+        style.setBackgroundColor(color);
+    }
+
+    @Override
+    public Optional<LinearGradient> getBackgroundLinearGradient() {
+        return style.getBackgroundLinearGradient();
+    }
+
+    @Override
+    public void setBackgroundLinearGradient(LinearGradient linearGradient) {
+        style.setBackgroundLinearGradient(linearGradient);
     }
 }
