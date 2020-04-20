@@ -14,10 +14,22 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+            <!--<releases>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases> -->
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <!-- install local jar libs the way maven wants -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>2.5.2</version>
@@ -40,7 +52,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin> <!-- for JUnit integration -->
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
@@ -73,15 +85,23 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <!-- built from libsbgn repo
+
+        <!-- built from libsbgn repo
                  in org.sbgn/
                  cmd: ant fatjar
             -->
+        <!--<dependency>
             <groupId>org.sbgn</groupId>
             <artifactId>org.sbgn-with-dependencies</artifactId>
             <version>0.3</version>
+        </dependency> -->
+
+        <dependency>
+            <groupId>com.github.sbgn</groupId>
+            <artifactId>libsbgn</artifactId>
+            <version>milestone3.2</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -149,7 +169,8 @@
         <dependency>
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-client</artifactId>
-            <version>3.0.4</version>
+            <version>3.1.0</version>
+            <type>pom</type>
         </dependency>
 
     </dependencies>
