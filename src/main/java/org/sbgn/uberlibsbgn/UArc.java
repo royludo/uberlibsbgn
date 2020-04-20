@@ -30,20 +30,23 @@ public class UArc extends USBGNEntity implements ArcStyle, HasPropertyChangeList
 
     private ArcStyle style;
 
+    private UMap parentMap;
+
     private final PropertyChangeSupport pcs;
 
     final Logger logger = LoggerFactory.getLogger(UArc.class);
 
-    private UArc(ArcClazz clazz) {
+    private UArc(ArcClazz clazz, UMap parentMap) {
         super();
         this.uArcClass = clazz;
         this.style = new ArcStyleImpl();
         this.pcs = new PropertyChangeSupport(this);
+        this.parentMap = parentMap;
     }
 
     // should not be public, TODO try to solve
-    public UArc(ArcClazz clazz, AbstractUGlyph from, AbstractUGlyph to ) {
-        this(clazz);
+    public UArc(ArcClazz clazz, AbstractUGlyph from, AbstractUGlyph to) {
+        this(clazz, from.getMap());
 
         // TODO add some predicate to check permission for glyph to get arcs
         ArcFeature fromAsArcFeature, toAsArcFeature;
@@ -73,6 +76,11 @@ public class UArc extends USBGNEntity implements ArcStyle, HasPropertyChangeList
         result.addAll(steps);
         result.add(end);
         return result;
+    }
+
+    @Override
+    public UMap getMap() {
+        return this.parentMap;
     }
 
     public AbstractUGlyph getSource() {

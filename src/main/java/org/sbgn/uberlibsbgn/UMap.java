@@ -2,6 +2,13 @@ package org.sbgn.uberlibsbgn;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
+import org.eclipse.rdf4j.common.io.ResourceUtil;
+import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.impl.LinkedHashModel;
+import org.eclipse.rdf4j.model.impl.SimpleStatement;
+import org.eclipse.rdf4j.model.util.ModelBuilder;
+import org.eclipse.rdf4j.model.util.Statements;
 import org.sbgn.Language;
 import org.sbgn.uberlibsbgn.features.*;
 import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
@@ -29,7 +36,7 @@ import java.util.stream.Collectors;
  *
  * Should store some default values the user could specify on map creation. Like default size of glyph.
  */
-public class UMap extends USBGNEntity implements CompositeFeature, MapStyle {
+public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ {
 
     //private List<AbstractUGlyph> glyphList;
 
@@ -44,6 +51,8 @@ public class UMap extends USBGNEntity implements CompositeFeature, MapStyle {
     private Language sbgnLanguage;
 
     private MapStyle style;
+
+    private Model rdfModel;
 
     final Logger logger = LoggerFactory.getLogger(UMap.class);
 
@@ -60,10 +69,7 @@ public class UMap extends USBGNEntity implements CompositeFeature, MapStyle {
         //this.glyphList = new ArrayList<>();
         this.indexManager = new IndexManager(mapRoot);
         this.glyphFactory = new GlyphFactory(this);
-
-
-
-        map = new org.sbgn.bindings.Map();
+        this.rdfModel = new LinkedHashModel();
 
     }
 
@@ -88,6 +94,19 @@ public class UMap extends USBGNEntity implements CompositeFeature, MapStyle {
     public List<AbstractUGlyph> filterGlyphs(Predicate<AbstractUGlyph> p) {
         logger.trace("Filter glyphs with predicate {}", p.toString());
         return this.getIndexManager().getAllGlyphs().stream().filter(p).collect(Collectors.toList());
+    }
+
+    public MapStyle style() {
+        return this.style;
+    }
+
+    @Override
+    public UMap getMap() {
+        return this;
+    }
+
+    public Model rdf() {
+        return this.rdfModel;
     }
 
     /*public List<AbstractUGlyph> glyphsWithClass(GlyphClazz clazz) {
@@ -211,33 +230,4 @@ public class UMap extends USBGNEntity implements CompositeFeature, MapStyle {
         return mapRoot.getCompositeChangeListeners();
     }
 
-    @Override
-    public Optional<BackgroundType> getBackgroundType() {
-        return style.getBackgroundType();
-    }
-
-    @Override
-    public void setBackgroundType(BackgroundType backgroundType) {
-        style.setBackgroundType(backgroundType);
-    }
-
-    @Override
-    public Optional<Color> getBackgroundColor() {
-        return style.getBackgroundColor();
-    }
-
-    @Override
-    public void setBackgroundColor(Color color) {
-        style.setBackgroundColor(color);
-    }
-
-    @Override
-    public Optional<LinearGradient> getBackgroundLinearGradient() {
-        return style.getBackgroundLinearGradient();
-    }
-
-    @Override
-    public void setBackgroundLinearGradient(LinearGradient linearGradient) {
-        style.setBackgroundLinearGradient(linearGradient);
-    }
 }

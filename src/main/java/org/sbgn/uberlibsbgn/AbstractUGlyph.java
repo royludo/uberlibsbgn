@@ -66,8 +66,9 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
         return uGlyphClass;
     }
 
-    public UMap getParentMap() {
-        return parentMap;
+    @Override
+    public UMap getMap() {
+        return this.parentMap;
     }
 
     @Nonnull
