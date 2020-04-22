@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import javafx.css.CssParser;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import org.eclipse.rdf4j.common.io.ResourceUtil;
@@ -20,6 +21,9 @@ import org.sbgn.uberlibsbgn.style.MapStyleImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.LinkPermission;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -54,6 +58,9 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
 
     private Model rdfModel;
 
+    private Properties properties;
+    public static Properties defaultProperties;
+
     final Logger logger = LoggerFactory.getLogger(UMap.class);
 
     public UMap(Language sbgnLanguage) {
@@ -70,7 +77,7 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
         this.indexManager = new IndexManager(mapRoot);
         this.glyphFactory = new GlyphFactory(this);
         this.rdfModel = new LinkedHashModel();
-
+        this.properties = new Properties(defaultProperties);
     }
 
     public UMap(Language sbgnLanguage, List<EPN> glyphs) {
@@ -81,6 +88,24 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
             this.add(uglyph);
         }
 
+    }
+
+    /*
+      Init the default properties
+     */
+    static {
+        defaultProperties = new Properties();
+
+        try {
+            InputStream input = UMap.class.getClassLoader().getResourceAsStream("mapdefaults.properties");
+            defaultProperties.load(input);
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("=========> "+defaultProperties);
     }
 
     public Collection<AbstractUGlyph> getAllGlyphs() {
@@ -230,4 +255,7 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
         return mapRoot.getCompositeChangeListeners();
     }
 
+    public Properties getProperties() {
+        return properties;
+    }
 }
