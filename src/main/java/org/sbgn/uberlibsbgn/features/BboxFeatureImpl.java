@@ -3,10 +3,8 @@ package org.sbgn.uberlibsbgn.features;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.transform.Translate;
-import org.sbgn.uberlibsbgn.AbstractUGlyph;
-import org.sbgn.uberlibsbgn.AuxiliaryUnit;
-import org.sbgn.uberlibsbgn.EPN;
-import org.sbgn.uberlibsbgn.Utilities;
+import org.apache.xpath.operations.Bool;
+import org.sbgn.uberlibsbgn.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +12,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.function.BooleanSupplier;
 
 public class BboxFeatureImpl implements BboxFeature {
 
@@ -27,7 +26,10 @@ public class BboxFeatureImpl implements BboxFeature {
     public BboxFeatureImpl(AbstractUGlyph uGlyph, EventType eventType) {
         logger.trace("Create BboxFeature");
         this.uGlyph = uGlyph;
-        this.pcs = new PropertyChangeSupport(uGlyph);
+        BooleanSupplier bs = () -> Boolean.parseBoolean(
+                uGlyph.getMap().getProperties().getProperty(MapProperties.ENABLE_POSITION_CHANGE_EVENTS.toString()));
+        this.pcs = new ConditionalPropertyChangeSupport(uGlyph, bs);
+        //new PropertyChangeSupport(uGlyph);
         this.eventType = eventType;
         this.bbox = new Rectangle2D(0,0,0,0);
         // add bbox to the sbgn glyph directly ? we don't know if label or glyph...
