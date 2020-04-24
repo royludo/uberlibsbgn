@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class BboxTest {
 
     UMap map = new UMap(Language.PD);
-    Macromolecule m = map.getFactory().macromolecule().build();
-    Complex c = map.getFactory().complex().build();
+    Macromolecule m = map.getFactory().macromolecule();
+    Complex c = map.getFactory().complex();
     Rectangle2D differentNumbers = new Rectangle2D(1,2,3,4);
     Rectangle2D square10At10_10 = new Rectangle2D(10, 10, 10,10);
     Rectangle2D rect20_10at30_30 = new Rectangle2D(30, 30, 20, 10);

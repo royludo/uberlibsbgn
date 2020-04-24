@@ -37,10 +37,12 @@ map.visitTopLevel();
  - finish index manager rework
  - ~~ports~~
  - ~~get rid of fluent glyph setters, impossible to keep it consistent~~
- - start notes and extension
+ - ~~start notes and extension~~
  - ~~style management (find good lib for color and gradient management, javafx should do)~~
- - RDF (with rdf4j probably)
+ - ~~RDF (with rdf4j probably)~~
  - interface with some graph lib (jgraphT probably)
+ - ~~refactor glyph factory/builder~~
+ - more complete id management
  - and so much more...
 
 ## Ideas

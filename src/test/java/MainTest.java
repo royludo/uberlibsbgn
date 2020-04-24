@@ -27,10 +27,9 @@ public class MainTest {
 
         UMap mymap = new UMap(Language.PD);
         GlyphFactory factory = mymap.getFactory();
-        Macromolecule macro= (Macromolecule) factory.newGlyphOfType(UGlyphClass.MACROMOLECULE).build();
+        Macromolecule macro= factory.macromolecule();
         Macromolecule m111 = factory
-                .macromolecule()
-                .build();
+                .macromolecule();
         m111.setMultimer(true);
         m111.setLabel("my macro");
         System.out.println("test index on root "+mymap.glyphsWithLabelRegexp(".*"));
@@ -41,14 +40,14 @@ public class MainTest {
 
 
 
-        SimpleChemical sc = factory.simpleChemical().build();
+        SimpleChemical sc = factory.simpleChemical();
         sc.setLabel("I'm a simple chemical");
         System.out.println(sc.getLabel()+" "+sc.getLabel());
 
 
-        org.sbgn.uberlibsbgn.Process pr = factory.process().build();
+        org.sbgn.uberlibsbgn.Process pr = factory.process();
 
-        Macromolecule m2 = factory.macromolecule().build();
+        Macromolecule m2 = factory.macromolecule();
         m2.setLabel("macro2");
 
         System.out.println(m2.isMultimer());
@@ -81,12 +80,12 @@ public class MainTest {
         //System.out.println(map.filterGlyphs(hasClass("macromolecule").or(hasClass("process"))));
 
 
-        Complex c1 = factory.complex().build();
+        Complex c1 = factory.complex();
         c1.setLabel("c1");
         c1.setMultimer(true);
         c1.setBbox(new Rectangle2D(1,2,3,4));
         c1.add(m2);
-        Complex c2 = factory.complex().build();
+        Complex c2 = factory.complex();
         c2.setLabel("c2");
         c1.add(c2);
         System.out.println(c1.getChildren());

@@ -15,11 +15,11 @@ public class MainTest2 {
 
         UMap map = new UMap(Language.PD);
 
-        Macromolecule m1 = map.getFactory().macromolecule().build();
+        Macromolecule m1 = map.getFactory().macromolecule();
         m1.setLabel("m1");
-        Macromolecule m2 = map.getFactory().macromolecule().build();
+        Macromolecule m2 = map.getFactory().macromolecule();
         m2.setLabel("m2");
-        Macromolecule m3 = map.getFactory().macromolecule().build();
+        Macromolecule m3 = map.getFactory().macromolecule();
         m3.setLabel("m3");
 
         System.out.println("----");
@@ -48,7 +48,7 @@ public class MainTest2 {
             System.out.println(u.getLabel()+" -"+u.getKey()+"- "+u.getValue());
         });
 
-        Process p = map.getFactory().process().build();
+        Process p = map.getFactory().process();
         System.out.println("process bbox "+p.getBbox()+" port 1 "+p.getLHSPort()+" port2 "+p.getRHSPort());
         p.setBbox(new Rectangle2D(0,0,20,10));
         System.out.println("process bbox "+p.getBbox()+" port 1 "+p.getLHSPort()+" port2 "+p.getRHSPort());
@@ -71,7 +71,7 @@ public class MainTest2 {
         System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
 
         System.out.println("-------- test children moving when parent complex moves ----------");
-        Complex c = map.getFactory().complex().build();
+        Complex c = map.getFactory().complex();
         c.setLabel("c");
         c.add(m1);
         System.out.println("c bbox "+c.getBbox());

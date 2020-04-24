@@ -26,7 +26,7 @@ public enum UGlyphClass {
     UNIT_OF_INFORMATION,
     ENTITY;
 
-    public static Class getClass(UGlyphClass clazz) {
+    public static Class<?> getClass(UGlyphClass clazz) {
         switch(clazz) {
             case MACROMOLECULE: return Macromolecule.class;
             case COMPLEX: return Complex.class;

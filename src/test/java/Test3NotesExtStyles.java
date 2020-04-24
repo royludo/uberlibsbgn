@@ -4,10 +4,7 @@ import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.sbgn.ArcClazz;
 import org.sbgn.Language;
 import org.sbgn.bindings.SBGNBase;
-import org.sbgn.uberlibsbgn.Macromolecule;
-import org.sbgn.uberlibsbgn.UArc;
-import org.sbgn.uberlibsbgn.UMap;
-import org.sbgn.uberlibsbgn.UnitOfInfo;
+import org.sbgn.uberlibsbgn.*;
 import org.sbgn.uberlibsbgn.style.Util;
 
 public class Test3NotesExtStyles {
@@ -15,8 +12,8 @@ public class Test3NotesExtStyles {
 
         UMap map = new UMap(Language.PD);
 
-        Macromolecule m = map.getFactory().macromolecule().build();
-        Macromolecule m2 = map.getFactory().macromolecule().build();
+        Macromolecule m = map.getFactory().macromolecule();
+        Macromolecule m2 = map.getFactory().macromolecule();
 
         m.addNote("<p>test</p>");
         m.addNote("<html>another note</html>");
