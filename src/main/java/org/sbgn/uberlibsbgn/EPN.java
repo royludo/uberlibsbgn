@@ -23,8 +23,8 @@ public abstract class EPN extends AbstractUGlyph {
      *
      * @param clazz
      */
-    public EPN(String clazz, CompositeFeature parent, UMap parentMap) {
-        super(clazz, parentMap);
+    public EPN(String clazz, CompositeFeature parent, UMap parentMap, String id) {
+        super(clazz, parentMap, id);
         this.parent = parent;
     }
 

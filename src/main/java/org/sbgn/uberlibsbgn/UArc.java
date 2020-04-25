@@ -36,8 +36,8 @@ public class UArc extends USBGNEntity implements ArcStyle, HasPropertyChangeList
 
     final Logger logger = LoggerFactory.getLogger(UArc.class);
 
-    private UArc(ArcClazz clazz, UMap parentMap) {
-        super();
+    private UArc(ArcClazz clazz, UMap parentMap, String id) {
+        super(id);
         this.uArcClass = clazz;
         this.style = new ArcStyleImpl();
         this.pcs = new PropertyChangeSupport(this);
@@ -45,8 +45,8 @@ public class UArc extends USBGNEntity implements ArcStyle, HasPropertyChangeList
     }
 
     // should not be public, TODO try to solve
-    public UArc(ArcClazz clazz, AbstractUGlyph from, AbstractUGlyph to) {
-        this(clazz, from.getMap());
+    public UArc(ArcClazz clazz, AbstractUGlyph from, AbstractUGlyph to, String id) {
+        this(clazz, from.getMap(), id);
 
         // TODO add some predicate to check permission for glyph to get arcs
         ArcFeature fromAsArcFeature, toAsArcFeature;

@@ -71,7 +71,7 @@ public class ArcFeatureImpl implements ArcFeature {
     @Override
     public UArc addArcTo(ArcClazz arcClazz, AbstractUGlyph glyph) {
         // create arc and notify
-        UArc arc = new UArc(arcClazz, this.uGlyph, glyph);
+        UArc arc = new UArc(arcClazz, this.uGlyph, glyph, this.uGlyph.getMap().getIdManager().getNewId());
         logger.trace("add arc to glyph {}, create new arc {}", glyph.getId(), arc.getId());
         logger.trace("notify arcchangelistener arcCreated");
         for(ArcChangeListener listener: this.arcChangeListeners) {
@@ -90,7 +90,7 @@ public class ArcFeatureImpl implements ArcFeature {
     @Override
     public UArc addArcFrom(ArcClazz arcClazz, AbstractUGlyph glyph) {
         // create arc and notify
-        UArc arc = new UArc(arcClazz, glyph, this.uGlyph);
+        UArc arc = new UArc(arcClazz, glyph, this.uGlyph, this.uGlyph.getMap().getIdManager().getNewId());
         logger.trace("add arc from glyph {}, create new arc {}", glyph.getId(), arc.getId());
         logger.trace("notify arcchangelistener arcCreated");
         for(ArcChangeListener listener: this.arcChangeListeners) {

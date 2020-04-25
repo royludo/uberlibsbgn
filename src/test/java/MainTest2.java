@@ -82,5 +82,12 @@ public class MainTest2 {
         System.out.println("m1 bbox "+m1.getBbox()+" m1 label bbox "+m1.getLabelBbox());
         System.out.println("u bbox: "+u.getBbox()+" u labelbbox"+u.getLabelBbox());
 
+
+        System.out.println("================ Some id edge case ======================");
+        map.getFactory().macromolecule("11");
+        map.getFactory().macromolecule("12");
+        map.getFactory().macromolecule("13");
+        map.getFactory().macromolecule();
+
     }
 }

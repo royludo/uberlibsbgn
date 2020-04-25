@@ -21,10 +21,6 @@ public abstract class USBGNEntity implements NotesFeature, RDFFeature {
     private NotesFeature notesFeature;
     private RDFFeature rdfFeature;
 
-    protected USBGNEntity() {
-        this(UUID.randomUUID().toString());
-    }
-
     protected USBGNEntity(String id) {
         this.id = id;
         this.notesFeature = new NotesFeatureImpl();

@@ -10,8 +10,8 @@ public class SimpleChemical extends EPN implements MultimerFeature, LabelFeature
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
 
-    protected SimpleChemical(CompositeFeature parent, UMap parentMap) {
-        super("simple chemical", parent, parentMap);
+    protected SimpleChemical(CompositeFeature parent, UMap parentMap, String id) {
+        super("simple chemical", parent, parentMap, id);
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
     }

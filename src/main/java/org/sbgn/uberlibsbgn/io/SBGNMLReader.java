@@ -4,6 +4,7 @@ import org.sbgn.Language;
 import org.sbgn.SbgnUtil;
 import org.sbgn.bindings.Map;
 import org.sbgn.bindings.Sbgn;
+import org.sbgn.uberlibsbgn.IdManager;
 import org.sbgn.uberlibsbgn.MapProperties;
 import org.sbgn.uberlibsbgn.UMap;
 import org.sbgn.uberlibsbgn.USBGNEntity;

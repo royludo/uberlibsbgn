@@ -38,9 +38,10 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
      * Minimal possible constructor for a glyph.
      * @param clazz
      */
-    public AbstractUGlyph(String clazz, UMap parentMap) {
+    public AbstractUGlyph(String clazz, UMap parentMap, String id) {
+        super(id);
         logger.trace("Create AbstractUGlyph with class: {}", clazz);
-        logger.trace("Assigned random id: {}", this.getId());
+        logger.trace("Assigned id: {}", this.getId());
         this.glyphType = GlyphType.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
         this.uGlyphClass = UGlyphClass.fromGlyphClazz(GlyphClazz.fromClazz(clazz));
         this.parentMap = parentMap;

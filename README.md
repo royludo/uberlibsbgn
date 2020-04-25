@@ -42,7 +42,8 @@ map.visitTopLevel();
  - ~~RDF (with rdf4j probably)~~
  - interface with some graph lib (jgraphT probably)
  - ~~refactor glyph factory/builder~~
- - more complete id management
+ - ~~more complete id management~~ allow ids from sbgnml for arcs and
+ aux units, maybe other entities
  - and so much more...
 
 ## Ideas

@@ -58,12 +58,15 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
 
     private Model rdfModel;
 
+    private IdManager idManager;
+
     private Properties properties;
     public static Properties defaultProperties;
 
     final Logger logger = LoggerFactory.getLogger(UMap.class);
 
     public UMap(Language sbgnLanguage) {
+        super("mapId");
         logger.trace("Create UMap");
 
         if(sbgnLanguage == Language.ER) {
@@ -78,6 +81,23 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
         this.glyphFactory = new GlyphFactory(this);
         this.rdfModel = new LinkedHashModel();
         this.properties = new Properties(defaultProperties);
+
+        // process the id management property
+        IdManager.IdStrategy idStrategy;// = IdManager.IdStrategy.SIMPLE_INCREMENT;
+        String idManagementPropName = MapProperties.ID_MANAGEMENT_TYPE.toString();
+        String idManagementPropValue = properties.getProperty(idManagementPropName);
+        switch (idManagementPropValue) {
+            case "uuid":
+                idStrategy = IdManager.IdStrategy.UUID;
+                break;
+            case "increment":
+                idStrategy = IdManager.IdStrategy.SIMPLE_INCREMENT;
+                break;
+            default:
+                throw new IllegalArgumentException("Property "+idManagementPropName+" has unrecognized " +
+                        " default value: "+idManagementPropValue);
+        }
+        this.idManager = new IdManager(idStrategy);
     }
 
     public UMap(Language sbgnLanguage, List<EPN> glyphs) {
@@ -132,6 +152,10 @@ public class UMap extends USBGNEntity implements CompositeFeature/*, MapStyle*/ 
 
     public Model rdf() {
         return this.rdfModel;
+    }
+
+    public IdManager getIdManager() {
+        return idManager;
     }
 
     /*public List<AbstractUGlyph> glyphsWithClass(GlyphClazz clazz) {

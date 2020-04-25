@@ -17,8 +17,8 @@ public class Process extends EPN implements PortFeature {
 
     final Logger logger = LoggerFactory.getLogger(Process.class);
 
-    protected Process(CompositeFeature parent, UMap parentMap) {
-        super("process", parent, parentMap);
+    protected Process(CompositeFeature parent, UMap parentMap, String id) {
+        super("process", parent, parentMap, id);
         logger.trace("create process");
         this.portFeature = new PortFeatureImpl(this);
         this.addPropertyChangeListener(this.portFeature);
