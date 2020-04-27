@@ -14,7 +14,7 @@ public class IdManager {
 
     private Set<String> idSet;
 
-    private static long idCounter = 1;
+    private long idCounter = 1;
 
     final Logger logger = LoggerFactory.getLogger(IdManager.class);
 
@@ -27,12 +27,10 @@ public class IdManager {
         String id;
         switch (this.strategy) {
             case UUID:
-                id = UUID.randomUUID().toString();
-                this.checkAndAddId(id);
+                id = this.checkAndAddId(UUID.randomUUID().toString());
                 break;
             case SIMPLE_INCREMENT:
-                id = createIncrementalID();
-                id = this.checkAndAddIncrementalId(id);
+                id = this.checkAndAddIncrementalId(createIncrementalID());
                 break;
             default:
                 throw new IllegalStateException("Unknown id management strategy");
@@ -43,21 +41,22 @@ public class IdManager {
     }
 
     public synchronized String useCustomId(String id) {
-        this.checkAndAddId(id);
-        return id;
+        return this.checkAndAddId(id);
     }
 
     public enum IdStrategy {
         UUID, SIMPLE_INCREMENT;
     }
 
-    private synchronized void checkAndAddId(String id) {
+    private synchronized String checkAndAddId(String id) {
         String definitiveId = "_" + id;
 
         if(this.idSet.contains(definitiveId)) {
             throw new IllegalArgumentException("Trying to use non unique id. Id: " + definitiveId + " was already present.");
         }
         this.idSet.add(definitiveId);
+
+        return definitiveId;
     }
 
     /**
