@@ -57,33 +57,28 @@ public class SBGNMLReader {
         UMap uMap = new UMap(language);
         uMap.getProperties().setProperty(MapProperties.ENABLE_POSITION_CHANGE_EVENTS.toString(), "false");
 
-        // first pass to get compartments
-        // start by creating top level compartments that do not depend on anything, then included lower levels
+
+        // first pass, to get compartments
+        // start by creating top level compartments that do not depend on anything, then include lower levels
         LinkedList<Glyph> compartmentList = new LinkedList<>();
         for(Glyph glyph: map.getGlyph()) {
             if(glyph.getClazz().equals("compartment")) {
 
                 if(glyph.getCompartmentRef() == null) { // top level
-                    // put at the start of the queue
-                    //compartmentList.addFirst(glyph);
-                    Compartment compartment = uMap.getFactory().compartment(glyph);
+                    uMap.getFactory().compartment(glyph);
                 }
                 else { // compartment is included in another compartment
 
                     // try to process
                     Glyph ref = (Glyph) glyph.getCompartmentRef();
                     if(uMap.getGlyph(ref.getId()) != null) { // parent is already in uMap, so we can include right here
-                        System.out.println(ref.getId()+" already there");
                         Compartment subCompartment = uMap.getFactory().compartment(glyph);
                         Compartment parent = (Compartment) uMap.getGlyph(ref.getId());
                         parent.add(subCompartment);
                     }
                     else {
-                        // if unable
                         compartmentList.add(glyph);
                     }
-
-
                 }
             }
         }
@@ -91,7 +86,9 @@ public class SBGNMLReader {
 
         // at this point we have a list of non added remaining compartments
         // iterate over the list until all of them have included
-        // TODO risk of infinite loop here if there is an orphan compartment pointing to a non existent parent
+        // risk of infinite loop here if there is an compartment pointing to an invalid parent
+        // if reference were pointing to a non existent glyph, the compartment would be considered top level
+        int infinityPreventionCounter = 0;
         while(compartmentList.size() != 0) {
             logger.trace("remaining compartment list size: "+compartmentList.size());
             Glyph currentGlyph = compartmentList.getFirst();
@@ -101,11 +98,24 @@ public class SBGNMLReader {
                 Compartment parent = (Compartment) uMap.getGlyph(ref.getId());
                 parent.add(subCompartment);
                 compartmentList.removeFirst();
+                infinityPreventionCounter = 0;
             }
             else { // put first in last position
                 compartmentList.addLast(compartmentList.removeFirst());
+
+                infinityPreventionCounter++;
+                if(infinityPreventionCounter > compartmentList.size()) {
+                    // we have looped over all the list without removing something, we are stuck
+                    logger.warn("Found "+compartmentList.size()+" orphan compartments pointing to invalid parent");
+                    for(Glyph g: compartmentList) {
+                        logger.warn("Compartment with id "+ g.getId() +" has invalid parent "+
+                                ((Glyph) g.getCompartmentRef()).getId());
+                    }
+                    break;
+                }
             }
         }
+
 
         // second pass for remaining glyphs
 
