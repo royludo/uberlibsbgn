@@ -1,5 +1,7 @@
 package org.sbgn.uberlibsbgn;
 
+import org.sbgn.GlyphClazz;
+import org.sbgn.bindings.Glyph;
 import org.sbgn.uberlibsbgn.features.CompositeFeature;
 import org.sbgn.uberlibsbgn.features.HasCompositeChangeListener;
 import org.sbgn.uberlibsbgn.features.HasPropertyChangeListener;
@@ -67,6 +69,18 @@ public class GlyphFactory {
 
     public Compartment compartment() {
         return this.build(UGlyphClass.COMPARTMENT, map, map.getIdManager().getNewId());
+    }
+
+    public Compartment compartment(Glyph sbgnGlyph) {
+        // basic checks
+        if(!sbgnGlyph.getClazz().equals(GlyphClazz.COMPARTMENT.getClazz())) {
+            throw new IllegalArgumentException("Trying to create compartment from glyph with class: " + sbgnGlyph.getClazz());
+        }
+
+        Compartment compartment = this.compartment(sbgnGlyph.getId());
+        compartment.parseLibSBGNGlyph(sbgnGlyph);
+
+        return compartment;
     }
 
     @SuppressWarnings("unchecked")

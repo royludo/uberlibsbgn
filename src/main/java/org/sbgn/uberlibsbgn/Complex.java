@@ -1,6 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Rectangle2D;
+import org.sbgn.bindings.Glyph;
+import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,6 +115,11 @@ public class Complex extends EPN implements CompositeFeature, MultimerFeature, L
     }
 
     @Override
+    public void parseLibSbgnLabel(Label sbgnLabel) {
+        labelFeature.parseLibSbgnLabel(sbgnLabel);
+    }
+
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
@@ -144,5 +151,10 @@ public class Complex extends EPN implements CompositeFeature, MultimerFeature, L
     @Override
     public boolean accept(IHierarchicalVisitor v) {
         return this.compositeFeature.accept(v);
+    }
+
+    @Override
+    public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
+        // TODO
     }
 }

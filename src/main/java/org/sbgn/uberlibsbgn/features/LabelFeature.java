@@ -1,6 +1,7 @@
 package org.sbgn.uberlibsbgn.features;
 
 import javafx.geometry.Rectangle2D;
+import org.sbgn.bindings.Label;
 
 public interface LabelFeature extends HasPropertyChangeListener {
 
@@ -21,4 +22,6 @@ public interface LabelFeature extends HasPropertyChangeListener {
     void setLabelBboxPositionRelativeToGlyph(BboxFeature glyph, double relativeX, double relativeY);
 
     void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY);
+
+    void parseLibSbgnLabel(Label sbgnLabel);
 }

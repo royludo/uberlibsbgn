@@ -1,7 +1,10 @@
 package org.sbgn.uberlibsbgn.features;
 
 import javafx.geometry.Rectangle2D;
+import org.sbgn.bindings.Bbox;
+import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
+import org.sbgn.uberlibsbgn.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,5 +100,17 @@ public class LabelFeatureImpl implements LabelFeature {
 
     public void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY) {
         this.bboxFeature.setPositionRelativeToParent(relativeX, relativeY);
+    }
+
+    @Override
+    public void parseLibSbgnLabel(Label sbgnLabel) {
+        String sbgnLabelString = sbgnLabel.getText();
+        this.setLabel(sbgnLabelString);
+
+        if(sbgnLabel.getBbox() != null) {
+            Bbox sbgnLabelBbox = sbgnLabel.getBbox();
+            Rectangle2D labelBbox = Utilities.libsbgnBboxToRectangle2D(sbgnLabelBbox);
+            this.setLabelBbox(labelBbox);
+        }
     }
 }

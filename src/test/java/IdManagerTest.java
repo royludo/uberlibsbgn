@@ -15,21 +15,9 @@ public class IdManagerTest {
     class UUIDSrategy {
 
         @Test
-        public void uuidStrategyShouldGiveInvalidUUIDAsIs() {
+        public void uuidStrategyShouldGiveValidUuid() {
             IdManager im = new IdManager(IdManager.IdStrategy.UUID);
-            String _uuid = im.getNewId();
-            assertThat(_uuid).startsWith("_");
-            assertThatThrownBy(() -> {
-                UUID uuid3 = UUID.fromString(_uuid);
-            }).isInstanceOf(IllegalArgumentException.class);
-        }
-
-        @Test
-        public void uuidStrategyShouldGiveValidUuidWhen1stCharIsStripped() {
-            IdManager im = new IdManager(IdManager.IdStrategy.UUID);
-            String _uuid = im.getNewId();
-            assertThat(_uuid).startsWith("_");
-            String uuid = _uuid.substring(1);
+            String uuid = im.getNewId();
             assertThatCode(() -> {
                 UUID uuid3 = UUID.fromString(uuid);
             }).doesNotThrowAnyException();
@@ -44,7 +32,7 @@ public class IdManagerTest {
         @Test
         public void incrementStrategyShouldStartAt1() {
             String id = im.getNewId();
-            assertThat(id).isEqualTo("_1");
+            assertThat(id).isEqualTo("1");
         }
 
         @Test
@@ -52,8 +40,8 @@ public class IdManagerTest {
             String id = im.getNewId();
             String id2 = im.getNewId();
             String id3 = im.getNewId();
-            assertThat(id2).isEqualTo("_2");
-            assertThat(id3).isEqualTo("_3");
+            assertThat(id2).isEqualTo("2");
+            assertThat(id3).isEqualTo("3");
         }
     }
 
@@ -69,9 +57,9 @@ public class IdManagerTest {
         }
 
         @Test
-        public void customIdShouldBeXMLValid() {
-            String id = im.useCustomId("26");
-            assertThat(id).startsWith("_");
+        public void customIdShouldNotBeEmpty() {
+            assertThatThrownBy(() -> im.useCustomId("")).isInstanceOf(IllegalArgumentException.class);
+            assertThatThrownBy(() -> im.useCustomId("    ")).isInstanceOf(IllegalArgumentException.class);
         }
 
         @Test
@@ -79,17 +67,10 @@ public class IdManagerTest {
             String id1 = im.getNewId();
             String custom = im.useCustomId("2");
             String id3 = im.getNewId();
-            assertThat(id1).isEqualTo("_1");
-            assertThat(custom).isEqualTo("_2");
-            assertThat(id3).isEqualTo("_3");
+            assertThat(id1).isEqualTo("1");
+            assertThat(custom).isEqualTo("2");
+            assertThat(id3).isEqualTo("3");
         }
-
-        @Test
-        public void dontAddUnderscoreIfCustomIdAlreadyHasOne() {
-            String id = im.useCustomId("_ID");
-            assertThat(id).isEqualTo("_ID");
-        }
-
 
     }
 

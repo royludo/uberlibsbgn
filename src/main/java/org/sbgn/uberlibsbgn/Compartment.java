@@ -1,6 +1,10 @@
 package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Rectangle2D;
+import org.sbgn.GlyphClazz;
+import org.sbgn.bindings.Bbox;
+import org.sbgn.bindings.Glyph;
+import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.features.*;
 
 import java.beans.PropertyChangeListener;
@@ -120,5 +124,25 @@ public class Compartment extends EPN implements CompositeFeature, LabelFeature {
     @Override
     public void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY) {
         labelFeature.setLabelBboxPositionRelativeToParent(relativeX, relativeY);
+    }
+
+    @Override
+    public void parseLibSbgnLabel(Label sbgnLabel) {
+        labelFeature.parseLibSbgnLabel(sbgnLabel);
+    }
+
+    @Override
+    public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
+        // basic checks
+        if(!sbgnGlyph.getClazz().equals(GlyphClazz.COMPARTMENT.getClazz())) {
+            throw new IllegalArgumentException("Trying to create compartment from glyph with class: " + sbgnGlyph.getClazz());
+        }
+
+        super.parseLibSBGNGlyph(sbgnGlyph);
+
+        if(sbgnGlyph.getLabel() != null) {
+            this.parseLibSbgnLabel(sbgnGlyph.getLabel());
+        }
+
     }
 }

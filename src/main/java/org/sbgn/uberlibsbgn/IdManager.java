@@ -1,5 +1,6 @@
 package org.sbgn.uberlibsbgn;
 
+import org.apache.commons.lang3.StringUtils;
 import org.sbgn.bindings.Sbgn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class IdManager {
     }
 
     public synchronized String useCustomId(String id) {
+        if(StringUtils.isBlank(id)) throw new IllegalArgumentException("Trying to use empty id");
         return this.checkAndAddId(id);
     }
 
@@ -74,7 +76,7 @@ public class IdManager {
             // scan to find maximum
             long max = 0;
             for(String presentId: this.idSet) {
-                long current = Long.parseLong(presentId.substring(1)); // removing leading underscore
+                long current = Long.parseLong(presentId);
                 if(current > max) {
                     max = current;
                 }
@@ -99,7 +101,8 @@ public class IdManager {
     }
 
     private String prependUnderscoreIfNotAlready(String s) {
-        if(s.startsWith("_")) return s;
-        else return "_" + s;
+        //if(s.startsWith("_")) return s;
+       // else return "_" + s;
+        return s;
     }
 }

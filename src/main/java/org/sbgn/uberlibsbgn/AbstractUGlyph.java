@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.FillRule;
 import org.sbgn.GlyphClazz;
+import org.sbgn.bindings.Bbox;
+import org.sbgn.bindings.Glyph;
 import org.sbgn.uberlibsbgn.features.*;
 import org.sbgn.uberlibsbgn.style.*;
 import org.slf4j.Logger;
@@ -57,6 +59,13 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
         this.style = new GlyphStyleImpl();
         this.bboxFeature = new BboxFeatureImpl(this, bboxEventType);
 
+    }
+
+    public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
+        // parse bbox
+        Bbox sbgnBbox = sbgnGlyph.getBbox();
+        Rectangle2D bbox = Utilities.libsbgnBboxToRectangle2D(sbgnBbox);
+        this.setBbox(bbox);
     }
 
     public GlyphType getGlyphType() {

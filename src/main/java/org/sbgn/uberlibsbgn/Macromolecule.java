@@ -2,6 +2,8 @@ package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Rectangle2D;
 import org.sbgn.ArcClazz;
+import org.sbgn.bindings.Glyph;
+import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,6 +85,11 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
     @Override
     public void setLabelBboxPositionRelativeToParent(double relativeX, double relativeY) {
         labelFeature.setLabelBboxPositionRelativeToParent(relativeX, relativeY);
+    }
+
+    @Override
+    public void parseLibSbgnLabel(Label sbgnLabel) {
+        labelFeature.parseLibSbgnLabel(sbgnLabel);
     }
 
     @Override
@@ -192,5 +199,10 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
     @Override
     public List<UnitOfInfo> removeUnitsOfInfoWithRegex(String regex) {
         return unitOfInfoParentFeature.removeUnitsOfInfoWithRegex(regex);
+    }
+
+    @Override
+    public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
+        // TODO
     }
 }

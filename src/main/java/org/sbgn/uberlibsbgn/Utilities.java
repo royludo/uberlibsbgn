@@ -3,6 +3,7 @@ package org.sbgn.uberlibsbgn;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.transform.Translate;
+import org.sbgn.bindings.Bbox;
 import org.sbgn.uberlibsbgn.features.BboxFeatureImpl;
 import org.sbgn.uberlibsbgn.features.LabelFeature;
 import org.slf4j.Logger;
@@ -30,5 +31,13 @@ public class Utilities {
         Point2D result = newLocation.subtract(oldLocation);
         logger.trace("difference {}", result);
         return new Translate(result.getX(), result.getY());
+    }
+
+    public static Rectangle2D libsbgnBboxToRectangle2D(Bbox sbgnBbox) {
+        float x = sbgnBbox.getX();
+        float y = sbgnBbox.getY();
+        float w = sbgnBbox.getW();
+        float h = sbgnBbox.getH();
+        return new Rectangle2D(x, y, w, h);
     }
 }

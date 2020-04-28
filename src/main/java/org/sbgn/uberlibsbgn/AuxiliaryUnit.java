@@ -1,6 +1,7 @@
 package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Rectangle2D;
+import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.features.*;
 
 import java.beans.PropertyChangeListener;
@@ -62,6 +63,11 @@ public abstract class AuxiliaryUnit extends AbstractUGlyph implements LabelFeatu
     @Override
     public void setLabelBboxPositionRelativeToGlyph(BboxFeature glyph, double relativeX, double relativeY) {
         labelFeature.setLabelBboxPositionRelativeToGlyph(glyph, relativeX, relativeY);
+    }
+
+    @Override
+    public void parseLibSbgnLabel(Label sbgnLabel) {
+        labelFeature.parseLibSbgnLabel(sbgnLabel);
     }
 
     @Override

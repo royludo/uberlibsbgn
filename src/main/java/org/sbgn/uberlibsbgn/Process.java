@@ -2,6 +2,7 @@ package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
+import org.sbgn.bindings.Glyph;
 import org.sbgn.uberlibsbgn.features.CompositeFeature;
 import org.sbgn.uberlibsbgn.features.PortFeature;
 import org.sbgn.uberlibsbgn.features.PortFeatureImpl;
@@ -69,5 +70,10 @@ public class Process extends EPN implements PortFeature {
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         portFeature.propertyChange(propertyChangeEvent);
+    }
+
+    @Override
+    public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
+        // TODO
     }
 }

@@ -1,6 +1,8 @@
 package org.sbgn.uberlibsbgn;
 
 import javafx.geometry.Rectangle2D;
+import org.sbgn.bindings.Glyph;
+import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.features.*;
 
 import java.beans.PropertyChangeListener;
@@ -83,5 +85,15 @@ public class SimpleChemical extends EPN implements MultimerFeature, LabelFeature
         super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public void parseLibSbgnLabel(Label sbgnLabel) {
+        labelFeature.parseLibSbgnLabel(sbgnLabel);
+    }
+
+    @Override
+    public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
+        // TODO
     }
 }
