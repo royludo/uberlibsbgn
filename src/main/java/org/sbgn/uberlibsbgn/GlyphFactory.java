@@ -60,6 +60,15 @@ public class GlyphFactory {
         return this.build(UGlyphClass.PROCESS, map, map.getIdManager().getNewId());
     }
 
+    public Compartment compartment(String id) {
+        String validatedId = map.getIdManager().useCustomId(id);
+        return this.build(UGlyphClass.COMPARTMENT, map, validatedId);
+    }
+
+    public Compartment compartment() {
+        return this.build(UGlyphClass.COMPARTMENT, map, map.getIdManager().getNewId());
+    }
+
     @SuppressWarnings("unchecked")
     private <T extends EPN> T build(UGlyphClass clazz, UMap map, String id) {
         logger.trace("build glyph of class: {}", clazz);

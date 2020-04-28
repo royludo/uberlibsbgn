@@ -84,6 +84,12 @@ public class IdManagerTest {
             assertThat(id3).isEqualTo("_3");
         }
 
+        @Test
+        public void dontAddUnderscoreIfCustomIdAlreadyHasOne() {
+            String id = im.useCustomId("_ID");
+            assertThat(id).isEqualTo("_ID");
+        }
+
 
     }
 

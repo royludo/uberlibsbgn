@@ -49,7 +49,7 @@ public class IdManager {
     }
 
     private synchronized String checkAndAddId(String id) {
-        String definitiveId = "_" + id;
+        String definitiveId = prependUnderscoreIfNotAlready(id);
 
         if(this.idSet.contains(definitiveId)) {
             throw new IllegalArgumentException("Trying to use non unique id. Id: " + definitiveId + " was already present.");
@@ -66,7 +66,7 @@ public class IdManager {
      * @param id
      */
     private synchronized String checkAndAddIncrementalId(String id) {
-        String definitiveId = "_" + id;
+        String definitiveId = prependUnderscoreIfNotAlready(id);
         logger.debug("check incremental id: {}", id);
 
         if(this.idSet.contains(definitiveId)) { // conflict detected
@@ -85,7 +85,7 @@ public class IdManager {
             idCounter = max + 1;
 
             // regenerate id
-            definitiveId = "_" + createIncrementalID();
+            definitiveId = prependUnderscoreIfNotAlready(createIncrementalID());
 
         }
 
@@ -96,5 +96,10 @@ public class IdManager {
 
     private synchronized String createIncrementalID() {
         return String.valueOf(idCounter++);
+    }
+
+    private String prependUnderscoreIfNotAlready(String s) {
+        if(s.startsWith("_")) return s;
+        else return "_" + s;
     }
 }
