@@ -13,6 +13,8 @@ public enum EventType {
     PORTPOSITION("portposition"),
     PORTORIENTATION("portorientation"),
     PORTDISTANCE("portdistance"),
+    CLONEMARKER("clonemarker"),
+    CLONEMARKERLABEL("clonemarkerlabel"),
 
     ARCCHANGE("arcchange"),
     CHILDADDED("childadded"),

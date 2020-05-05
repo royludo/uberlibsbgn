@@ -1,8 +1,8 @@
-import org.sbgn.uberlibsbgn.AbstractUGlyph;
-import org.sbgn.uberlibsbgn.UMap;
-import org.sbgn.uberlibsbgn.USBGNEntity;
-import org.sbgn.uberlibsbgn.Utilities;
+import org.sbgn.uberlibsbgn.*;
 import org.sbgn.uberlibsbgn.features.BboxFeature;
+import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
+import org.sbgn.uberlibsbgn.indexing.GlyphClassIndex;
+import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.sbgn.uberlibsbgn.io.SBGNMLReader;
 import org.xml.sax.SAXException;
 
@@ -16,8 +16,9 @@ public class MainTestParsing {
     public static void main (String[] args) {
 
         SBGNMLReader reader = new SBGNMLReader();
+        UMap uMap = null;
         try {
-            UMap uMap = reader.readFromFile(new File("samples/droso.sbgn"));
+            uMap = reader.readFromFile(new File("samples/droso.sbgn"));
             for(AbstractUGlyph uGlyph: uMap.getAllGlyphs()) {
                 System.out.println(uGlyph.getId()+" :__: "+ Utilities.glyphString(uGlyph));
                 System.out.println(uGlyph.getBbox());
@@ -26,5 +27,10 @@ public class MainTestParsing {
         } catch (JAXBException | IOException | SAXException e) {
             e.printStackTrace();
         }
+
+        assert uMap != null;
+
+        GlyphClassIndex classIndex = (GlyphClassIndex) uMap.getIndexManager().getIndex(DefaultIndexes.CLASS.getIndexKey());
+        System.out.println("--"+classIndex.getGlyphs(UGlyphClass.COMPARTMENT)+"--");
     }
 }

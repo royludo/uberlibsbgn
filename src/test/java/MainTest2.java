@@ -89,5 +89,12 @@ public class MainTest2 {
         map.getFactory().macromolecule("13");
         map.getFactory().macromolecule();
 
+        System.out.println(m1.getCloneLabel().getLabelBbox());
+        System.out.println("m1 position "+m1.getBbox());
+        m1.getCloneLabel().setLabelBboxPositionRelativeToParent(33, 35);
+        System.out.println(m1.getCloneLabel().getLabelBbox());
+
+
+
     }
 }

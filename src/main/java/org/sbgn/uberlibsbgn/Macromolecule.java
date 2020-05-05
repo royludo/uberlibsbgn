@@ -13,12 +13,13 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Macromolecule extends EPN implements MultimerFeature, LabelFeature, ArcFeature, UnitOfInfoParentFeature,
-        ComplexIncludible {
+        CloneMarkerFeature, ComplexIncludible {
 
     private MultimerFeature multimerFeature;
     private LabelFeature labelFeature;
     private ArcFeature arcFeature;
     private UnitOfInfoParentFeature unitOfInfoParentFeature;
+    private CloneMarkerFeature cloneMarkerFeature;
 
     final Logger logger = LoggerFactory.getLogger(Macromolecule.class);
 
@@ -27,9 +28,12 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
         logger.trace("Create Macromolecule");
         this.multimerFeature = new MultimerFeatureImpl(this);
         this.labelFeature = new LabelFeatureImpl(this, EventType.LABEL);
-        ((LabelFeatureImpl) this.labelFeature).addlistener();
         this.arcFeature = new ArcFeatureImpl(this);
         this.unitOfInfoParentFeature = new UnitOfInfoParentFeatureImpl(this);
+        this.cloneMarkerFeature = new CloneMarkerFeatureImpl(this);
+
+        // TODO that's fishy
+        ((LabelFeatureImpl) this.labelFeature).addlistener(); // this needs to be at the end of constructor
     }
 
     @Override
@@ -97,6 +101,7 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
         super.addPropertyChangeListener(listener);
         labelFeature.addPropertyChangeListener(listener);
         multimerFeature.addPropertyChangeListener(listener);
+        cloneMarkerFeature.addPropertyChangeListener(listener);
     }
 
     @Override
@@ -104,6 +109,7 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
         super.removePropertyChangeListener(listener);
         labelFeature.removePropertyChangeListener(listener);
         multimerFeature.removePropertyChangeListener(listener);
+        cloneMarkerFeature.removePropertyChangeListener(listener);
     }
 
     @Override
@@ -204,5 +210,30 @@ public class Macromolecule extends EPN implements MultimerFeature, LabelFeature,
     @Override
     public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
         // TODO
+    }
+
+    @Override
+    public void setCloneMarker(boolean isCLoneMarker) {
+        cloneMarkerFeature.setCloneMarker(isCLoneMarker);
+    }
+
+    @Override
+    public boolean hasCloneMarker() {
+        return cloneMarkerFeature.hasCloneMarker();
+    }
+
+    @Override
+    public LabelFeature getCloneLabel() {
+        return cloneMarkerFeature.getCloneLabel();
+    }
+
+    @Override
+    public boolean hasCloneLabel() {
+        return cloneMarkerFeature.hasCloneLabel();
+    }
+
+    @Override
+    public void parseLibSBGNCloneMarker(Glyph.Clone cloneElement) {
+        this.cloneMarkerFeature.parseLibSBGNCloneMarker(cloneElement);
     }
 }

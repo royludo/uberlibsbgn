@@ -23,6 +23,10 @@ public class GlyphClassIndex extends AbstractGlyphIndex {
         }
     }
 
+    public Set<AbstractUGlyph> getGlyphs(UGlyphClass glyphClass) {
+        return glyphClassMap.get(glyphClass);
+    }
+
     @Override
     public void parse(AbstractUGlyph uGlyph) {
         this.glyphClassMap.get(uGlyph.getUGlyphClass()).add(uGlyph);
