@@ -4,14 +4,13 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.transform.Translate;
 import org.sbgn.bindings.Bbox;
-import org.sbgn.uberlibsbgn.features.BboxFeatureImpl;
 import org.sbgn.uberlibsbgn.features.LabelFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Utilities {
+public class Utils {
 
-    final static Logger logger = LoggerFactory.getLogger(Utilities.class);
+    final static Logger logger = LoggerFactory.getLogger(Utils.class);
 
     public static String glyphString(AbstractUGlyph abstractUGlyph) {
         String idorlabel;

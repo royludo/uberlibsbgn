@@ -3,7 +3,6 @@ package org.sbgn.uberlibsbgn.features;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.transform.Translate;
-import org.apache.xpath.operations.Bool;
 import org.sbgn.uberlibsbgn.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,7 +118,7 @@ public class BboxFeatureImpl implements BboxFeature {
             //AbstractUGlyph source = (AbstractUGlyph) propertyChangeEvent.getSource();
             Rectangle2D oldbbox = (Rectangle2D) propertyChangeEvent.getOldValue();
             Rectangle2D newbbox = (Rectangle2D) propertyChangeEvent.getNewValue();
-            Translate t = Utilities.getTranslateFromRect(oldbbox, newbbox);
+            Translate t = Utils.getTranslateFromRect(oldbbox, newbbox);
             logger.trace("translate {}", t);
             Point2D bboxLocation = new Point2D(this.bbox.getMinX(), this.bbox.getMinY());
             Point2D transformedLocation = t.transform(bboxLocation);

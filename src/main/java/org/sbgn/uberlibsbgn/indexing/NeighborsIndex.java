@@ -2,7 +2,7 @@ package org.sbgn.uberlibsbgn.indexing;
 
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
 import org.sbgn.uberlibsbgn.UArc;
-import org.sbgn.uberlibsbgn.Utilities;
+import org.sbgn.uberlibsbgn.Utils;
 import org.sbgn.uberlibsbgn.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,9 +68,9 @@ public class NeighborsIndex extends AbstractIndex {
     public void print() {
 
         for(AbstractUGlyph uGlyph: this.neighbors.keySet()) {
-            System.out.print(Utilities.glyphString(uGlyph)+" -> [");
+            System.out.print(Utils.glyphString(uGlyph)+" -> [");
             for(AbstractUGlyph neighbor: this.neighbors.get(uGlyph)) {
-                System.out.print(Utilities.glyphString(neighbor)+" ");
+                System.out.print(Utils.glyphString(neighbor)+" ");
             }
             System.out.println("]");
 

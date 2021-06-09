@@ -4,7 +4,7 @@ import javafx.geometry.Rectangle2D;
 import org.sbgn.bindings.Bbox;
 import org.sbgn.bindings.Label;
 import org.sbgn.uberlibsbgn.AbstractUGlyph;
-import org.sbgn.uberlibsbgn.Utilities;
+import org.sbgn.uberlibsbgn.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,7 +109,7 @@ public class LabelFeatureImpl implements LabelFeature {
 
         if(sbgnLabel.getBbox() != null) {
             Bbox sbgnLabelBbox = sbgnLabel.getBbox();
-            Rectangle2D labelBbox = Utilities.libsbgnBboxToRectangle2D(sbgnLabelBbox);
+            Rectangle2D labelBbox = Utils.libsbgnBboxToRectangle2D(sbgnLabelBbox);
             this.setLabelBbox(labelBbox);
         }
     }

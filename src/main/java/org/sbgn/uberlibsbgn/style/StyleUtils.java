@@ -2,7 +2,7 @@ package org.sbgn.uberlibsbgn.style;
 
 import javafx.scene.paint.Color;
 
-public class Util {
+public class StyleUtils {
 
     /**
      * From https://stackoverflow.com/a/56733608

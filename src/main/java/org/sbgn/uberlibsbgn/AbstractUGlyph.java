@@ -64,7 +64,7 @@ abstract public class AbstractUGlyph extends USBGNEntity implements BboxFeature,
     public void parseLibSBGNGlyph(Glyph sbgnGlyph) {
         // parse bbox
         Bbox sbgnBbox = sbgnGlyph.getBbox();
-        Rectangle2D bbox = Utilities.libsbgnBboxToRectangle2D(sbgnBbox);
+        Rectangle2D bbox = Utils.libsbgnBboxToRectangle2D(sbgnBbox);
         this.setBbox(bbox);
     }
 

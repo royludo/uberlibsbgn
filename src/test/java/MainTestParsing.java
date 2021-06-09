@@ -1,15 +1,12 @@
 import org.sbgn.uberlibsbgn.*;
-import org.sbgn.uberlibsbgn.features.BboxFeature;
 import org.sbgn.uberlibsbgn.indexing.DefaultIndexes;
 import org.sbgn.uberlibsbgn.indexing.GlyphClassIndex;
-import org.sbgn.uberlibsbgn.indexing.LabelIndex;
 import org.sbgn.uberlibsbgn.io.SBGNMLReader;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
-import java.util.function.Function;
 
 public class MainTestParsing {
 
@@ -20,7 +17,7 @@ public class MainTestParsing {
         try {
             uMap = reader.readFromFile(new File("samples/droso.sbgn"));
             for(AbstractUGlyph uGlyph: uMap.getAllGlyphs()) {
-                System.out.println(uGlyph.getId()+" :__: "+ Utilities.glyphString(uGlyph));
+                System.out.println(uGlyph.getId()+" :__: "+ Utils.glyphString(uGlyph));
                 System.out.println(uGlyph.getBbox());
             }
 

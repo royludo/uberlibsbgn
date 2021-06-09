@@ -2,7 +2,6 @@ import javafx.geometry.Rectangle2D;
 import org.sbgn.Language;
 import org.sbgn.bindings.*;
 import org.sbgn.uberlibsbgn.*;
-import org.sbgn.uberlibsbgn.Process;
 import org.sbgn.uberlibsbgn.features.LabelFeature;
 import org.sbgn.uberlibsbgn.indexing.GenericLabelIndex;
 import org.sbgn.uberlibsbgn.indexing.LabelWithOIndex;
@@ -106,7 +105,7 @@ public class MainTest {
 
         DepthFirstAll depthFirstAll = new DepthFirstAll(mymap);
         for(AbstractUGlyph glyph: depthFirstAll) {
-            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+Utilities.glyphString(glyph) );
+            System.out.println(glyph.getUGlyphClass()+" "+glyph.getId()+" "+ Utils.glyphString(glyph) );
         }
 
         System.out.println("Glyphs with O");

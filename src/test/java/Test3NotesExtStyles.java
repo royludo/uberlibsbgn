@@ -1,11 +1,9 @@
 import javafx.scene.paint.Color;
-import org.eclipse.rdf4j.model.impl.SimpleIRI;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.sbgn.ArcClazz;
 import org.sbgn.Language;
-import org.sbgn.bindings.SBGNBase;
 import org.sbgn.uberlibsbgn.*;
-import org.sbgn.uberlibsbgn.style.Util;
+import org.sbgn.uberlibsbgn.style.StyleUtils;
 
 public class Test3NotesExtStyles {
     public static void main(String args[]) {
@@ -28,7 +26,7 @@ public class Test3NotesExtStyles {
         arc.getStrokeColor().ifPresent(color -> System.out.println(color.getOpacity()));
 
         map.style().setBackgroundColor(Color.TEAL);
-        map.style().getBackgroundColor().ifPresent(c-> System.out.println(Util.webString(c)));
+        map.style().getBackgroundColor().ifPresent(c-> System.out.println(StyleUtils.webString(c)));
 
         System.out.println("---------- RDF ----------");
         m.bqbiolIs(SimpleValueFactory.getInstance().createIRI("http://test"));

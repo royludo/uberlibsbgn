@@ -41,6 +41,7 @@ map.visitTopLevel();
  - ~~style management (find good lib for color and gradient management, javafx should do)~~
  - ~~RDF (with rdf4j probably)~~
  - interface with some graph lib (jgraphT probably)
+ - use jsoup for notes management and possibly extensions
  - ~~refactor glyph factory/builder~~
  - ~~more complete id management~~ allow ids from sbgnml for arcs and
  aux units, maybe other entities
